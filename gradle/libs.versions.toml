@@ -1,0 +1,8 @@
+[libraries]
+# Android UI
+compose-ui-ui = 'androidx.compose.ui:ui:1.4.0'
+compose-ui-tooling = 'androidx.compose.ui:ui-tooling:1.4.0'
+compose-ui-preview = 'androidx.compose.ui:ui-tooling-preview:1.4.0'
+compose-fundation = 'androidx.compose.foundation:foundation:1.4.0'
+compose-material = 'androidx.compose.material:material:1.4.0'
+activity-compose = 'androidx.activity:activity-compose:1.7.0'
