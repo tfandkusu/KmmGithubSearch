@@ -1,7 +1,12 @@
+@file:Suppress("UnusedImport")
+
+import com.tfandkusu.kgs.CommonPlugin
+
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
 }
+apply<CommonPlugin>()
 
 kotlin {
     android {
@@ -54,9 +59,4 @@ kotlin {
 
 android {
     namespace = "com.tfandkusu.kgs.common"
-    compileSdk = 33
-    defaultConfig {
-        minSdk = 23
-        targetSdk = 33
-    }
 }

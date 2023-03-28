@@ -1,15 +1,15 @@
+import com.tfandkusu.kgs.CommonPlugin
+
 plugins {
     id("com.android.application")
     kotlin("android")
 }
+apply<CommonPlugin>()
 
 android {
     namespace = "com.tfandkusu.kgs"
-    compileSdk = 33
     defaultConfig {
         applicationId = "com.tfandkusu.kgs.android"
-        minSdk = 23
-        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
     }
