@@ -1,4 +1,7 @@
 [libraries]
+# Gradle Plugin
+android-gradle = 'com.android.tools.build:gradle:7.4.2'
+kotlin-gradle = 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0'
 # Android UI
 compose-ui-ui = 'androidx.compose.ui:ui:1.4.0'
 compose-ui-tooling = 'androidx.compose.ui:ui-tooling:1.4.0'
