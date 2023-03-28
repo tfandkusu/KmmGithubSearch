@@ -3,8 +3,14 @@ import com.tfandkusu.kgs.CommonPlugin
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    id("com.google.devtools.ksp").version("1.7.20-1.0.8")
+    id("de.jensklingenberg.ktorfit") version "1.0.0"
 }
 apply<CommonPlugin>()
+
+configure<de.jensklingenberg.ktorfit.gradle.KtorfitGradleConfiguration> {
+    version = libs.versions.ktorfit.get()
+}
 
 kotlin {
     android {
@@ -26,7 +32,13 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies{
+                implementation(
+                    "de.jensklingenberg.ktorfit:ktorfit-lib:" + libs.versions.ktorfit.get()
+                )
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -60,4 +72,11 @@ android {
     defaultConfig {
         minSdk = 23
     }
+}
+
+dependencies {
+    add(
+        "kspCommonMainMetadata",
+        "de.jensklingenberg.ktorfit:ktorfit-ksp:" + libs.versions.ktorfit.get()
+    )
 }
