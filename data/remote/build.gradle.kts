@@ -3,7 +3,7 @@ import com.tfandkusu.kgs.CommonPlugin
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    id("com.google.devtools.ksp").version("1.7.20-1.0.8")
+    id("com.google.devtools.ksp").version("1.8.0-1.0.9")
     id("de.jensklingenberg.ktorfit") version "1.0.0"
 }
 apply<CommonPlugin>()
@@ -69,14 +69,12 @@ kotlin {
 
 android {
     namespace = "com.tfandkusu.kgs.data.remote"
-    defaultConfig {
-        minSdk = 23
-    }
 }
 
 dependencies {
+    val ktorfitVersion = libs.versions.ktorfit.get()
     add(
         "kspCommonMainMetadata",
-        "de.jensklingenberg.ktorfit:ktorfit-ksp:" + libs.versions.ktorfit.get()
+        "de.jensklingenberg.ktorfit:ktorfit-ksp:$ktorfitVersion"
     )
 }
