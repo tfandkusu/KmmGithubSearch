@@ -53,7 +53,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.tfandkusu.kgs"
+    namespace = "com.tfandkusu.kgs.common"
     compileSdk = 33
     defaultConfig {
         minSdk = 23

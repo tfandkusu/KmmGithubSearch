@@ -1,4 +1,4 @@
-package com.tfandkusu.kgs.android
+package com.tfandkusu.kgs
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

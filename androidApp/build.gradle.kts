@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.tfandkusu.kgs.android"
+    namespace = "com.tfandkusu.kgs"
     compileSdk = 33
     defaultConfig {
         applicationId = "com.tfandkusu.kgs.android"
@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":shared"))
+    implementation(project(":common"))
     implementation(libs.compose.ui.ui)
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.preview)

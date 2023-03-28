@@ -1,4 +1,4 @@
-package com.tfandkusu.kgs.android
+package com.tfandkusu.kgs
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
