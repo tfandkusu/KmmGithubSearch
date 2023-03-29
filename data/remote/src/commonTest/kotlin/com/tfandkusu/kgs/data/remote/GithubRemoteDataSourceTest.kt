@@ -1,5 +1,6 @@
 package com.tfandkusu.kgs.data.remote
 
+import io.kotest.matchers.shouldBe
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -138,12 +139,12 @@ class GithubRemoteDataSourceTest {
           ]
         }
         """.trimIndent()
-        println(jsonString)
         val response = decodeGithubResponse(jsonString)
-        assertEquals(1, response.items.size)
-        assertEquals("DroidKaigi/conference-app-2022", response.items[0].fullName)
-        assertEquals("Kotlin", response.items[0].language)
-        assertEquals(193, response.items[0].forksCount)
-
+        response.items.size shouldBe 1
+        response.items[0].fullName shouldBe "DroidKaigi/conference-app-2022"
+        response.items[0].language shouldBe "Kotlin"
+        response.items[0].owner.login shouldBe "DroidKaigi"
+        response.items[0].owner.avatarUrl shouldBe "https://avatars.githubusercontent.com/u/10727543?v=4"
+        response.items[0].forksCount shouldBe 193
     }
 }

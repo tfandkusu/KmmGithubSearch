@@ -19,6 +19,8 @@ activity-compose = 'androidx.activity:activity-compose:1.7.0'
 ktor-client-core = { module = 'io.ktor:ktor-client-core', version.ref = 'ktor' }
 ktor-client-okhttp = { module = 'io.ktor:ktor-client-okhttp', version.ref = 'ktor' }
 kotlinx-serialization-json = 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0'
+# Test
+kotest-assertions = 'io.kotest:kotest-assertions-core:5.5.4'
 
 # 現在不使用
 ktorfit = { module = 'de.jensklingenberg.ktorfit:ktorfit-lib', version.ref = 'ktorfit' }
