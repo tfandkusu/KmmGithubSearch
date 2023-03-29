@@ -18,7 +18,7 @@ class GithubRemoteDataSourceImpl(
 ) : GithubRemoteDataSource {
     override suspend fun search(query: String): List<GithubRepo> {
         val httpResponse = client.get(
-            "https://api.github.com/search/repositories?q=droidkaigi"
+            "https://api.github.com/search/repositories?q=$query"
         )
         val response: GithubSearchResponse = httpResponse.body()
         return response.items.map {
