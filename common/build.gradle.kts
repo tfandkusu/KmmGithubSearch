@@ -16,7 +16,13 @@ kotlin {
             }
         }
     }
-    
+    jvm {
+        val main by compilations.getting {
+            compilerOptions.configure {
+                jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
+            }
+        }
+    }
     listOf(
         iosX64(),
         iosArm64(),
