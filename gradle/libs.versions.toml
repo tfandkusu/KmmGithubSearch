@@ -1,11 +1,11 @@
 [versions]
+kotlin = '1.8.0'
 ktorfit = '1.0.1'
 ktor = '2.2.4'
 [libraries]
 # Gradle Plugin
 android-gradle = 'com.android.tools.build:gradle:7.4.2'
-kotlin-gradle = 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0'
-kotlin-serialization = 'org.jetbrains.kotlin:kotlin-serialization:1.5.0'
+kotlin-gradle = { module = 'org.jetbrains.kotlin:kotlin-gradle-plugin', version.ref = 'kotlin' }
 # Kotlin Coroutine
 coroutine = 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 # Android UI
@@ -18,6 +18,7 @@ activity-compose = 'androidx.activity:activity-compose:1.7.0'
 # Ktor
 ktor-client-core = { module = 'io.ktor:ktor-client-core', version.ref = 'ktor' }
 ktor-client-okhttp = { module = 'io.ktor:ktor-client-okhttp', version.ref = 'ktor' }
+kotlinx-serialization-json = 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0'
 
 # 現在不使用
 ktorfit = { module = 'de.jensklingenberg.ktorfit:ktorfit-lib', version.ref = 'ktorfit' }

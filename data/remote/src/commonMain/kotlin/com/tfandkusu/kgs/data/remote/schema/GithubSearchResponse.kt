@@ -1,7 +1,11 @@
 package com.tfandkusu.kgs.data.remote.schema
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class GithubSearchResponse(val items: List<GithubSearchResponseItem>)
 
+@Serializable
 data class GithubSearchResponseItem(
     val id: Long,
     val fullName: String,
@@ -13,6 +17,7 @@ data class GithubSearchResponseItem(
     val openIssuesCount: Int
 )
 
+@Serializable
 data class GithubSearchResponseOwner(
     val login: String,
     val avatarUrl: String

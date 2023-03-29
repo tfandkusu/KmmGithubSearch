@@ -4,7 +4,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("com.google.devtools.ksp").version("1.8.0-1.0.9")
-    id("kotlinx-serialization")
+    kotlin("plugin.serialization") version "1.8.0"
 }
 apply<CommonPlugin>()
 
@@ -33,6 +33,7 @@ kotlin {
                 implementation(project(":common"))
                 implementation(libs.coroutine)
                 implementation(libs.ktor.client.core)
+                implementation(libs.kotlinx.serialization.json)
             }
         }
         val commonTest by getting {
