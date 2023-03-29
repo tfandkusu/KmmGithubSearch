@@ -1,20 +1,40 @@
 package com.tfandkusu.kgs.data.remote
 
+import io.kotest.matchers.ints.shouldBeGreaterThan
+import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.shouldBe
+import kotlinx.coroutines.runBlocking
 import kotlin.test.BeforeTest
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class GithubRemoteDataSourceTest {
 
+    private lateinit var remoteDataSource: GithubRemoteDataSource
+
     @BeforeTest
     fun setUp() {
-
+        remoteDataSource = GithubRemoteDataSourceImpl(
+            getMyHttpClient()
+        )
     }
 
     @Test
-    fun search() {
-        assertEquals(1, 1)
+    fun search() = runBlocking {
+        val repos = remoteDataSource.search("DroidKaigi")
+        val index = repos.indexOfFirst { it.fullName == "DroidKaigi/conference-app-2022" }
+        index shouldBeGreaterThanOrEqual 0
+        val repo = repos[index]
+        // 変化が想定される箇所は緩めの判定文にする
+        repo.id shouldBe 517191221
+        repo.fullName shouldBe "DroidKaigi/conference-app-2022"
+        repo.login shouldBe "DroidKaigi"
+        repo.avatarUrl.startsWith("https://avatars.githubusercontent.com/") shouldBe true
+        repo.language shouldBe "Kotlin"
+        repo.stargazersCount shouldBeGreaterThan 100
+        repo.watchersCount shouldBeGreaterThan 100
+        repo.forksCount shouldBeGreaterThan 100
+        repo.openIssuesCount shouldBeGreaterThanOrEqual 0
+        Unit
     }
 
     @Test
