@@ -1,9 +1,13 @@
 [versions]
 ktorfit = '1.0.1'
+ktor = '2.2.4'
 [libraries]
 # Gradle Plugin
 android-gradle = 'com.android.tools.build:gradle:7.4.2'
 kotlin-gradle = 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0'
+kotlin-serialization = 'org.jetbrains.kotlin:kotlin-serialization:1.5.0'
+# Kotlin Coroutine
+coroutine = 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 # Android UI
 compose-ui-ui = 'androidx.compose.ui:ui:1.4.0'
 compose-ui-tooling = 'androidx.compose.ui:ui-tooling:1.4.0'
@@ -11,3 +15,14 @@ compose-ui-preview = 'androidx.compose.ui:ui-tooling-preview:1.4.0'
 compose-fundation = 'androidx.compose.foundation:foundation:1.4.0'
 compose-material = 'androidx.compose.material:material:1.4.0'
 activity-compose = 'androidx.activity:activity-compose:1.7.0'
+# Ktor
+ktor-client-core = { module = 'io.ktor:ktor-client-core', version.ref = 'ktor' }
+ktor-client-okhttp = { module = 'io.ktor:ktor-client-okhttp', version.ref = 'ktor' }
+
+# 現在不使用
+ktorfit = { module = 'de.jensklingenberg.ktorfit:ktorfit-lib', version.ref = 'ktorfit' }
+ktorfit-ksp = { module = 'de.jensklingenberg.ktorfit:ktorfit-ksp', version.ref = 'ktorfit' }
+ktor-client-serialization = { module = 'io.ktor:ktor-client-serialization', version.ref = 'ktor' }
+ktor-client-content-negotiation = { module = 'io.ktor:ktor-client-content-negotiation', version.ref = 'ktor' }
+ktor-serialization-kotlinx-json = { module = 'io.ktor:ktor-serialization-kotlinx-json', version.ref = 'ktor' }
+

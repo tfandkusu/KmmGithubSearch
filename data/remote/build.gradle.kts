@@ -4,13 +4,9 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("com.google.devtools.ksp").version("1.8.0-1.0.9")
-    id("de.jensklingenberg.ktorfit") version "1.0.0"
+    id("kotlinx-serialization")
 }
 apply<CommonPlugin>()
-
-configure<de.jensklingenberg.ktorfit.gradle.KtorfitGradleConfiguration> {
-    version = libs.versions.ktorfit.get()
-}
 
 kotlin {
     android {
@@ -33,10 +29,10 @@ kotlin {
 
     sourceSets {
         val commonMain by getting {
-            dependencies{
-                implementation(
-                    "de.jensklingenberg.ktorfit:ktorfit-lib:" + libs.versions.ktorfit.get()
-                )
+            dependencies {
+                implementation(project(":common"))
+                implementation(libs.coroutine)
+                implementation(libs.ktor.client.core)
             }
         }
         val commonTest by getting {
@@ -44,7 +40,11 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.okhttp)
+            }
+        }
         val androidUnitTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -69,12 +69,4 @@ kotlin {
 
 android {
     namespace = "com.tfandkusu.kgs.data.remote"
-}
-
-dependencies {
-    val ktorfitVersion = libs.versions.ktorfit.get()
-    add(
-        "kspCommonMainMetadata",
-        "de.jensklingenberg.ktorfit:ktorfit-ksp:$ktorfitVersion"
-    )
 }
