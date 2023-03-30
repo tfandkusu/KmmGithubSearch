@@ -7,7 +7,18 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 
 interface GithubRemoteDataSource {
+    /**
+     * GitHubリポジトリを検索する
+     *
+     * @param query 検索キーワード
+     * @return リポジトリ一覧(最大30個)
+     */
     suspend fun search(query: String): List<GithubRepo>
+
+    /**
+     * ネットワークエラーになるリクエスト
+     */
+    suspend fun checkNetworkError()
 }
 
 internal class GithubRemoteDataSourceImpl(
@@ -31,5 +42,12 @@ internal class GithubRemoteDataSourceImpl(
                 it.openIssuesCount
             )
         }
+    }
+
+    override suspend fun checkNetworkError() {
+        val httpResponse = client.get(
+            "https://hoge.tfandkusu.com/"
+        )
+        val response: GithubSearchResponse = httpResponse.body()
     }
 }

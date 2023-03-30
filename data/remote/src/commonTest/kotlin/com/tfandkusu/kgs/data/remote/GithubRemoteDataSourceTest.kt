@@ -1,8 +1,10 @@
 package com.tfandkusu.kgs.data.remote
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.shouldBe
+import io.ktor.utils.io.errors.IOException
 import kotlinx.coroutines.runBlocking
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -35,6 +37,13 @@ class GithubRemoteDataSourceTest {
         repo.forksCount shouldBeGreaterThan 100
         repo.openIssuesCount shouldBeGreaterThanOrEqual 0
         Unit
+    }
+
+    @Test
+    fun networkError(): Unit = runBlocking {
+        shouldThrow<IOException> {
+            remoteDataSource.checkNetworkError()
+        }
     }
 
     @Test
