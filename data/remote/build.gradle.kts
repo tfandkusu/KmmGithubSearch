@@ -16,13 +16,6 @@ kotlin {
             }
         }
     }
-    jvm {
-        val main by compilations.getting {
-            compilerOptions.configure {
-                jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
-            }
-        }
-    }
     listOf(
         iosX64(),
         iosArm64(),
@@ -76,17 +69,6 @@ kotlin {
             iosX64Test.dependsOn(this)
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
-        }
-        val jvmMain by getting {
-            dependencies {
-                implementation(libs.ktor.client.okhttp)
-            }
-        }
-        val jvmTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(libs.kotest.assertions)
-            }
         }
     }
 }
