@@ -10,10 +10,7 @@ interface GithubRemoteDataSource {
     suspend fun search(query: String): List<GithubRepo>
 }
 
-/**
- * TODO internalをつける
- */
-class GithubRemoteDataSourceImpl(
+internal class GithubRemoteDataSourceImpl(
     private val client: HttpClient
 ) : GithubRemoteDataSource {
     override suspend fun search(query: String): List<GithubRepo> {
