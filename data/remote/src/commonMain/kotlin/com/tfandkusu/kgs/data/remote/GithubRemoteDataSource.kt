@@ -19,6 +19,11 @@ interface GithubRemoteDataSource {
      * ネットワークエラーになるリクエスト
      */
     suspend fun checkNetworkError()
+
+    /**
+     * サーバエラーになるリクエスト
+     */
+    suspend fun checkServerError()
 }
 
 internal class GithubRemoteDataSourceImpl(
@@ -50,12 +55,23 @@ internal class GithubRemoteDataSourceImpl(
 
     override suspend fun checkNetworkError() {
         try {
-
             val httpResponse = client.get(
                 "https://hoge.tfandkusu.com/"
             )
             val response: GithubSearchResponse = httpResponse.body()
         } catch (e: Throwable) {
+            throw mapApiError(e)
+        }
+    }
+
+    override suspend fun checkServerError() {
+        try {
+            val httpResponse = client.get(
+                "https://mock.codes/404"
+            )
+            val response: GithubSearchResponse = httpResponse.body()
+        } catch (e: Throwable) {
+            println(e.toString())
             throw mapApiError(e)
         }
     }
