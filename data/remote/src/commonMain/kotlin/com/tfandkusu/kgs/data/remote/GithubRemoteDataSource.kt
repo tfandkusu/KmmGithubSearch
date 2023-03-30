@@ -25,29 +25,38 @@ internal class GithubRemoteDataSourceImpl(
     private val client: HttpClient
 ) : GithubRemoteDataSource {
     override suspend fun search(query: String): List<GithubRepo> {
-        val httpResponse = client.get(
-            "https://api.github.com/search/repositories?q=$query"
-        )
-        val response: GithubSearchResponse = httpResponse.body()
-        return response.items.map {
-            GithubRepo(
-                it.id,
-                it.fullName,
-                it.owner.login,
-                it.owner.avatarUrl,
-                it.language,
-                it.stargazersCount,
-                it.watchersCount,
-                it.forksCount,
-                it.openIssuesCount
+        try {
+            val httpResponse = client.get(
+                "https://api.github.com/search/repositories?q=$query"
             )
+            val response: GithubSearchResponse = httpResponse.body()
+            return response.items.map {
+                GithubRepo(
+                    it.id,
+                    it.fullName,
+                    it.owner.login,
+                    it.owner.avatarUrl,
+                    it.language,
+                    it.stargazersCount,
+                    it.watchersCount,
+                    it.forksCount,
+                    it.openIssuesCount
+                )
+            }
+        } catch (e: Throwable) {
+            throw mapApiError(e)
         }
     }
 
     override suspend fun checkNetworkError() {
-        val httpResponse = client.get(
-            "https://hoge.tfandkusu.com/"
-        )
-        val response: GithubSearchResponse = httpResponse.body()
+        try {
+
+            val httpResponse = client.get(
+                "https://hoge.tfandkusu.com/"
+            )
+            val response: GithubSearchResponse = httpResponse.body()
+        } catch (e: Throwable) {
+            throw mapApiError(e)
+        }
     }
 }
