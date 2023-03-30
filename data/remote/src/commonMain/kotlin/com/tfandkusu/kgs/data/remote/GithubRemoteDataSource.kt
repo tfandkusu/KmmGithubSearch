@@ -1,10 +1,13 @@
 package com.tfandkusu.kgs.data.remote
 
 import com.tfandkusu.kgs.data.remote.schema.GithubSearchResponse
+import com.tfandkusu.kgs.error.NetworkException
 import com.tfandkusu.kgs.model.GithubRepo
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
+import io.ktor.http.formUrlEncode
+import io.ktor.utils.io.errors.IOException
 
 interface GithubRemoteDataSource {
     /**
@@ -30,26 +33,43 @@ internal class GithubRemoteDataSourceImpl(
     private val client: HttpClient
 ) : GithubRemoteDataSource {
     override suspend fun search(query: String): List<GithubRepo> {
+        val response = get<GithubSearchResponse>(
+            "/search/repositories",
+            listOf(
+                Pair("q", query)
+            )
+        )
+        return response.items.map {
+            GithubRepo(
+                it.id,
+                it.fullName,
+                it.owner.login,
+                it.owner.avatarUrl,
+                it.language,
+                it.stargazersCount,
+                it.watchersCount,
+                it.forksCount,
+                it.openIssuesCount
+            )
+        }
+    }
+
+    /**
+     * GETメソッドでGitHub APIにリクエストする
+     *
+     * @param path パスとクエリパラメータ
+     */
+    private suspend inline fun <reified T> get(
+        path: String,
+        queries: List<Pair<String, String?>>
+    ): T {
         try {
             val httpResponse = client.get(
-                "https://api.github.com/search/repositories?q=$query"
+                "https://api.github.com$path?" + queries.formUrlEncode()
             )
-            val response: GithubSearchResponse = httpResponse.body()
-            return response.items.map {
-                GithubRepo(
-                    it.id,
-                    it.fullName,
-                    it.owner.login,
-                    it.owner.avatarUrl,
-                    it.language,
-                    it.stargazersCount,
-                    it.watchersCount,
-                    it.forksCount,
-                    it.openIssuesCount
-                )
-            }
-        } catch (e: Throwable) {
-            throw mapApiError(e)
+            return httpResponse.body()
+        } catch (e: IOException) {
+            throw NetworkException
         }
     }
 
@@ -59,20 +79,15 @@ internal class GithubRemoteDataSourceImpl(
                 "https://hoge.tfandkusu.com/"
             )
             val response: GithubSearchResponse = httpResponse.body()
-        } catch (e: Throwable) {
-            throw mapApiError(e)
+        } catch (e: IOException) {
+            throw NetworkException
         }
     }
 
     override suspend fun checkServerError() {
-        try {
-            val httpResponse = client.get(
-                "https://mock.codes/404"
-            )
-            val response: GithubSearchResponse = httpResponse.body()
-        } catch (e: Throwable) {
-            println(e.toString())
-            throw mapApiError(e)
-        }
+        val httpResponse = client.get(
+            "https://mock.codes/404"
+        )
+        val response: GithubSearchResponse = httpResponse.body()
     }
 }

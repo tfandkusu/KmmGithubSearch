@@ -41,6 +41,13 @@ class GithubRemoteDataSourceTest {
     }
 
     @Test
+    fun searchJapanese() = runBlocking {
+        val repos = remoteDataSource.search("やられる直前15秒")
+        repos.size shouldBe 1
+        repos[0].fullName shouldBe "tfandkusu/splatoon2_death_docker"
+    }
+
+    @Test
     fun networkError(): Unit = runBlocking {
         shouldThrow<NetworkException> {
             remoteDataSource.checkNetworkError()
