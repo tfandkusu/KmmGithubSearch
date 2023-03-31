@@ -7,7 +7,10 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonNamingStrategy
 
 /**
- * kotlinx-serializationの動作確認用クラス
+ * kotlinx-serializationの動作確認用メソッド
+ *
+ * @param jsonString JSON文字列
+ * @return JSONパース結果
  */
 @OptIn(ExperimentalSerializationApi::class)
 fun decodeGithubResponse(jsonString: String) : GithubSearchResponse {

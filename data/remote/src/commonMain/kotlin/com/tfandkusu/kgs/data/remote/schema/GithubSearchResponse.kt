@@ -2,6 +2,10 @@ package com.tfandkusu.kgs.data.remote.schema
 
 import kotlinx.serialization.Serializable
 
+/**
+ * https://api.github.com/search/repositories?q=xxx
+ * のレスポンスボディー
+ */
 @Serializable
 data class GithubSearchResponse(val items: List<GithubSearchResponseItem>)
 

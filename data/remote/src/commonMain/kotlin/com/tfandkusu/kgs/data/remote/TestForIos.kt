@@ -5,6 +5,9 @@ import io.github.aakira.napier.Napier
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+/**
+ * iOSでのHTTPSリクエスト確認用クラス
+ */
 class TestForIos {
     fun callApi() {
         Napier.base(DebugAntilog())
