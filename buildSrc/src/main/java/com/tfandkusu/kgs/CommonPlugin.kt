@@ -18,12 +18,27 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class CommonPlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        // Androidの設定
+        setUpAndrood(project)
+        setUpKMM(project)
+        setUpSpotless(project)
+        setUpJacoco(project)
+    }
+
+    /**
+     * Androidの設定
+     */
+    fun setUpAndrood(project: Project) {
         project.extensions.configure<BaseExtension> {
             compileSdkVersion(33)
             defaultConfig.minSdk = 21
             defaultConfig.targetSdk = 33
         }
+    }
+
+    /**
+     * Kotlin Multiplatform Mobileの設定
+     */
+    fun setUpKMM(project: Project) {
         project.extensions.findByType(KotlinMultiplatformExtension::class.java)?.let {
             // Androidの設定
             it.android().compilations.all {
@@ -71,17 +86,6 @@ class CommonPlugin : Plugin<Project> {
             it.sourceSets.getByName("iosArm64Test").dependsOn(iosTest)
             it.sourceSets.getByName("iosSimulatorArm64Test").dependsOn(iosTest)
         }
-        // Spotlessの設定
-        project.plugins.apply(SpotlessPlugin::class.java)
-        project.extensions.configure<SpotlessExtension> {
-            ratchetFrom = "origin/main"
-            kotlin {
-                target("**/*.kt")
-                targetExclude("**/*Dao.kt")
-                ktlint("0.48.2").setUseExperimental(true)
-            }
-        }
-        setUpJacoco(project)
     }
 
     /**
@@ -93,6 +97,21 @@ class CommonPlugin : Plugin<Project> {
         return project.extensions.findByType(
             VersionCatalogsExtension::class.java
         )?.named("libs")?.findLibrary(name)?.get()
+    }
+
+    /**
+     * Spotlessの設定
+     */
+    private fun setUpSpotless(project: Project) {
+        project.plugins.apply(SpotlessPlugin::class.java)
+        project.extensions.configure<SpotlessExtension> {
+            ratchetFrom = "origin/main"
+            kotlin {
+                target("**/*.kt")
+                targetExclude("**/*Dao.kt")
+                ktlint("0.48.2").setUseExperimental(true)
+            }
+        }
     }
 
     /**
