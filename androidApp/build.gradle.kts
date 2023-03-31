@@ -1,15 +1,15 @@
+import com.tfandkusu.kgs.CommonPlugin
+
 plugins {
     id("com.android.application")
     kotlin("android")
 }
+apply<CommonPlugin>()
 
 android {
-    namespace = "com.tfandkusu.kgs.android"
-    compileSdk = 33
+    namespace = "com.tfandkusu.kgs"
     defaultConfig {
         applicationId = "com.tfandkusu.kgs.android"
-        minSdk = 23
-        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
     }
@@ -39,11 +39,13 @@ android {
 }
 
 dependencies {
-    implementation(project(":shared"))
+    implementation(project(":data:remote"))
+    implementation(project(":common"))
     implementation(libs.compose.ui.ui)
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.preview)
     implementation(libs.compose.fundation)
     implementation(libs.compose.material)
     implementation(libs.activity.compose)
+    implementation(libs.ktor.client.core)
 }

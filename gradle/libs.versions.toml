@@ -1,4 +1,15 @@
+[versions]
+kotlin = '1.8.0'
+ktorfit = '1.0.1'
+# デグレードしているので2.2.1を使う
+# https://youtrack.jetbrains.com/issue/KTOR-5502/DarwinClientEngine-a-request-deadlocks-on-macOS-since-2.2.2
+ktor = '2.2.1'
 [libraries]
+# Gradle Plugin
+android-gradle = 'com.android.tools.build:gradle:7.4.2'
+kotlin-gradle = { module = 'org.jetbrains.kotlin:kotlin-gradle-plugin', version.ref = 'kotlin' }
+# Kotlin Coroutine
+coroutine = 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 # Android UI
 compose-ui-ui = 'androidx.compose.ui:ui:1.4.0'
 compose-ui-tooling = 'androidx.compose.ui:ui-tooling:1.4.0'
@@ -6,3 +17,14 @@ compose-ui-preview = 'androidx.compose.ui:ui-tooling-preview:1.4.0'
 compose-fundation = 'androidx.compose.foundation:foundation:1.4.0'
 compose-material = 'androidx.compose.material:material:1.4.0'
 activity-compose = 'androidx.activity:activity-compose:1.7.0'
+# Ktor
+ktor-client-core = { module = 'io.ktor:ktor-client-core', version.ref = 'ktor' }
+ktor-client-okhttp = { module = 'io.ktor:ktor-client-okhttp', version.ref = 'ktor' }
+ktor-client-darwin = { module = 'io.ktor:ktor-client-darwin', version.ref = 'ktor' }
+kotlinx-serialization-json = 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0'
+ktor-client-content-negotiation = { module = 'io.ktor:ktor-client-content-negotiation', version.ref = 'ktor' }
+ktor-serialization-kotlinx-json = { module = 'io.ktor:ktor-serialization-kotlinx-json', version.ref = 'ktor' }
+# Log
+napier = 'io.github.aakira:napier:2.6.1'
+# Test
+kotest-assertions = 'io.kotest:kotest-assertions-core:5.5.4'
