@@ -1,8 +1,13 @@
 package com.tfandkusu.kgs
 
+import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.BaseExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.MinimalExternalModuleDependency
+import org.gradle.api.artifacts.VersionCatalog
+import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.kotlin
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
@@ -31,6 +36,16 @@ class CommonPlugin : Plugin<Project> {
                     baseName = project.name
                 }
             }
+            // commonMainの設定
+            it.sourceSets.getByName("commonMain").dependencies {
+                // 全モジュールで共通して使うライブラリ
+                libs(project, "coroutine")?.let {
+                    implementation(it)
+                }
+                libs(project,"napier")?.let {
+                    implementation(it)
+                }
+            }
             // commonTestの設定
             it.sourceSets.getByName("commonTest").dependencies {
                 implementation(kotlin("test"))
@@ -48,5 +63,16 @@ class CommonPlugin : Plugin<Project> {
             it.sourceSets.getByName("iosArm64Test").dependsOn(iosTest)
             it.sourceSets.getByName("iosSimulatorArm64Test").dependsOn(iosTest)
         }
+    }
+
+    /**
+     * libs.versions.tomlからライブラリの情報を得る。
+     *
+     * 参考 https://github.com/android/nowinandroid/blob/main/build-logic/convention/src/main/kotlin/AndroidHiltConventionPlugin.kt
+     */
+    private fun libs(project: Project, name: String): Provider<MinimalExternalModuleDependency>? {
+        return project.extensions.findByType(
+            VersionCatalogsExtension::class.java
+        )?.named("libs")?.findLibrary(name)?.get()
     }
 }

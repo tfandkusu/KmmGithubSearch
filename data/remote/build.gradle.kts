@@ -13,12 +13,10 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(project(":common"))
-                implementation(libs.coroutine)
                 implementation(libs.ktor.client.core)
                 implementation(libs.kotlinx.serialization.json)
                 implementation(libs.ktor.client.content.negotiation)
                 implementation(libs.ktor.serialization.kotlinx.json)
-                implementation(libs.napier)
             }
         }
         val commonTest by getting {
