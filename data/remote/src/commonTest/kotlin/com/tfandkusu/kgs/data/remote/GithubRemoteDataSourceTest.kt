@@ -17,7 +17,7 @@ class GithubRemoteDataSourceTest {
     @BeforeTest
     fun setUp() {
         remoteDataSource = GithubRemoteDataSourceImpl(
-            getMyHttpClient()
+            getMyHttpClient(),
         )
     }
 

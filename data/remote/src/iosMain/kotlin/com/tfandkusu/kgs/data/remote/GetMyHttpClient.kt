@@ -18,7 +18,7 @@ actual fun getMyHttpClient(): HttpClient {
                 Json {
                     ignoreUnknownKeys = true
                     namingStrategy = JsonNamingStrategy.SnakeCase
-                }
+                },
             )
         }
         HttpResponseValidator {

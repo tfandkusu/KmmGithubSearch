@@ -13,7 +13,7 @@ import kotlinx.serialization.json.JsonNamingStrategy
  * @return JSONパース結果
  */
 @OptIn(ExperimentalSerializationApi::class)
-fun decodeGithubResponse(jsonString: String) : GithubSearchResponse {
+fun decodeGithubResponse(jsonString: String): GithubSearchResponse {
     val format = Json {
         ignoreUnknownKeys = true
         namingStrategy = JsonNamingStrategy.SnakeCase

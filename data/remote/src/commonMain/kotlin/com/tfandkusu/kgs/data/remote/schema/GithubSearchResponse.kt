@@ -18,11 +18,11 @@ data class GithubSearchResponseItem(
     val stargazersCount: Int,
     val watchersCount: Int,
     val forksCount: Int,
-    val openIssuesCount: Int
+    val openIssuesCount: Int,
 )
 
 @Serializable
 data class GithubSearchResponseOwner(
     val login: String,
-    val avatarUrl: String
+    val avatarUrl: String,
 )

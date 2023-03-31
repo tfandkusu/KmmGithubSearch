@@ -2,12 +2,15 @@ package com.tfandkusu.kgs
 
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.BaseExtension
+import com.diffplug.gradle.spotless.SpotlessExtension
+import com.diffplug.gradle.spotless.SpotlessPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.provider.Provider
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.kotlin
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
@@ -65,6 +68,16 @@ class CommonPlugin : Plugin<Project> {
             it.sourceSets.getByName("iosX64Test").dependsOn(iosTest)
             it.sourceSets.getByName("iosArm64Test").dependsOn(iosTest)
             it.sourceSets.getByName("iosSimulatorArm64Test").dependsOn(iosTest)
+        }
+        // Spotlessの設定
+        project.plugins.apply(SpotlessPlugin::class.java)
+        project.extensions.configure<SpotlessExtension> {
+            ratchetFrom = "origin/main"
+            kotlin {
+                target("**/*.kt")
+                targetExclude("**/*Dao.kt")
+                ktlint("0.48.2").setUseExperimental(true)
+            }
         }
     }
 

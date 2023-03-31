@@ -30,14 +30,14 @@ interface GithubRemoteDataSource {
 }
 
 internal class GithubRemoteDataSourceImpl(
-    private val client: HttpClient
+    private val client: HttpClient,
 ) : GithubRemoteDataSource {
     override suspend fun search(query: String): List<GithubRepo> {
         val response = get<GithubSearchResponse>(
             "/search/repositories",
             listOf(
-                Pair("q", query)
-            )
+                Pair("q", query),
+            ),
         )
         return response.items.map {
             GithubRepo(
@@ -49,7 +49,7 @@ internal class GithubRemoteDataSourceImpl(
                 it.stargazersCount,
                 it.watchersCount,
                 it.forksCount,
-                it.openIssuesCount
+                it.openIssuesCount,
             )
         }
     }
@@ -61,11 +61,11 @@ internal class GithubRemoteDataSourceImpl(
      */
     private suspend inline fun <reified T> get(
         path: String,
-        queries: List<Pair<String, String?>>
+        queries: List<Pair<String, String?>>,
     ): T {
         try {
             val httpResponse = client.get(
-                "https://api.github.com$path?" + queries.formUrlEncode()
+                "https://api.github.com$path?" + queries.formUrlEncode(),
             )
             return httpResponse.body()
         } catch (e: IOException) {
@@ -76,7 +76,7 @@ internal class GithubRemoteDataSourceImpl(
     override suspend fun checkNetworkError() {
         try {
             val httpResponse = client.get(
-                "https://hoge.tfandkusu.com/"
+                "https://hoge.tfandkusu.com/",
             )
             val response: GithubSearchResponse = httpResponse.body()
         } catch (e: IOException) {
@@ -86,7 +86,7 @@ internal class GithubRemoteDataSourceImpl(
 
     override suspend fun checkServerError() {
         val httpResponse = client.get(
-            "https://mock.codes/404"
+            "https://mock.codes/404",
         )
         val response: GithubSearchResponse = httpResponse.body()
     }
