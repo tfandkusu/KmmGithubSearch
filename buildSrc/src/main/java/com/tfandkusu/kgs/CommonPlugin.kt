@@ -12,6 +12,8 @@ import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.kotlin
+import org.gradle.testing.jacoco.plugins.JacocoPlugin
+import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class CommonPlugin : Plugin<Project> {
@@ -79,6 +81,7 @@ class CommonPlugin : Plugin<Project> {
                 ktlint("0.48.2").setUseExperimental(true)
             }
         }
+        setUpJacoco(project)
     }
 
     /**
@@ -90,5 +93,43 @@ class CommonPlugin : Plugin<Project> {
         return project.extensions.findByType(
             VersionCatalogsExtension::class.java
         )?.named("libs")?.findLibrary(name)?.get()
+    }
+
+    /**
+     * Jacocoの設定
+     */
+    private fun setUpJacoco(project: Project) {
+        // Jacocoの設定
+        // ローカルユニットテストを実行すると
+        // バイナリ形式のカバレッジレポート testDebugUnitTest.exec が生成されるようにする。
+        project.plugins.apply(JacocoPlugin::class.java)
+        // それをxmlとhtml形式に変換するタスク
+        project.tasks.create(
+            "jacocoReport",
+            JacocoReport::class.java
+        ) {
+            reports {
+                xml.required.set(true)
+                csv.required.set(true)
+            }
+            val fileFilter = listOf(
+                "**/R.class",
+                "**/R$*.class",
+                "**/BuildConfig.*",
+                "**/Manifest*.*",
+                "**/*Test*.*",
+                "android/**/*.*"
+            )
+            val debugTree = project.fileTree("${project.buildDir}/tmp/kotlin-classes/debug") {
+                this.setExcludes(fileFilter)
+            }
+            val mainSrc = "${project.projectDir}/src/main/java"
+
+            sourceDirectories.setFrom(project.files(mainSrc))
+            classDirectories.setFrom(project.files(debugTree))
+            executionData.setFrom(project.fileTree("${project.buildDir}") {
+                setIncludes(listOf("**/testDebugUnitTest.exec"))
+            })
+        }
     }
 }

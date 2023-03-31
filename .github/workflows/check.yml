@@ -30,10 +30,11 @@ jobs:
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: ./gradlew testDebug
+      - run: ./gradlew jacocoReport
       # Codecov
-      #- uses: codecov/codecov-action@v3
-      #  with:
-      #    token: ${{ secrets.CODECOV_TOKEN }}
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
       # Dependency Tree Diff
       - id: dependency-diff
         name: Generate dependency diff
