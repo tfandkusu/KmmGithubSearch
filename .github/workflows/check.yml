@@ -37,8 +37,9 @@ jobs:
       # Dependency Tree Diff
       - id: dependency-diff
         name: Generate dependency diff
-        project: 'androidApp'
         uses: usefulness/dependency-tree-diff-action@v1
+        with:
+          project: 'androidApp'
         if: github.event_name == 'pull_request'
       - uses: peter-evans/find-comment@v2
         id: find_comment
