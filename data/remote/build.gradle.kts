@@ -19,11 +19,6 @@ kotlin {
                 implementation(libs.ktor.serialization.kotlinx.json)
             }
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(libs.kotest.assertions)
-            }
-        }
         val androidMain by getting {
             dependencies {
                 implementation(libs.ktor.client.okhttp)

@@ -49,6 +49,9 @@ class CommonPlugin : Plugin<Project> {
             // commonTestの設定
             it.sourceSets.getByName("commonTest").dependencies {
                 implementation(kotlin("test"))
+                libs(project, "kotest.assertions")?.let {
+                    implementation(it)
+                }
             }
             // iOSの設定
             it.sourceSets.create("iosMain").dependsOn(it.sourceSets.getByName("commonMain"))
