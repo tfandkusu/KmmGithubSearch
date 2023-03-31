@@ -34,8 +34,8 @@ class CommonPlugin : Plugin<Project> {
                 it.iosX64(),
                 it.iosArm64(),
                 it.iosSimulatorArm64()
-            ).forEach {
-                it.binaries.framework {
+            ).forEach { target ->
+                target.binaries.framework {
                     baseName = project.name
                 }
             }
