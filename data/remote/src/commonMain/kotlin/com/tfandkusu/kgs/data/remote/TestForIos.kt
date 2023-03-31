@@ -15,7 +15,7 @@ class TestForIos {
         GlobalScope.launch {
             Napier.d("GlobalScope.launch")
             val remoteDataSource = GithubRemoteDataSourceImpl(
-                getMyHttpClient()
+                getMyHttpClient(),
             )
             Napier.d("remoteDataSource")
             val repos = remoteDataSource.search("DroidKaigi")

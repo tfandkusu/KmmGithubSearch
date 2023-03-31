@@ -1,0 +1,62 @@
+name: check
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '11'
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1
+          bundler-cache: true
+      - uses: gradle/gradle-build-action@v2
+      - run: ./gradlew spotlessCheck
+      - run: bundle exec danger
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: ./gradlew testDebug
+      - run: ./gradlew jacocoReport
+      # Codecov
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+      # Dependency Tree Diff
+      - id: dependency-diff
+        name: Generate dependency diff
+        uses: usefulness/dependency-tree-diff-action@v1
+        with:
+          project: 'androidApp'
+        if: github.event_name == 'pull_request'
+      - uses: peter-evans/find-comment@v2
+        id: find_comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body-includes: Dependency diff
+        if: github.event_name == 'pull_request'
+      - uses: peter-evans/create-or-update-comment@v2
+        if: ${{ github.event_name == 'pull_request' && (steps.dependency-diff.outputs.text-diff != null || steps.find_comment.outputs.comment-id != null) }}
+        with:
+          body: |
+            Dependency diff (customize your message here):
+              ```diff
+              ${{ steps.dependency-diff.outputs.text-diff }}
+              ```
+          edit-mode: replace
+          comment-id: ${{ steps.find_comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.GITHUB_TOKEN }}

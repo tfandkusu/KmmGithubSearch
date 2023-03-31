@@ -2,23 +2,43 @@ package com.tfandkusu.kgs
 
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.BaseExtension
+import com.diffplug.gradle.spotless.SpotlessExtension
+import com.diffplug.gradle.spotless.SpotlessPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.provider.Provider
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.kotlin
+import org.gradle.testing.jacoco.plugins.JacocoPlugin
+import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class CommonPlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        // Androidの設定
-        project.extensions.findByType(BaseExtension::class.java)?.let {
-            it.compileSdkVersion(33)
-            it.defaultConfig.minSdk = 21
-            it.defaultConfig.targetSdk = 33
+        setUpAndrood(project)
+        setUpKMM(project)
+        setUpSpotless(project)
+        setUpJacoco(project)
+    }
+
+    /**
+     * Androidの設定
+     */
+    fun setUpAndrood(project: Project) {
+        project.extensions.configure<BaseExtension> {
+            compileSdkVersion(33)
+            defaultConfig.minSdk = 21
+            defaultConfig.targetSdk = 33
         }
+    }
+
+    /**
+     * Kotlin Multiplatform Mobileの設定
+     */
+    fun setUpKMM(project: Project) {
         project.extensions.findByType(KotlinMultiplatformExtension::class.java)?.let {
             // Androidの設定
             it.android().compilations.all {
@@ -31,8 +51,8 @@ class CommonPlugin : Plugin<Project> {
                 it.iosX64(),
                 it.iosArm64(),
                 it.iosSimulatorArm64()
-            ).forEach {
-                it.binaries.framework {
+            ).forEach { target ->
+                target.binaries.framework {
                     baseName = project.name
                 }
             }
@@ -77,5 +97,58 @@ class CommonPlugin : Plugin<Project> {
         return project.extensions.findByType(
             VersionCatalogsExtension::class.java
         )?.named("libs")?.findLibrary(name)?.get()
+    }
+
+    /**
+     * Spotlessの設定
+     */
+    private fun setUpSpotless(project: Project) {
+        project.plugins.apply(SpotlessPlugin::class.java)
+        project.extensions.configure<SpotlessExtension> {
+            ratchetFrom = "origin/main"
+            kotlin {
+                target("**/*.kt")
+                targetExclude("**/*Dao.kt")
+                ktlint("0.48.2").setUseExperimental(true)
+            }
+        }
+    }
+
+    /**
+     * Jacocoの設定
+     */
+    private fun setUpJacoco(project: Project) {
+        // Jacocoの設定
+        // ローカルユニットテストを実行すると
+        // バイナリ形式のカバレッジレポート testDebugUnitTest.exec が生成されるようにする。
+        project.plugins.apply(JacocoPlugin::class.java)
+        // それをxmlとhtml形式に変換するタスク
+        project.tasks.create(
+            "jacocoReport",
+            JacocoReport::class.java
+        ) {
+            reports {
+                xml.required.set(true)
+                csv.required.set(true)
+            }
+            val fileFilter = listOf(
+                "**/R.class",
+                "**/R$*.class",
+                "**/BuildConfig.*",
+                "**/Manifest*.*",
+                "**/*Test*.*",
+                "android/**/*.*"
+            )
+            val debugTree = project.fileTree("${project.buildDir}/tmp/kotlin-classes/debug") {
+                this.setExcludes(fileFilter)
+            }
+            val mainSrc = "${project.projectDir}/src/main/java"
+
+            sourceDirectories.setFrom(project.files(mainSrc))
+            classDirectories.setFrom(project.files(debugTree))
+            executionData.setFrom(project.fileTree("${project.buildDir}") {
+                setIncludes(listOf("**/testDebugUnitTest.exec"))
+            })
+        }
     }
 }

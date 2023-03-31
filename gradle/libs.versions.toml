@@ -8,6 +8,7 @@ ktor = '2.2.1'
 # Gradle Plugin
 android-gradle = 'com.android.tools.build:gradle:7.4.2'
 kotlin-gradle = { module = 'org.jetbrains.kotlin:kotlin-gradle-plugin', version.ref = 'kotlin' }
+spotless-gradle = 'com.diffplug.spotless:spotless-plugin-gradle:6.17.0'
 # Kotlin Coroutine
 coroutine = 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 # Android UI
