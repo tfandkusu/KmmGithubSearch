@@ -41,11 +41,11 @@ android {
 dependencies {
     implementation(project(":data:remote"))
     implementation(project(":common"))
+    implementation(libs.appcompat)
     implementation(libs.compose.ui.ui)
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.preview)
     implementation(libs.compose.fundation)
     implementation(libs.compose.material)
-    implementation(libs.activity.compose)
-    implementation(libs.ktor.client.core)
+    implementation(libs.navigation.fragment.ktx)
 }
