@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
-import com.tfandkusu.kgs.MyTheme
+import com.tfandkusu.kgs.common.MyTheme
 
 class HomeFragment : Fragment() {
     override fun onCreateView(

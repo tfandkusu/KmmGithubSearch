@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.preview)
     implementation(libs.compose.fundation)
-    implementation(libs.compose.material)
+    implementation(libs.compose.material3)
+    implementation(libs.material)
     implementation(libs.navigation.fragment.ktx)
 }
