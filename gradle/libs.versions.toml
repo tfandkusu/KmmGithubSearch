@@ -12,12 +12,15 @@ spotless-gradle = 'com.diffplug.spotless:spotless-plugin-gradle:6.17.0'
 # Kotlin Coroutine
 coroutine = 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 # Android UI
+appcompat = 'androidx.appcompat:appcompat:1.6.1'
 compose-ui-ui = 'androidx.compose.ui:ui:1.4.0'
 compose-ui-tooling = 'androidx.compose.ui:ui-tooling:1.4.0'
 compose-ui-preview = 'androidx.compose.ui:ui-tooling-preview:1.4.0'
 compose-fundation = 'androidx.compose.foundation:foundation:1.4.0'
 compose-material = 'androidx.compose.material:material:1.4.0'
 activity-compose = 'androidx.activity:activity-compose:1.7.0'
+# Android Navigation
+navigation-fragment-ktx = 'androidx.navigation:navigation-fragment-ktx:2.5.3'
 # Ktor
 ktor-client-core = { module = 'io.ktor:ktor-client-core', version.ref = 'ktor' }
 ktor-client-okhttp = { module = 'io.ktor:ktor-client-okhttp', version.ref = 'ktor' }
