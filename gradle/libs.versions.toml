@@ -19,6 +19,7 @@ compose-ui-preview = 'androidx.compose.ui:ui-tooling-preview:1.4.0'
 compose-fundation = 'androidx.compose.foundation:foundation:1.4.0'
 compose-material3 = 'androidx.compose.material3:material3:1.0.1'
 activity-compose = 'androidx.activity:activity-compose:1.7.0'
+material = 'com.google.android.material:material:1.8.0'
 # Android Navigation
 navigation-fragment-ktx = 'androidx.navigation:navigation-fragment-ktx:2.5.3'
 # Ktor

@@ -6,7 +6,8 @@
     <application
         android:allowBackup="false"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:name="com.tfandkusu.kgs.MyApplication"
+        android:theme="@style/MyTheme">
         <activity
             android:name="com.tfandkusu.kgs.MainActivity"
             android:exported="true">
