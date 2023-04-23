@@ -4,13 +4,15 @@ ktorfit = '1.0.1'
 # デグレードしているので2.2.1を使う
 # https://youtrack.jetbrains.com/issue/KTOR-5502/DarwinClientEngine-a-request-deadlocks-on-macOS-since-2.2.2
 ktor = '2.2.1'
+coroutines = '1.6.4'
+
 [libraries]
 # Gradle Plugin
 android-gradle = 'com.android.tools.build:gradle:7.4.2'
 kotlin-gradle = { module = 'org.jetbrains.kotlin:kotlin-gradle-plugin', version.ref = 'kotlin' }
 spotless-gradle = 'com.diffplug.spotless:spotless-plugin-gradle:6.17.0'
 # Kotlin Coroutine
-coroutine = 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+coroutine = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-core', version.ref = 'coroutines' }
 # Android UI
 appcompat = 'androidx.appcompat:appcompat:1.6.1'
 compose-ui-ui = 'androidx.compose.ui:ui:1.4.0'
@@ -33,3 +35,4 @@ ktor-serialization-kotlinx-json = { module = 'io.ktor:ktor-serialization-kotlinx
 napier = 'io.github.aakira:napier:2.6.1'
 # Test
 kotest-assertions = 'io.kotest:kotest-assertions-core:5.5.4'
+kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
