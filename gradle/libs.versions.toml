@@ -13,6 +13,8 @@ kotlin-gradle = { module = 'org.jetbrains.kotlin:kotlin-gradle-plugin', version.
 spotless-gradle = 'com.diffplug.spotless:spotless-plugin-gradle:6.17.0'
 # Kotlin Coroutine
 coroutine = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-core', version.ref = 'coroutines' }
+# Android Lifecycle
+lifecycle-viewmodel-ktx = 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
 # Android UI
 appcompat = 'androidx.appcompat:appcompat:1.6.1'
 compose-ui-ui = 'androidx.compose.ui:ui:1.4.0'

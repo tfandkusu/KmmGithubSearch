@@ -11,6 +11,12 @@ class HomeReducerTest {
     private val reducer = HomeReducer()
 
     @Test
+    fun initialState() {
+        reducer.createInitialState().keyword shouldBe ""
+        reducer.createInitialState().items shouldBe listOf()
+    }
+
+    @Test
     fun updateKeyword() {
         reducer.reduce(
             HomeState(),

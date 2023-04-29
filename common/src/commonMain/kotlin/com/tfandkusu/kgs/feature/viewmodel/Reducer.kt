@@ -9,6 +9,9 @@ package com.tfandkusu.kgs.feature.viewmodel
 data class StateEffect<STATE, EFFECT>(val state: STATE, val effect: EFFECT? = null)
 
 interface Reducer<ACTION, STATE, EFFECT> {
+
+    fun createInitialState(): STATE
+
     /**
      * Receive current state and action.
      * And return next state and effect.

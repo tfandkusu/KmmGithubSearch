@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":data:remote"))
+    implementation(project(":feature:home"))
     implementation(project(":common"))
     implementation(libs.appcompat)
     implementation(libs.compose.ui.ui)
@@ -49,4 +49,5 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.material)
     implementation(libs.navigation.fragment.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
 }

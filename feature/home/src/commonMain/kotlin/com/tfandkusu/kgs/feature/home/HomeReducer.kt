@@ -57,4 +57,8 @@ class HomeReducer : Reducer<HomeAction, HomeState, HomeEffect> {
             }
         }
     }
+
+    override fun createInitialState(): HomeState {
+        return HomeState()
+    }
 }
