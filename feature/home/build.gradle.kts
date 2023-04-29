@@ -20,12 +20,5 @@ kotlin {
                 implementation(project(":data:remote"))
             }
         }
-        val jvmTest by getting {
-            dependencies {
-                implementation(libs.kotlin.coroutines.test)
-                implementation(libs.mockk)
-                implementation(libs.kotest.assertions)
-            }
-        }
     }
 }
