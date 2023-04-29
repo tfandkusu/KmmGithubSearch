@@ -67,6 +67,9 @@ class CommonPlugin : Plugin<Project> {
                 libs(project,"napier")?.let {
                     implementation(it)
                 }
+                libs(project, "koin.core")?.let {
+                    implementation(it)
+                }
             }
             // commonTestの設定
             it.sourceSets.getByName("commonTest").dependencies {

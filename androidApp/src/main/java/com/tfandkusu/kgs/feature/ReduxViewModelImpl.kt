@@ -1,7 +1,9 @@
 package com.tfandkusu.kgs.feature
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tfandkusu.kgs.feature.viewmodel.ActionCreator
@@ -12,20 +14,28 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-abstract class ReduxViewModel<EVENT, ACTION, STATE, EFFECT>(
+interface ReduxViewModel<EVENT, STATE, EFFECT> {
+    val state: State<STATE>
+
+    val effect: Flow<EFFECT>
+
+    fun event(event: EVENT)
+}
+
+abstract class ReduxViewModelImpl<EVENT, ACTION, STATE, EFFECT>(
     private val actionCreator: ActionCreator<EVENT, ACTION>,
     private val reducer: Reducer<ACTION, STATE, EFFECT>,
-) : ViewModel() {
+) : ReduxViewModel<EVENT, STATE, EFFECT>, ViewModel() {
     private val _state = mutableStateOf(reducer.createInitialState())
 
-    val state: State<STATE> = _state
+    override val state: State<STATE> = _state
 
     private val channel = Channel<EFFECT>(Channel.UNLIMITED)
 
-    val effect: Flow<EFFECT>
+    override val effect: Flow<EFFECT>
         get() = channel.receiveAsFlow()
 
-    fun event(event: EVENT) {
+    override fun event(event: EVENT) {
         viewModelScope.launch {
             actionCreator.event(
                 event,
@@ -45,4 +55,27 @@ abstract class ReduxViewModel<EVENT, ACTION, STATE, EFFECT>(
             )
         }
     }
+}
+
+data class StateEffectDispatch<STATE, EFFECT, EVENT>(
+    val state: STATE,
+    val effectFlow: Flow<EFFECT>,
+    val dispatch: (EVENT) -> Unit,
+)
+
+@Composable
+inline fun <reified STATE, EFFECT, EVENT> use(
+    viewModel: ReduxViewModel<EVENT, STATE, EFFECT>,
+): StateEffectDispatch<STATE, EFFECT, EVENT> {
+    val state = viewModel.state.value
+    val dispatch = remember(viewModel) {
+        { event: EVENT ->
+            viewModel.event(event)
+        }
+    }
+    return StateEffectDispatch(
+        state = state,
+        effectFlow = viewModel.effect,
+        dispatch = dispatch,
+    )
 }

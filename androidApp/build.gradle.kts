@@ -42,6 +42,7 @@ dependencies {
     implementation(project(":feature:home"))
     implementation(project(":common"))
     implementation(libs.appcompat)
+    implementation(libs.koin.android)
     implementation(libs.compose.ui.ui)
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.preview)
@@ -50,4 +51,5 @@ dependencies {
     implementation(libs.material)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.napier)
 }
