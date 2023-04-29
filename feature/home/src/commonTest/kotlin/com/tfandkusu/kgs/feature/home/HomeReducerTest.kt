@@ -60,7 +60,7 @@ class HomeReducerTest {
                 785,
                 330,
                 46,
-            )
+            ),
         )
 
         reducer.reduce(
@@ -71,9 +71,9 @@ class HomeReducerTest {
                 items = listOf(
                     HomeState.Item.Repo(repos[0]),
                     HomeState.Item.Repo(repos[1]),
-                    HomeState.Item.Repo(repos[2])
-                )
-            )
+                    HomeState.Item.Repo(repos[2]),
+                ),
+            ),
         )
     }
 }
