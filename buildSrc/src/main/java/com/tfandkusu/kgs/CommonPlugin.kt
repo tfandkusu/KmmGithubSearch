@@ -157,15 +157,15 @@ class CommonPlugin : Plugin<Project> {
                 "**/*Test*.*",
                 "android/**/*.*"
             )
-            val debugTree = project.fileTree("${project.buildDir}/tmp/kotlin-classes/debug") {
+            val debugTree = project.fileTree("${project.buildDir}/classes/kotlin/jvm/main") {
                 this.setExcludes(fileFilter)
             }
-            val mainSrc = "${project.projectDir}/src/main/java"
+            val mainSrc = "${project.projectDir}/src/commonMain/kotlin"
 
             sourceDirectories.setFrom(project.files(mainSrc))
             classDirectories.setFrom(project.files(debugTree))
             executionData.setFrom(project.fileTree("${project.buildDir}") {
-                setIncludes(listOf("**/testDebugUnitTest.exec"))
+                setIncludes(listOf("**/jvmTest.exec"))
             })
         }
     }
