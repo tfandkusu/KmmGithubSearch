@@ -36,3 +36,4 @@ napier = 'io.github.aakira:napier:2.6.1'
 # Test
 kotest-assertions = 'io.kotest:kotest-assertions-core:5.5.4'
 kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+mockk = 'io.mockk:mockk:1.13.5'
