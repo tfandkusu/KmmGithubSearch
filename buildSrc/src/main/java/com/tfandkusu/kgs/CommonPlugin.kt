@@ -46,6 +46,8 @@ class CommonPlugin : Plugin<Project> {
                     jvmTarget = "1.8"
                 }
             }
+            // jvm向けビルドを作れるようにする
+            it.jvm()
             // iOS向けビルドを作れるようにする
             listOf(
                 it.iosX64(),
