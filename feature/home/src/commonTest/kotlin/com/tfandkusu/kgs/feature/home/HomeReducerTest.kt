@@ -1,5 +1,6 @@
 package com.tfandkusu.kgs.feature.home
 
+import com.tfandkusu.kgs.error.MyError
 import com.tfandkusu.kgs.feature.viewmodel.StateEffect
 import com.tfandkusu.kgs.model.GithubRepo
 import io.kotest.matchers.shouldBe
@@ -72,6 +73,34 @@ class HomeReducerTest {
                     HomeState.Item.Repo(repos[0]),
                     HomeState.Item.Repo(repos[1]),
                     HomeState.Item.Repo(repos[2]),
+                ),
+            ),
+        )
+    }
+
+    @Test
+    fun errorNetwork() {
+        reducer.reduce(
+            HomeState(),
+            HomeAction.Error(MyError.Network),
+        ) shouldBe StateEffect(
+            HomeState(
+                items = listOf(
+                    HomeState.Item.NetworkError,
+                ),
+            ),
+        )
+    }
+
+    @Test
+    fun errorServer() {
+        reducer.reduce(
+            HomeState(),
+            HomeAction.Error(MyError.Server(500)),
+        ) shouldBe StateEffect(
+            HomeState(
+                items = listOf(
+                    HomeState.Item.ServerError(500),
                 ),
             ),
         )

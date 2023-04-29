@@ -1,8 +1,11 @@
 package com.tfandkusu.kgs.feature.home
 
 import com.tfandkusu.kgs.data.remote.GithubRemoteDataSource
+import com.tfandkusu.kgs.error.MyError
 import com.tfandkusu.kgs.feature.viewmodel.Dispatcher
+import com.tfandkusu.kgs.model.GithubRepo
 import io.mockk.MockKAnnotations
+import io.mockk.coEvery
 import io.mockk.coVerifySequence
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -10,6 +13,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class HomeActionCreatorTest {
 
     @MockK
@@ -20,18 +24,79 @@ class HomeActionCreatorTest {
 
     private lateinit var actionCreator: HomeActionCreator
 
+    private val repos = listOf(
+        GithubRepo(
+            517191221,
+            "DroidKaigi/conference-app-2022",
+            "DroidKaigi",
+            "https://avatars.githubusercontent.com/u/10727543?v=4",
+            "Kotlin",
+            460,
+            460,
+            194,
+            39,
+        ),
+        GithubRepo(
+            283062475,
+            "DroidKaigi/conference-app-2021",
+            "DroidKaigi",
+            "https://avatars.githubusercontent.com/u/10727543?v=4",
+            "Kotlin",
+            632,
+            632,
+            189,
+            45,
+        ),
+        GithubRepo(
+            202978106,
+            "DroidKaigi/conference-app-2020",
+            "DroidKaigi",
+            "https://avatars.githubusercontent.com/u/10727543?v=4",
+            "Kotlin",
+            785,
+            785,
+            330,
+            46,
+        ),
+    )
+
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
         actionCreator = HomeActionCreator(githubRemoteDataSource)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun inputKeyword() = runTest {
         actionCreator.event(HomeEvent.InputKeyword("Kotlin"), dispatcher)
         coVerifySequence {
             dispatcher.dispatch(HomeAction.UpdateKeyword("Kotlin"))
+        }
+    }
+
+    @Test
+    fun searchSuccess() = runTest {
+        coEvery {
+            githubRemoteDataSource.search("Kotlin")
+        } returns repos
+        actionCreator.event(HomeEvent.SearchKeyword("Kotlin"), dispatcher)
+        coVerifySequence {
+            dispatcher.dispatch(HomeAction.StartSearch)
+            githubRemoteDataSource.search("Kotlin")
+            dispatcher.dispatch(HomeAction.UpdateList(repos))
+        }
+    }
+
+    @Test
+    fun searchError() = runTest {
+        coEvery {
+            githubRemoteDataSource.search("Kotlin")
+        } throws MyError.Network
+        actionCreator.event(HomeEvent.SearchKeyword("Kotlin"), dispatcher)
+        coVerifySequence {
+            dispatcher.dispatch(HomeAction.StartSearch)
+            githubRemoteDataSource.search("Kotlin")
+            dispatcher.dispatch(HomeAction.Error(MyError.Network))
         }
     }
 }
