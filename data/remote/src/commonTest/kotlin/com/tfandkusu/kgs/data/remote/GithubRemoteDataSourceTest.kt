@@ -1,7 +1,6 @@
 package com.tfandkusu.kgs.data.remote
 
-import com.tfandkusu.kgs.error.NetworkException
-import com.tfandkusu.kgs.error.ServerException
+import com.tfandkusu.kgs.error.MyError
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
@@ -49,16 +48,16 @@ class GithubRemoteDataSourceTest {
 
     @Test
     fun networkError(): Unit = runBlocking {
-        shouldThrow<NetworkException> {
+        shouldThrow<MyError.Network> {
             remoteDataSource.checkNetworkError()
         }
     }
 
     @Test
     fun serverError(): Unit = runBlocking {
-        shouldThrow<ServerException> {
+        shouldThrow<MyError.Server> {
             remoteDataSource.checkServerError()
-        } shouldBe ServerException(404)
+        } shouldBe MyError.Server(404)
     }
 
     @Test

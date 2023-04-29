@@ -1,6 +1,7 @@
 package com.tfandkusu.kgs.feature.home
 
 import com.tfandkusu.kgs.data.remote.GithubRemoteDataSource
+import com.tfandkusu.kgs.error.MyError
 import com.tfandkusu.kgs.feature.viewmodel.ActionCreator
 import com.tfandkusu.kgs.feature.viewmodel.Dispatcher
 
@@ -15,11 +16,10 @@ class HomeActionCreator(
 
             is HomeEvent.SearchKeyword -> {
                 dispatcher.dispatch(HomeAction.StartSearch)
-                runCatching {
-                    remoteDataSource.search(event.keyword)
-                }.onSuccess { githubRepoList ->
+                try {
+                    val githubRepoList = remoteDataSource.search(event.keyword)
                     dispatcher.dispatch(HomeAction.UpdateList(githubRepoList))
-                }.onFailure { e ->
+                } catch (e: MyError) {
                     dispatcher.dispatch(HomeAction.Error(e))
                 }
             }

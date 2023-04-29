@@ -1,6 +1,6 @@
 package com.tfandkusu.kgs.data.remote
 
-import com.tfandkusu.kgs.error.ServerException
+import com.tfandkusu.kgs.error.MyError
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.HttpResponseValidator
@@ -26,7 +26,7 @@ actual fun getMyHttpClient(): HttpClient {
                 if (response.status.value in 200..299) {
                     // OK
                 } else {
-                    throw ServerException(response.status.value)
+                    throw MyError.Server(response.status.value)
                 }
             }
         }

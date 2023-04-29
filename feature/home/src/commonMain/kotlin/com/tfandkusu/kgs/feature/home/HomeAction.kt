@@ -1,5 +1,6 @@
 package com.tfandkusu.kgs.feature.home
 
+import com.tfandkusu.kgs.error.MyError
 import com.tfandkusu.kgs.model.GithubRepo
 
 sealed class HomeAction {
@@ -10,5 +11,5 @@ sealed class HomeAction {
 
     object StartSearch : HomeAction()
 
-    data class Error(val e: Throwable) : HomeAction()
+    data class Error(val e: MyError) : HomeAction()
 }
