@@ -29,6 +29,11 @@ kotlin {
                 implementation(libs.ktor.client.darwin)
             }
         }
+        val jvmMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.okhttp)
+            }
+        }
     }
 }
 

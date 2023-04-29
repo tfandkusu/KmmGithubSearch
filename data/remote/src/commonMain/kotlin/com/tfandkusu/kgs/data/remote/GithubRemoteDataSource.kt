@@ -1,7 +1,7 @@
 package com.tfandkusu.kgs.data.remote
 
 import com.tfandkusu.kgs.data.remote.schema.GithubSearchResponse
-import com.tfandkusu.kgs.error.NetworkException
+import com.tfandkusu.kgs.error.MyError
 import com.tfandkusu.kgs.model.GithubRepo
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -69,7 +69,7 @@ internal class GithubRemoteDataSourceImpl(
             )
             return httpResponse.body()
         } catch (e: IOException) {
-            throw NetworkException
+            throw MyError.Network
         }
     }
 
@@ -80,7 +80,7 @@ internal class GithubRemoteDataSourceImpl(
             )
             val response: GithubSearchResponse = httpResponse.body()
         } catch (e: IOException) {
-            throw NetworkException
+            throw MyError.Network
         }
     }
 

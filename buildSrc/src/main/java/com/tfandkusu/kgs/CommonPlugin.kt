@@ -46,6 +46,8 @@ class CommonPlugin : Plugin<Project> {
                     jvmTarget = "1.8"
                 }
             }
+            // jvm向けビルドを作れるようにする
+            it.jvm()
             // iOS向けビルドを作れるようにする
             listOf(
                 it.iosX64(),
@@ -65,11 +67,30 @@ class CommonPlugin : Plugin<Project> {
                 libs(project,"napier")?.let {
                     implementation(it)
                 }
+                libs(project, "koin.core")?.let {
+                    implementation(it)
+                }
             }
             // commonTestの設定
             it.sourceSets.getByName("commonTest").dependencies {
                 implementation(kotlin("test"))
                 libs(project, "kotest.assertions")?.let {
+                    implementation(it)
+                }
+                libs(project, "kotlin.coroutines.test")?.let {
+                    implementation(it)
+                }
+            }
+            // jvmTestの設定
+            it.sourceSets.getByName("jvmTest").dependencies {
+                implementation(kotlin("test"))
+                libs(project, "kotest.assertions")?.let {
+                    implementation(it)
+                }
+                libs(project, "kotlin.coroutines.test")?.let {
+                    implementation(it)
+                }
+                libs(project, "mockk")?.let {
                     implementation(it)
                 }
             }
@@ -139,15 +160,15 @@ class CommonPlugin : Plugin<Project> {
                 "**/*Test*.*",
                 "android/**/*.*"
             )
-            val debugTree = project.fileTree("${project.buildDir}/tmp/kotlin-classes/debug") {
+            val debugTree = project.fileTree("${project.buildDir}/classes/kotlin/jvm/main") {
                 this.setExcludes(fileFilter)
             }
-            val mainSrc = "${project.projectDir}/src/main/java"
+            val mainSrc = "${project.projectDir}/src/commonMain/kotlin"
 
             sourceDirectories.setFrom(project.files(mainSrc))
             classDirectories.setFrom(project.files(debugTree))
             executionData.setFrom(project.fileTree("${project.buildDir}") {
-                setIncludes(listOf("**/testDebugUnitTest.exec"))
+                setIncludes(listOf("**/jvmTest.exec"))
             })
         }
     }
