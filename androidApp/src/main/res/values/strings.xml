@@ -1,3 +1,5 @@
 <resources>
     <string name="home_title">GitHubリポジトリ検索</string>
+    <string name="home_search_content_description">検索キーワードを入力</string>
+    <string name="home_search_placeholder">GitHub のリポジトリを検索できるよ〜</string>
 </resources>
