@@ -4,6 +4,7 @@ import com.tfandkusu.kgs.data.remote.GithubRemoteDataSource
 import com.tfandkusu.kgs.error.MyError
 import com.tfandkusu.kgs.feature.viewmodel.ActionCreator
 import com.tfandkusu.kgs.feature.viewmodel.Dispatcher
+import kotlin.math.min
 
 class HomeActionCreator(
     private val remoteDataSource: GithubRemoteDataSource,
@@ -11,7 +12,13 @@ class HomeActionCreator(
     override suspend fun event(event: HomeEvent, dispatcher: Dispatcher<HomeAction>) {
         when (event) {
             is HomeEvent.InputKeyword -> {
-                dispatcher.dispatch(HomeAction.UpdateKeyword(event.keyword))
+                val oneLine = event.keyword.replace("\n", "")
+                val substring = oneLine.substring(0, min(50, oneLine.length))
+                dispatcher.dispatch(
+                    HomeAction.UpdateKeyword(
+                        substring,
+                    ),
+                )
             }
 
             is HomeEvent.SearchKeyword -> {
