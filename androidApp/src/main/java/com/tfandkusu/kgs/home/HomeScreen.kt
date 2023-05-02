@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -45,6 +46,7 @@ import com.tfandkusu.kgs.feature.home.HomeEffect
 import com.tfandkusu.kgs.feature.home.HomeEvent
 import com.tfandkusu.kgs.feature.home.HomeState
 import com.tfandkusu.kgs.feature.use
+import com.tfandkusu.kgs.model.GithubRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -116,6 +118,34 @@ fun HomeScreen(viewModel: HomeViewModel) {
                 )
             }
             Divider()
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+            ) {
+                items(
+                    count = state.items.size,
+                    key = { index ->
+                        when (val item = state.items[index]) {
+                            HomeState.Item.NetworkError -> HomeItemKey.NetworkError
+                            HomeState.Item.Progress -> HomeItemKey.Progress
+                            is HomeState.Item.Repo -> HomeItemKey.Repo(item.repo.id)
+                            is HomeState.Item.ServerError -> HomeItemKey.ServerError
+                        }
+                    },
+                    contentType = { index ->
+                        when (state.items[index]) {
+                            HomeState.Item.NetworkError -> 1
+                            HomeState.Item.Progress -> 2
+                            is HomeState.Item.Repo -> 3
+                            is HomeState.Item.ServerError -> 4
+                        }
+                    },
+                ) { index ->
+                    val item = state.items[index]
+                    HomeItem(state = item, onClickReload = {})
+                }
+            }
         }
     }
     LaunchedEffect(Unit) {
@@ -126,9 +156,49 @@ fun HomeScreen(viewModel: HomeViewModel) {
 @Preview
 @Composable
 fun HomeScreenPreview() {
+    val repos = listOf(
+        GithubRepo(
+            517191221,
+            "DroidKaigi/conference-app-2022",
+            "DroidKaigi",
+            "https://avatars.githubusercontent.com/u/10727543?v=4",
+            "Kotlin",
+            460,
+            460,
+            194,
+            39,
+        ),
+        GithubRepo(
+            283062475,
+            "DroidKaigi/conference-app-2021",
+            "DroidKaigi",
+            "https://avatars.githubusercontent.com/u/10727543?v=4",
+            "Kotlin",
+            632,
+            632,
+            189,
+            45,
+        ),
+        GithubRepo(
+            202978106,
+            "DroidKaigi/conference-app-2020",
+            "DroidKaigi",
+            "https://avatars.githubusercontent.com/u/10727543?v=4",
+            "Kotlin",
+            785,
+            785,
+            330,
+            46,
+        ),
+    )
+    val state = HomeState(
+        items = repos.map {
+            HomeState.Item.Repo(it)
+        },
+    )
     val viewModel = object : HomeViewModel {
         override val state: State<HomeState>
-            get() = mutableStateOf(HomeState())
+            get() = mutableStateOf(state)
         override val effect: Flow<HomeEffect>
             get() = flow { }
 
