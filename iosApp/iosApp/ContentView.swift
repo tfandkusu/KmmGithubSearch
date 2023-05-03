@@ -3,14 +3,10 @@ import common
 import remote
 
 struct ContentView: View {
-	let greet = Greeting().greet()
-    
-    let test = TestForIos()
+    @ObservedObject var viewModel = HomeViewModel()
         
 	var body: some View {
-        Text(greet).onAppear {
-            test.callApi()
-        }
+        Text(viewModel.state.greet)
 	}
 }
 
