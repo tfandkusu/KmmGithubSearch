@@ -60,6 +60,15 @@ fun HomeScreen(viewModel: HomeViewModel) {
     val (state, effect, dispatch) = use(viewModel)
     val focusRequester = remember { FocusRequester() }
     val keyboardController = LocalSoftwareKeyboardController.current
+    LaunchedEffect(Unit) {
+        effect.collect {
+            when (it) {
+                HomeEffect.HideKeyboard -> {
+                    keyboardController?.hide()
+                }
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
