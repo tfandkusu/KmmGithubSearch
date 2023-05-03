@@ -31,7 +31,7 @@ class HomeReducerTest {
             HomeAction.StartSearch,
         ) shouldBe StateEffect(
             state = HomeState(items = listOf(HomeState.Item.Progress)),
-            effect = HomeEffect.HideKeyboard
+            effect = HomeEffect.HideKeyboard,
         )
     }
 
