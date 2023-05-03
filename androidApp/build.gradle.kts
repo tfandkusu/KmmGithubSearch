@@ -3,6 +3,7 @@ import com.tfandkusu.kgs.CommonPlugin
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("kotlin-parcelize")
 }
 apply<CommonPlugin>()
 

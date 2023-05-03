@@ -1,3 +1,8 @@
 <resources>
     <string name="home_title">GitHubリポジトリ検索</string>
+    <string name="home_search_content_description">検索キーワードを入力</string>
+    <string name="home_search_placeholder">GitHub のリポジトリを検索できるよ〜</string>
+    <string name="error_network">ネットワークエラー</string>
+    <string name="reload">再読込</string>
+    <string name="error_server">サーバエラー(code = %d)</string>
 </resources>

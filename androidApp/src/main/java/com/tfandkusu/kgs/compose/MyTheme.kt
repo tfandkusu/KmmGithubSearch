@@ -1,4 +1,4 @@
-package com.tfandkusu.kgs.common
+package com.tfandkusu.kgs.compose
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

@@ -23,6 +23,7 @@ class HomeReducer : Reducer<HomeAction, HomeState, HomeEffect> {
                     state.copy(
                         items = listOf(HomeState.Item.Progress),
                     ),
+                    HomeEffect.HideKeyboard,
                 )
             }
 

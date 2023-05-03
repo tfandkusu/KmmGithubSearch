@@ -75,6 +75,31 @@ class HomeActionCreatorTest {
     }
 
     @Test
+    fun inputKeywordOneLine() = runTest {
+        actionCreator.event(HomeEvent.InputKeyword("one\ntwo\nthree"), dispatcher)
+        coVerifySequence {
+            dispatcher.dispatch(HomeAction.UpdateKeyword("onetwothree"))
+        }
+    }
+
+    @Test
+    fun inputKeywordLimitLength() = runTest {
+        actionCreator.event(
+            HomeEvent.InputKeyword(
+                "aaaaa\nbbbbb" + (10 until 51).joinToString(separator = "") { "c" },
+            ),
+            dispatcher,
+        )
+        coVerifySequence {
+            dispatcher.dispatch(
+                HomeAction.UpdateKeyword(
+                    "aaaaabbbbb" + (10 until 50).joinToString(separator = "") { "c" },
+                ),
+            )
+        }
+    }
+
+    @Test
     fun searchSuccess() = runTest {
         coEvery {
             githubRemoteDataSource.search("Kotlin")
