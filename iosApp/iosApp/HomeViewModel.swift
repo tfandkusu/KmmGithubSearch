@@ -1,11 +1,13 @@
 import Foundation
 
 struct HomeState{
-    let greet: String = "hello"
+    var keyword: String = ""
 }
 
 class HomeViewModel: ObservableObject {
     @Published var state = HomeState()
     
-    
+    func search(keyword: String) {
+        state = HomeState(keyword: keyword)
+    }
 }

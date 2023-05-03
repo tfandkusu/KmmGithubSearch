@@ -6,14 +6,17 @@ struct ContentView: View {
     @ObservedObject var viewModel = HomeViewModel()
     
     @State private var searchText = ""
-
         
 	var body: some View {
         VStack() {
-            Text("GitHubリポジトリ検索").font(.body).padding(16)
-            TextField("Search", text: $searchText)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding(.horizontal, 8)
+            Text("GitHubリポジトリ検索").font(.body).padding(8)
+            TextField("Search", text: $searchText, onCommit: {
+                viewModel.search(keyword: searchText)
+            })
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .keyboardType(.webSearch)
+            .padding(.horizontal, 8)
+            Text("検索キーワードは" + viewModel.state.keyword).font(.body).padding(8)
             Spacer()
         }
 	}
