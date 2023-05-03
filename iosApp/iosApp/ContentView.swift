@@ -6,7 +6,10 @@ struct ContentView: View {
     @ObservedObject var viewModel = HomeViewModel()
         
 	var body: some View {
-        Text(viewModel.state.greet)
+        VStack() {
+            Text("GitHubリポジトリ検索").font(.body).padding(16)
+            Spacer()
+        }
 	}
 }
 
