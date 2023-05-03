@@ -1,4 +1,4 @@
-package com.tfandkusu.kgs.common
+package com.tfandkusu.kgs.compose
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons

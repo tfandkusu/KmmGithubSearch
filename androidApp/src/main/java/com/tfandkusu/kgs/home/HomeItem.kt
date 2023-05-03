@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tfandkusu.kgs.R
-import com.tfandkusu.kgs.common.MyTheme
+import com.tfandkusu.kgs.compose.MyTheme
 import com.tfandkusu.kgs.feature.home.HomeState
 import com.tfandkusu.kgs.model.GithubRepo
 import kotlinx.parcelize.Parcelize
