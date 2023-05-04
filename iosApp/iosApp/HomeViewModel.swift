@@ -10,4 +10,8 @@ class HomeViewModel: ObservableObject {
     func search(keyword: String) {
         state = HomeState(keyword: keyword)
     }
+    
+    deinit {
+        NSLog("HomeViewModel deinit")
+    }
 }
