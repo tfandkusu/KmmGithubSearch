@@ -3,13 +3,21 @@ import common
 import remote
 
 struct ContentView: View {
-	let greet = Greeting().greet()
+    @ObservedObject var viewModel = HomeViewModel()
     
-    let test = TestForIos()
+    @State private var searchText = ""
         
 	var body: some View {
-        Text(greet).onAppear {
-            test.callApi()
+        VStack() {
+            Text("GitHubリポジトリ検索").font(.body).padding(8)
+            TextField("Search", text: $searchText, onCommit: {
+                viewModel.search(keyword: searchText)
+            })
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .keyboardType(.webSearch)
+            .padding(.horizontal, 8)
+            Text("検索キーワードは" + viewModel.state.keyword).font(.body).padding(8)
+            Spacer()
         }
 	}
 }
