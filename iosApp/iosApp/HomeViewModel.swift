@@ -1,6 +1,4 @@
 import Foundation
-import home
-import common
 
 struct HomeState{
     var keyword: String = ""
