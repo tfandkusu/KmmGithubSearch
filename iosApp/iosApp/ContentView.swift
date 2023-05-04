@@ -1,23 +1,21 @@
 import SwiftUI
-import common
-import remote
+
+enum Route: Hashable {
+    case home
+}
 
 struct ContentView: View {
-    @ObservedObject var viewModel = HomeViewModel()
-    
-    @State private var searchText = ""
         
 	var body: some View {
-        VStack() {
-            Text("GitHubリポジトリ検索").font(.body).padding(8)
-            TextField("Search", text: $searchText, onCommit: {
-                viewModel.search(keyword: searchText)
-            })
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-            .keyboardType(.webSearch)
-            .padding(.horizontal, 8)
-            Text("検索キーワードは" + viewModel.state.keyword).font(.body).padding(8)
-            Spacer()
+        NavigationView {
+            VStack() {
+                NavigationLink(
+                    destination: HomeView(),
+                    label: {
+                        Text("ホーム画面を開く")
+                    }).padding(8)
+                Spacer()
+            }.navigationBarTitle("最初の画面")
         }
 	}
 }
