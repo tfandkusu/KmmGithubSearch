@@ -1,10 +1,11 @@
 import SwiftUI
+import kgsios
 
 struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
     
     @State private var searchText = ""
-        
+
     var body: some View {
         VStack() {
             TextField("Search", text: $searchText, onCommit: {
@@ -15,6 +16,8 @@ struct HomeView: View {
             .padding(.horizontal, 8)
             Text("検索キーワードは" + viewModel.state.keyword).font(.body).padding(8)
             Spacer()
-        }.navigationBarTitle("GitHubリポジトリ検索")
+        }.navigationBarTitle("GitHubリポジトリ検索").onAppear(perform: {
+            HomeKoinComponent().createInitialState()
+        });
     }
 }

@@ -5,7 +5,7 @@ import kgsios
 struct iOSApp: App {
     
     init() {
-        InitKoinForIosKt.doInitKoinForIos()
+        InitForIosKt.doInitForIos()
     }
     
 	var body: some Scene {
