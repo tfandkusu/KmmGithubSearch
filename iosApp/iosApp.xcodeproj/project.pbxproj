@@ -179,7 +179,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :kgsios:embedAndSignAppleFrameworkForXcode\n./gradlew :common:embedAndSignAppleFrameworkForXcode\n./gradlew :feature:home:embedAndSignAppleFrameworkForXcode\n\n";
+			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :kgsios:embedAndSignAppleFrameworkForXcode\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -325,8 +325,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../kgsios/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
-					"$(SRCROOT)/../common/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
-					"$(SRCROOT)/../feature/home/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -337,10 +335,6 @@
 					"$(inherited)",
 					"-framework",
 					kgsios,
-					"-framework",
-					common,
-					"-framework",
-					home,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tfandkusu.kgs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -361,8 +355,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../kgsios/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
-					"$(SRCROOT)/../common/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
-					"$(SRCROOT)/../feature/home/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -373,10 +365,6 @@
 					"$(inherited)",
 					"-framework",
 					kgsios,
-					"-framework",
-					common,
-					"-framework",
-					home,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tfandkusu.kgs;
 				PRODUCT_NAME = "$(TARGET_NAME)";

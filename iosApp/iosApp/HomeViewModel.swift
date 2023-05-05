@@ -12,7 +12,9 @@ class HomeViewModel: ObservableObject {
     @Published var state = HomeState()
     
     init() {
-
+//        helper.setUp { [weak self] state in
+//            self.state = state
+//        }
     }
     
     func search(keyword: String) {
