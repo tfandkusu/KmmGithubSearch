@@ -7,4 +7,5 @@ class HomeViewModelHelper : IosViewModelHelperBase<HomeEvent, HomeAction, HomeSt
     override val actionCreator: HomeActionCreator by inject()
 
     override val reducer: HomeReducer by inject()
+
 }

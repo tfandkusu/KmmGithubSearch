@@ -13,7 +13,7 @@ struct HomeView: View {
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .keyboardType(.webSearch)
             .padding(.horizontal, 8)
-            Text("検索キーワードは" + viewModel.state.keyword).font(.body).padding(8)
+            Text(String(format: "検索結果は%d件", viewModel.state.items.count)).font(.body).padding(8)
             Spacer()
         }.navigationBarTitle("GitHubリポジトリ検索").onAppear(perform: {
         });

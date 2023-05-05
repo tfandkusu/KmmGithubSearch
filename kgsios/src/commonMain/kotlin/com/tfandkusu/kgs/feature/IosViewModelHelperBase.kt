@@ -17,13 +17,10 @@ abstract class IosViewModelHelperBase<EVENT, ACTION, STATE, EFFECT> : KoinCompon
 
     private val coroutineScope = MainScope()
 
-    fun createInitialState(): STATE {
-        return reducer.createInitialState()
-    }
-
     fun setUp(updateState: (STATE) -> Unit) {
         val state = reducer.createInitialState()
         this.updateState = updateState
+        this.updateState(state)
         this.state = state
     }
 
