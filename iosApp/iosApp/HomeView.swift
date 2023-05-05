@@ -17,7 +17,6 @@ struct HomeView: View {
             Text("検索キーワードは" + viewModel.state.keyword).font(.body).padding(8)
             Spacer()
         }.navigationBarTitle("GitHubリポジトリ検索").onAppear(perform: {
-            HomeKoinComponent().createInitialState()
         });
     }
 }
