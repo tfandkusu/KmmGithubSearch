@@ -4,6 +4,8 @@ import com.tfandkusu.kgs.data.remote.GithubRemoteDataSource
 import com.tfandkusu.kgs.error.MyError
 import com.tfandkusu.kgs.feature.viewmodel.ActionCreator
 import com.tfandkusu.kgs.feature.viewmodel.Dispatcher
+import com.tfandkusu.kgs.model.GithubRepo
+import io.github.aakira.napier.Napier
 import kotlin.math.min
 
 class HomeActionCreator(
@@ -24,10 +26,15 @@ class HomeActionCreator(
             is HomeEvent.SearchKeyword -> {
                 dispatcher.dispatch(HomeAction.StartSearch)
                 try {
-                    val githubRepoList = remoteDataSource.search(event.keyword)
-                    dispatcher.dispatch(HomeAction.UpdateList(githubRepoList))
+                    remoteDataSource.delay(5)
+                    Napier.d("success")
+                    val repos = listOf<GithubRepo>()
+                    dispatcher.dispatch(HomeAction.UpdateList(repos))
                 } catch (e: MyError) {
                     dispatcher.dispatch(HomeAction.Error(e))
+                    Napier.d("MyError", e)
+                } catch (e: Throwable) {
+                    Napier.d("Error ", e)
                 }
             }
         }

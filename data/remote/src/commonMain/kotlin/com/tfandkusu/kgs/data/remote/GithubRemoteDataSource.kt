@@ -1,6 +1,7 @@
 package com.tfandkusu.kgs.data.remote
 
 import com.tfandkusu.kgs.data.remote.schema.GithubSearchResponse
+import com.tfandkusu.kgs.data.remote.schema.HttpBinResponse
 import com.tfandkusu.kgs.error.MyError
 import com.tfandkusu.kgs.model.GithubRepo
 import io.ktor.client.HttpClient
@@ -17,6 +18,11 @@ interface GithubRemoteDataSource {
      * @return リポジトリ一覧(最大30個)
      */
     suspend fun search(query: String): List<GithubRepo>
+
+    /**
+     * コルーチンのキャンセルの検証用にレスポンスが遅いHTTPS通信を行う
+     */
+    suspend fun delay(seconds: Int)
 
     /**
      * ネットワークエラーになるリクエスト
@@ -51,6 +57,17 @@ internal class GithubRemoteDataSourceImpl(
                 it.forksCount,
                 it.openIssuesCount,
             )
+        }
+    }
+
+    override suspend fun delay(seconds: Int) {
+        try {
+            val httpResponse = client.get(
+                "https://httpbin.org/delay/$seconds",
+            )
+            val response: HttpBinResponse = httpResponse.body()
+        } catch (e: IOException) {
+            throw MyError.Network
         }
     }
 
