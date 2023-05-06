@@ -1,17 +1,25 @@
 import Foundation
-
-struct HomeState{
-    var keyword: String = ""
-}
+import kgsios
 
 class HomeViewModel: ObservableObject {
-    @Published var state = HomeState()
+    
+    private let helper = HomeViewModelHelper()
+    
+    @Published var state = HomeState(keyword: "", items: [])
+    
+    init() {
+        helper.setUp { [weak self] nextState in
+            if let nextState = nextState {
+                self?.state = nextState
+            }
+        }
+    }
     
     func search(keyword: String) {
-        state = HomeState(keyword: keyword)
+        helper.event(event: HomeEvent.SearchKeyword(keyword: keyword))
     }
     
     deinit {
-        NSLog("HomeViewModel deinit")
+        helper.clean()
     }
 }
