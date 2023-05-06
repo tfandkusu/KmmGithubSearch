@@ -9,6 +9,8 @@ sealed class HomeAction {
 
     data class UpdateKeyword(val keyword: String) : HomeAction()
 
+    object HideKeyboard : HomeAction()
+
     object StartSearch : HomeAction()
 
     data class Error(val e: MyError) : HomeAction()
