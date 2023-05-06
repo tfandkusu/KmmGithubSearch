@@ -4,15 +4,12 @@ import android.os.Parcelable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,7 +38,7 @@ sealed class HomeItemKey : Parcelable {
 }
 
 @Composable
-fun HomeItem(state: HomeState.Item, onClickReload: () -> Unit) {
+fun HomeItem(state: HomeState.Item) {
     when (state) {
         HomeState.Item.Progress -> {
             Row(
@@ -74,21 +71,17 @@ fun HomeItem(state: HomeState.Item, onClickReload: () -> Unit) {
         HomeState.Item.NetworkError -> {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
+                    modifier = Modifier.padding(16.dp),
                     text = stringResource(R.string.error_network),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.bodyMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
-                Spacer(modifier = Modifier.height(8.dp))
-                TextButton(onClick = onClickReload) {
-                    Text(text = stringResource(R.string.reload))
-                }
             }
         }
 
@@ -117,7 +110,6 @@ fun HomeItemPreviewProgress() {
     MyTheme {
         HomeItem(
             state = HomeState.Item.Progress,
-            onClickReload = {},
         )
     }
 }
@@ -141,7 +133,6 @@ fun HomeItemPreviewRepo() {
             state = HomeState.Item.Repo(
                 repo,
             ),
-            onClickReload = {},
         )
     }
 }
@@ -152,7 +143,6 @@ fun HomeItemPreviewNetworkError() {
     MyTheme {
         HomeItem(
             state = HomeState.Item.NetworkError,
-            onClickReload = {},
         )
     }
 }
@@ -163,7 +153,6 @@ fun HomeItemPreviewServerError() {
     MyTheme {
         HomeItem(
             state = HomeState.Item.ServerError(500),
-            onClickReload = {},
         )
     }
 }
