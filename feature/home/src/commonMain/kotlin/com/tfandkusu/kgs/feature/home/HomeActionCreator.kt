@@ -23,9 +23,13 @@ class HomeActionCreator(
             }
 
             is HomeEvent.SearchKeyword -> {
+                dispatcher.dispatch(HomeAction.HideKeyboard)
+                if (event.keyword.trim().isEmpty()) {
+                    return
+                }
                 dispatcher.dispatch(HomeAction.StartSearch)
                 try {
-                    val githubRepoList = remoteDataSource.search(event.keyword)
+                    val githubRepoList = remoteDataSource.search(event.keyword.trim())
                     dispatcher.dispatch(HomeAction.UpdateList(githubRepoList))
                 } catch (e: MyError) {
                     dispatcher.dispatch(HomeAction.Error(e))

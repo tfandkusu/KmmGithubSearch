@@ -25,13 +25,23 @@ class HomeReducerTest {
     }
 
     @Test
+    fun hideKeyboard() {
+        reducer.reduce(
+            HomeState(),
+            HomeAction.HideKeyboard,
+        ) shouldBe StateEffect(
+            state = HomeState(),
+            effect = HomeEffect.HideKeyboard,
+        )
+    }
+
+    @Test
     fun startSearch() {
         reducer.reduce(
             HomeState(),
             HomeAction.StartSearch,
         ) shouldBe StateEffect(
             state = HomeState(items = listOf(HomeState.Item.Progress)),
-            effect = HomeEffect.HideKeyboard,
         )
     }
 
