@@ -26,7 +26,7 @@ class HomeActionCreator(
             is HomeEvent.SearchKeyword -> {
                 dispatcher.dispatch(HomeAction.StartSearch)
                 try {
-                    remoteDataSource.delay(5)
+                    remoteDataSource.delay(11)
                     Napier.d("success")
                     val repos = listOf<GithubRepo>()
                     dispatcher.dispatch(HomeAction.UpdateList(repos))

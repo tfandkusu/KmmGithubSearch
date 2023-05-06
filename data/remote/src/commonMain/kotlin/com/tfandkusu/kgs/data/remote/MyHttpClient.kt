@@ -3,6 +3,7 @@ package com.tfandkusu.kgs.data.remote
 import com.tfandkusu.kgs.error.MyError
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpCallValidator
+import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -10,6 +11,10 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonNamingStrategy
 
 expect fun getMyHttpClient(): HttpClient
+
+fun HttpTimeout.HttpTimeoutCapabilityConfiguration.myConfiguration() {
+    requestTimeoutMillis = 10000
+}
 
 @OptIn(ExperimentalSerializationApi::class)
 fun ContentNegotiation.Config.myConfigure() {

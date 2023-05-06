@@ -4,6 +4,7 @@ import com.tfandkusu.kgs.data.remote.schema.GithubSearchResponse
 import com.tfandkusu.kgs.data.remote.schema.HttpBinResponse
 import com.tfandkusu.kgs.error.MyError
 import com.tfandkusu.kgs.model.GithubRepo
+import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -67,6 +68,7 @@ internal class GithubRemoteDataSourceImpl(
             )
             val response: HttpBinResponse = httpResponse.body()
         } catch (e: IOException) {
+            Napier.d("Error", e)
             throw MyError.Network
         }
     }
