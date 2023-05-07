@@ -52,7 +52,6 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.material)
     implementation(libs.navigation.compose)
-    implementation(libs.navigation.fragment.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.napier)
 }
