@@ -1,18 +1,20 @@
 package com.tfandkusu.kgs
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
-import androidx.navigation.fragment.NavHostFragment
+import com.tfandkusu.kgs.compose.AppContent
+import com.tfandkusu.kgs.compose.MyTheme
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        setContentView(R.layout.activity_main)
-        val navHostFragment = supportFragmentManager.findFragmentById(
-            R.id.nav_host_fragment,
-        ) as NavHostFragment
-        val navController = navHostFragment.navController
+        setContent {
+            MyTheme {
+                AppContent()
+            }
+        }
     }
 }

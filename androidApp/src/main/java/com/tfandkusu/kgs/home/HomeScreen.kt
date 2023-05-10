@@ -150,7 +150,7 @@ fun HomeScreen(viewModel: HomeViewModel) {
                     },
                 ) { index ->
                     val item = state.items[index]
-                    HomeItem(state = item, onClickReload = {})
+                    HomeItem(state = item)
                 }
             }
         }

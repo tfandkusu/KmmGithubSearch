@@ -18,12 +18,18 @@ class HomeReducer : Reducer<HomeAction, HomeState, HomeEffect> {
                 )
             }
 
+            HomeAction.HideKeyboard -> {
+                StateEffect(
+                    state,
+                    HomeEffect.HideKeyboard,
+                )
+            }
+
             HomeAction.StartSearch -> {
                 StateEffect(
                     state.copy(
                         items = listOf(HomeState.Item.Progress),
                     ),
-                    HomeEffect.HideKeyboard,
                 )
             }
 

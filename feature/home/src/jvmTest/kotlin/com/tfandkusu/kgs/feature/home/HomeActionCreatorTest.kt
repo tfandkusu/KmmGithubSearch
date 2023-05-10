@@ -106,6 +106,7 @@ class HomeActionCreatorTest {
         } returns repos
         actionCreator.event(HomeEvent.SearchKeyword("Kotlin"), dispatcher)
         coVerifySequence {
+            dispatcher.dispatch(HomeAction.HideKeyboard)
             dispatcher.dispatch(HomeAction.StartSearch)
             githubRemoteDataSource.search("Kotlin")
             dispatcher.dispatch(HomeAction.UpdateList(repos))
@@ -117,11 +118,20 @@ class HomeActionCreatorTest {
         coEvery {
             githubRemoteDataSource.search("Kotlin")
         } throws MyError.Network
-        actionCreator.event(HomeEvent.SearchKeyword("Kotlin"), dispatcher)
+        actionCreator.event(HomeEvent.SearchKeyword(" Kotlin "), dispatcher)
         coVerifySequence {
+            dispatcher.dispatch(HomeAction.HideKeyboard)
             dispatcher.dispatch(HomeAction.StartSearch)
             githubRemoteDataSource.search("Kotlin")
             dispatcher.dispatch(HomeAction.Error(MyError.Network))
+        }
+    }
+
+    @Test
+    fun searchEmpty() = runTest {
+        actionCreator.event(HomeEvent.SearchKeyword(" "), dispatcher)
+        coVerifySequence {
+            dispatcher.dispatch(HomeAction.HideKeyboard)
         }
     }
 }
