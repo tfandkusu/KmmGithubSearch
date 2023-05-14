@@ -30,7 +30,7 @@ jobs:
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: ./gradlew jvmTest
-      - run: ./gradlew jacocoReport
+      - run: ./gradlew koverXmlReport
       # Codecov
       - uses: codecov/codecov-action@v3
         with:

@@ -4,6 +4,8 @@ import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.BaseExtension
 import com.diffplug.gradle.spotless.SpotlessExtension
 import com.diffplug.gradle.spotless.SpotlessPlugin
+import kotlinx.kover.gradle.plugin.KoverGradlePlugin
+import kotlinx.kover.gradle.plugin.dsl.KoverReportExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
@@ -15,13 +17,15 @@ import org.gradle.kotlin.dsl.kotlin
 import org.gradle.testing.jacoco.plugins.JacocoPlugin
 import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import java.io.File
 
 class CommonPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         setUpAndrood(project)
         setUpKMM(project)
         setUpSpotless(project)
-        setUpJacoco(project)
+        // setUpJacoco(project)
+        setUpKover(project)
     }
 
     /**
@@ -172,4 +176,16 @@ class CommonPlugin : Plugin<Project> {
             })
         }
     }
+
+    private fun setUpKover(project: Project) {
+        project.plugins.apply(KoverGradlePlugin::class.java)
+//        project.extensions.configure<KoverReportExtension> {
+//            defaults {
+//                xml {
+//                    setReportFile(File("${project.buildDir}/kover/report.xml"))
+//                }
+//            }
+//        }
+    }
+
 }
