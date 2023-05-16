@@ -4,6 +4,9 @@ import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.BaseExtension
 import com.diffplug.gradle.spotless.SpotlessExtension
 import com.diffplug.gradle.spotless.SpotlessPlugin
+import kotlinx.kover.gradle.plugin.KoverGradlePlugin
+import kotlinx.kover.gradle.plugin.dsl.KoverProjectExtension
+import kotlinx.kover.gradle.plugin.dsl.KoverReportExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
@@ -12,16 +15,15 @@ import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.kotlin
-import org.gradle.testing.jacoco.plugins.JacocoPlugin
-import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import java.io.File
 
 class CommonPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         setUpAndrood(project)
         setUpKMM(project)
         setUpSpotless(project)
-        setUpJacoco(project)
+        setUpKover(project)
     }
 
     /**
@@ -136,40 +138,10 @@ class CommonPlugin : Plugin<Project> {
     }
 
     /**
-     * Jacocoの設定
+     * Kover の設定
      */
-    private fun setUpJacoco(project: Project) {
-        // Jacocoの設定
-        // ローカルユニットテストを実行すると
-        // バイナリ形式のカバレッジレポート testDebugUnitTest.exec が生成されるようにする。
-        project.plugins.apply(JacocoPlugin::class.java)
-        // それをxmlとhtml形式に変換するタスク
-        project.tasks.create(
-            "jacocoReport",
-            JacocoReport::class.java
-        ) {
-            reports {
-                xml.required.set(true)
-                csv.required.set(true)
-            }
-            val fileFilter = listOf(
-                "**/R.class",
-                "**/R$*.class",
-                "**/BuildConfig.*",
-                "**/Manifest*.*",
-                "**/*Test*.*",
-                "android/**/*.*"
-            )
-            val debugTree = project.fileTree("${project.buildDir}/classes/kotlin/jvm/main") {
-                this.setExcludes(fileFilter)
-            }
-            val mainSrc = "${project.projectDir}/src/commonMain/kotlin"
-
-            sourceDirectories.setFrom(project.files(mainSrc))
-            classDirectories.setFrom(project.files(debugTree))
-            executionData.setFrom(project.fileTree("${project.buildDir}") {
-                setIncludes(listOf("**/jvmTest.exec"))
-            })
-        }
+    private fun setUpKover(project: Project) {
+        project.plugins.apply(KoverGradlePlugin::class.java)
     }
+
 }
