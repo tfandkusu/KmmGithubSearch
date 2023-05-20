@@ -30,6 +30,9 @@ jobs:
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: ./gradlew koverXmlReport
+        if: github.event_name == 'pull_request'
+      - run: ./gradlew koverXmlReport -PmyKoverFilter=true
+        if: github.ref == 'refs/heads/main'
       # Codecov
       - uses: codecov/codecov-action@v3
         with:
