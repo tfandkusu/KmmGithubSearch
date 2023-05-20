@@ -4,6 +4,7 @@ import com.tfandkusu.kgs.error.MyError
 import com.tfandkusu.kgs.feature.viewmodel.StateEffect
 import com.tfandkusu.kgs.model.GithubRepo
 import io.kotest.matchers.shouldBe
+import kotlinx.datetime.Instant
 import kotlin.test.Test
 
 class HomeReducerTest {
@@ -58,6 +59,7 @@ class HomeReducerTest {
                 460,
                 194,
                 39,
+                Instant.parse("2023-05-13T13:24:03Z"),
             ),
             GithubRepo(
                 283062475,
@@ -69,6 +71,7 @@ class HomeReducerTest {
                 632,
                 189,
                 45,
+                Instant.parse("2022-05-13T13:24:03Z"),
             ),
             GithubRepo(
                 202978106,
@@ -80,6 +83,8 @@ class HomeReducerTest {
                 785,
                 330,
                 46,
+                Instant.parse("2021-05-13T13:24:03Z"),
+
             ),
         )
 

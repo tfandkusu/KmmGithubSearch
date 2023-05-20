@@ -1,5 +1,7 @@
 package com.tfandkusu.kgs.model
 
+import kotlinx.datetime.Instant
+
 /**
  * GitHubレポジトリ
  *
@@ -12,6 +14,7 @@ package com.tfandkusu.kgs.model
  * @param watchersCount Watcher数
  * @param forksCount フォーク数
  * @param openIssuesCount OpenなIssue数
+ * @param updatedAt 更新日時
  */
 data class GithubRepo(
     val id: Long,
@@ -23,4 +26,5 @@ data class GithubRepo(
     val watchersCount: Int,
     val forksCount: Int,
     val openIssuesCount: Int,
+    val updatedAt: Instant,
 )

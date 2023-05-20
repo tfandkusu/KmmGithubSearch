@@ -2,6 +2,7 @@ package com.tfandkusu.kgs.data.remote
 
 import com.tfandkusu.kgs.error.MyError
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.comparables.shouldBeGreaterThan
 import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.shouldBe
@@ -41,7 +42,7 @@ class GithubRemoteDataSourceTest {
         repo.watchersCount shouldBeGreaterThan 100
         repo.forksCount shouldBeGreaterThan 100
         repo.openIssuesCount shouldBeGreaterThanOrEqual 0
-        Unit
+        repo.updatedAt shouldBeGreaterThan Instant.parse("2023-03-28T15:54:44Z")
     }
 
     @Test
