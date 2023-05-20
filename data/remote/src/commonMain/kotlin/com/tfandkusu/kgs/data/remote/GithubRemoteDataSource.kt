@@ -57,6 +57,7 @@ internal class GithubRemoteDataSourceImpl(
                 it.watchersCount,
                 it.forksCount,
                 it.openIssuesCount,
+                it.updatedAt,
             )
         }
     }

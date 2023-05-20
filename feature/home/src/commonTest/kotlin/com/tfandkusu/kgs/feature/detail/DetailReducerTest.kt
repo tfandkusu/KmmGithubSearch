@@ -3,6 +3,7 @@ package com.tfandkusu.kgs.feature.detail
 import com.tfandkusu.kgs.feature.viewmodel.StateEffect
 import com.tfandkusu.kgs.model.GithubRepo
 import io.kotest.matchers.shouldBe
+import kotlinx.datetime.Instant
 import kotlin.test.Test
 
 class DetailReducerTest {
@@ -19,6 +20,7 @@ class DetailReducerTest {
         460,
         194,
         39,
+        Instant.parse("2023-03-28T15:54:44Z"),
     )
 
     @Test

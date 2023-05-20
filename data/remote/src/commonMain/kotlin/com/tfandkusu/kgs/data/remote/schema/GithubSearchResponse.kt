@@ -1,5 +1,6 @@
 package com.tfandkusu.kgs.data.remote.schema
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 
 /**
@@ -19,6 +20,7 @@ data class GithubSearchResponseItem(
     val watchersCount: Int,
     val forksCount: Int,
     val openIssuesCount: Int,
+    val updatedAt: Instant,
 )
 
 @Serializable

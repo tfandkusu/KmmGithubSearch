@@ -72,6 +72,9 @@ class CommonPlugin : Plugin<Project> {
                 libs(project, "koin.core")?.let {
                     implementation(it)
                 }
+                libs(project, "kotlinx.datetime")?.let {
+                    implementation(it)
+                }
             }
             // commonTestの設定
             it.sourceSets.getByName("commonTest").dependencies {

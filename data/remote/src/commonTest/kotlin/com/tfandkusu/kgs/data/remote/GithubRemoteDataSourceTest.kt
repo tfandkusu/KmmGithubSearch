@@ -2,10 +2,16 @@ package com.tfandkusu.kgs.data.remote
 
 import com.tfandkusu.kgs.error.MyError
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.matchers.comparables.shouldBeGreaterThan
 import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
@@ -36,7 +42,7 @@ class GithubRemoteDataSourceTest {
         repo.watchersCount shouldBeGreaterThan 100
         repo.forksCount shouldBeGreaterThan 100
         repo.openIssuesCount shouldBeGreaterThanOrEqual 0
-        Unit
+        repo.updatedAt shouldBeGreaterThan Instant.parse("2023-03-28T15:54:44Z")
     }
 
     @Test
@@ -189,5 +195,23 @@ class GithubRemoteDataSourceTest {
         response.items[0].owner.login shouldBe "DroidKaigi"
         response.items[0].owner.avatarUrl shouldBe "https://avatars.githubusercontent.com/u/10727543?v=4"
         response.items[0].forksCount shouldBe 193
+        val updatedAt = response.items[0].updatedAt
+        updatedAt shouldBe Instant.parse("2023-03-28T15:54:44Z")
+        val localDateTime = updatedAt.toLocalDateTime(TimeZone.of("Asia/Tokyo"))
+        localDateTime shouldBe LocalDateTime(
+            2023,
+            3,
+            29,
+            0,
+            54,
+            44,
+        )
+    }
+
+    @Test
+    fun time() {
+        // kotlinx-datetime の動作確認
+        val now = Clock.System.now()
+        println("now = $now")
     }
 }

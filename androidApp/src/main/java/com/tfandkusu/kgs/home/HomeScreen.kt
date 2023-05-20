@@ -48,6 +48,7 @@ import com.tfandkusu.kgs.feature.use
 import com.tfandkusu.kgs.model.GithubRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.datetime.Instant
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -150,7 +151,7 @@ fun HomeScreen(viewModel: HomeViewModel) {
                     },
                 ) { index ->
                     val item = state.items[index]
-                    HomeItem(state = item)
+                    HomeItem(HomeItemState(item))
                 }
             }
         }
@@ -174,6 +175,7 @@ fun HomeScreenPreview() {
             460,
             194,
             39,
+            Instant.fromEpochMilliseconds(0),
         ),
         GithubRepo(
             283062475,
@@ -185,6 +187,7 @@ fun HomeScreenPreview() {
             632,
             189,
             45,
+            Instant.fromEpochMilliseconds(0),
         ),
         GithubRepo(
             202978106,
@@ -196,6 +199,7 @@ fun HomeScreenPreview() {
             785,
             330,
             46,
+            Instant.fromEpochMilliseconds(0),
         ),
     )
     val state = HomeState(

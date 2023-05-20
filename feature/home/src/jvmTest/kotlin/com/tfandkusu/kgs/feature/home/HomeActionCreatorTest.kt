@@ -10,6 +10,7 @@ import io.mockk.coVerifySequence
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import kotlinx.datetime.Instant
 import org.junit.Before
 import org.junit.Test
 
@@ -35,6 +36,7 @@ class HomeActionCreatorTest {
             460,
             194,
             39,
+            Instant.parse("2023-05-13T13:24:03Z"),
         ),
         GithubRepo(
             283062475,
@@ -46,6 +48,7 @@ class HomeActionCreatorTest {
             632,
             189,
             45,
+            Instant.parse("2022-05-13T13:24:03Z"),
         ),
         GithubRepo(
             202978106,
@@ -57,6 +60,7 @@ class HomeActionCreatorTest {
             785,
             330,
             46,
+            Instant.parse("2021-05-13T13:24:03Z"),
         ),
     )
 
