@@ -21,6 +21,7 @@ import com.tfandkusu.kgs.R
 import com.tfandkusu.kgs.compose.MyTheme
 import com.tfandkusu.kgs.feature.home.HomeState
 import com.tfandkusu.kgs.model.GithubRepo
+import kotlinx.datetime.Instant
 import kotlinx.parcelize.Parcelize
 
 sealed class HomeItemKey : Parcelable {
@@ -127,7 +128,8 @@ fun HomeItemPreviewRepo() {
         460,
         194,
         39,
-    )
+        Instant.fromEpochMilliseconds(0),
+        )
     MyTheme {
         HomeItem(
             state = HomeState.Item.Repo(
