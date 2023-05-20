@@ -141,7 +141,24 @@ class CommonPlugin : Plugin<Project> {
      * Kover の設定
      */
     private fun setUpKover(project: Project) {
-        project.plugins.apply(KoverGradlePlugin::class.java)
+        if (project.properties["myKoverFilter"] == "true") {
+            // feature:xxx モジュールの ActionCreator と Reducer のみ
+            if(project.path.contains(":feature:")) {
+                project.plugins.apply(KoverGradlePlugin::class.java)
+                project.extensions.configure<KoverReportExtension>() {
+                    filters {
+                        includes {
+                            classes(
+                                "*ActionCreator",
+                                "*Reducer"
+                            )
+                        }
+                    }
+                }
+            }
+        } else {
+            // 全クラス対象
+            project.plugins.apply(KoverGradlePlugin::class.java)
+        }
     }
-
 }
