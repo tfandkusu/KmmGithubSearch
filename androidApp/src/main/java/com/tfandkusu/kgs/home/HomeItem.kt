@@ -11,6 +11,7 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -19,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tfandkusu.kgs.R
 import com.tfandkusu.kgs.compose.MyTheme
+import com.tfandkusu.kgs.compose.recomposeHighlighter
 import com.tfandkusu.kgs.feature.home.HomeState
 import com.tfandkusu.kgs.model.GithubRepo
 import kotlinx.datetime.Instant
@@ -38,9 +40,14 @@ sealed class HomeItemKey : Parcelable {
     object ServerError : HomeItemKey()
 }
 
+@Stable
+data class HomeItemState(
+    val state: HomeState.Item,
+)
+
 @Composable
-fun HomeItem(state: HomeState.Item) {
-    when (state) {
+fun HomeItem(itemState: HomeItemState) {
+    when (val state = itemState.state) {
         HomeState.Item.Progress -> {
             Row(
                 modifier = Modifier
@@ -55,6 +62,7 @@ fun HomeItem(state: HomeState.Item) {
         is HomeState.Item.Repo -> {
             Column(
                 modifier = Modifier
+                    .recomposeHighlighter()
                     .fillMaxWidth(),
             ) {
                 Text(
@@ -110,7 +118,7 @@ fun HomeItem(state: HomeState.Item) {
 fun HomeItemPreviewProgress() {
     MyTheme {
         HomeItem(
-            state = HomeState.Item.Progress,
+            HomeItemState(HomeState.Item.Progress),
         )
     }
 }
@@ -129,11 +137,13 @@ fun HomeItemPreviewRepo() {
         194,
         39,
         Instant.fromEpochMilliseconds(0),
-        )
+    )
     MyTheme {
         HomeItem(
-            state = HomeState.Item.Repo(
-                repo,
+            HomeItemState(
+                HomeState.Item.Repo(
+                    repo,
+                ),
             ),
         )
     }
@@ -144,7 +154,7 @@ fun HomeItemPreviewRepo() {
 fun HomeItemPreviewNetworkError() {
     MyTheme {
         HomeItem(
-            state = HomeState.Item.NetworkError,
+            HomeItemState(HomeState.Item.NetworkError),
         )
     }
 }
@@ -154,7 +164,7 @@ fun HomeItemPreviewNetworkError() {
 fun HomeItemPreviewServerError() {
     MyTheme {
         HomeItem(
-            state = HomeState.Item.ServerError(500),
+            HomeItemState(HomeState.Item.ServerError(500)),
         )
     }
 }
