@@ -3,7 +3,7 @@ kotlin = '1.8.0'
 ktorfit = '1.0.1'
 # デグレードしているので2.2.1を使う
 # https://youtrack.jetbrains.com/issue/KTOR-5502/DarwinClientEngine-a-request-deadlocks-on-macOS-since-2.2.2
-ktor = '2.2.1'
+ktor = '2.3.2'
 coroutines = '1.6.4'
 koin = '3.4.0'
 
