@@ -1,5 +1,5 @@
 [versions]
-kotlin = '1.8.0'
+kotlin = '1.9.0'
 ktorfit = '1.0.1'
 # デグレードしているので2.2.1を使う
 # https://youtrack.jetbrains.com/issue/KTOR-5502/DarwinClientEngine-a-request-deadlocks-on-macOS-since-2.2.2
