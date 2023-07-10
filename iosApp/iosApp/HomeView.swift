@@ -1,4 +1,5 @@
 import SwiftUI
+import kgsios
 
 struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
@@ -16,6 +17,15 @@ struct HomeView: View {
             Text(String(format: "検索結果は%d件", viewModel.state.items.count)).font(.body).padding(8)
             Spacer()
         }.navigationBarTitle("GitHubリポジトリ検索").onAppear(perform: {
+            let useCase = TryUseCase()
+            useCase.execute { (result, error) in
+                if let nonOpticalResult = result {
+                    print("result = ", nonOpticalResult.intValue)
+                }
+                if let nonOpticalError = error {
+                    print("error = ", nonOpticalError)
+                }
+            }
         });
     }
 }
