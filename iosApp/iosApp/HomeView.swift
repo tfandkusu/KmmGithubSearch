@@ -23,7 +23,12 @@ struct HomeView: View {
                     print("result = ", nonOpticalResult.intValue)
                 }
                 if let nonOpticalError = error {
-                    print("error = ", nonOpticalError)
+                    print("error = ", type(of: nonOpticalError))
+                    let nsError = nonOpticalError as NSError
+                    let kotlinException = nsError.userInfo["KotlinException"]
+                    if let nonOpticalKotlinException = kotlinException {
+                        print("KotlinException = ", type(of: nonOpticalKotlinException))
+                    }
                 }
             }
         });
