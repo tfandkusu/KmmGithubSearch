@@ -1,5 +1,6 @@
 import SwiftUI
 import kgsios
+import KMPNativeCoroutinesAsync
 
 struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
@@ -17,17 +18,20 @@ struct HomeView: View {
             Text(String(format: "検索結果は%d件", viewModel.state.items.count)).font(.body).padding(8)
             Spacer()
         }.navigationBarTitle("GitHubリポジトリ検索").onAppear(perform: {
-            let useCase = TryUseCase()
-            useCase.execute { (result, error) in
-                if let nonOpticalResult = result {
-                    print("result = ", nonOpticalResult.intValue)
-                }
-                if let nonOpticalError = error {
-                    print("error = ", type(of: nonOpticalError))
-                    let nsError = nonOpticalError as NSError
+            Task {
+                let useCase = ExampleUseCase()
+                do {
+                    let result = try await asyncFunction(for: useCase.execute())
+                    print("result = \(result)")
+                } catch {
+                    let nsError = error as NSError
                     let kotlinException = nsError.userInfo["KotlinException"]
                     if let nonOpticalKotlinException = kotlinException {
-                        print("KotlinException = ", type(of: nonOpticalKotlinException))
+                        if(kotlinException is ExampleException) {
+                            let exampleException = nonOpticalKotlinException as! ExampleException
+                            let code = exampleException.code
+                            print("code = \(code)")
+                        }
                     }
                 }
             }
