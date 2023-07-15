@@ -14,7 +14,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "KmmGithubSearch"
-enableFeaturePreview("VERSION_CATALOGS")
 include(":androidApp")
 include(":common")
 include(":data:remote")
