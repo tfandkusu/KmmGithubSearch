@@ -3,8 +3,8 @@ import com.tfandkusu.kgs.CommonPlugin
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    id("com.google.devtools.ksp").version("1.8.22-1.0.11")
-    kotlin("plugin.serialization") version "1.8.22"
+    id("com.google.devtools.ksp")
+    kotlin("plugin.serialization")
     id ("org.jetbrains.kotlinx.kover")
 }
 apply<CommonPlugin>()
