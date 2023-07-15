@@ -4,8 +4,8 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("com.google.devtools.ksp")
-    kotlin("plugin.serialization")
-    id ("org.jetbrains.kotlinx.kover")
+    id("org.jetbrains.kotlin.plugin.serialization")
+    id("org.jetbrains.kotlinx.kover")
 }
 apply<CommonPlugin>()
 
