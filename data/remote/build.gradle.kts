@@ -5,6 +5,7 @@ plugins {
     id("com.android.library")
     id("com.google.devtools.ksp").version("1.8.22-1.0.11")
     kotlin("plugin.serialization") version "1.8.22"
+    id ("org.jetbrains.kotlinx.kover")
 }
 apply<CommonPlugin>()
 

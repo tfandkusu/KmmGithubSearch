@@ -4,6 +4,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("kotlin-parcelize")
+    id ("org.jetbrains.kotlinx.kover")
 }
 apply<CommonPlugin>()
 
@@ -33,9 +34,12 @@ android {
     }
 }
 
+
 dependencies {
     implementation(project(":feature:home"))
     implementation(project(":common"))
+    kover(project(":feature:home"))
+    kover(project(":data:remote"))
     implementation(libs.appcompat)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
