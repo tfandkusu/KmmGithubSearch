@@ -24,7 +24,7 @@ class ExampleRepository {
 
     suspend fun get(): Int {
         delay(1000)
-        throw ExampleException(404)
+        // throw ExampleException(404)
         return 1
     }
 }
