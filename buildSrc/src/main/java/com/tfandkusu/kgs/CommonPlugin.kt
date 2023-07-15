@@ -7,11 +7,13 @@ import com.diffplug.gradle.spotless.SpotlessPlugin
 import kotlinx.kover.gradle.plugin.KoverGradlePlugin
 import kotlinx.kover.gradle.plugin.dsl.KoverProjectExtension
 import kotlinx.kover.gradle.plugin.dsl.KoverReportExtension
+import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.kotlin
@@ -34,6 +36,10 @@ class CommonPlugin : Plugin<Project> {
             compileSdkVersion(33)
             defaultConfig.minSdk = 21
             defaultConfig.targetSdk = 33
+            compileOptions {
+                sourceCompatibility = JavaVersion.VERSION_17
+                targetCompatibility = JavaVersion.VERSION_17
+            }
         }
     }
 
@@ -45,7 +51,7 @@ class CommonPlugin : Plugin<Project> {
             // Androidの設定
             it.android().compilations.all {
                 kotlinOptions {
-                    jvmTarget = "1.8"
+                    jvmTarget = "17"
                 }
             }
             // jvm向けビルドを作れるようにする

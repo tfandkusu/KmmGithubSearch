@@ -1,27 +1,23 @@
 [versions]
-kotlin = '1.8.0'
-ktorfit = '1.0.1'
+kotlin = '1.8.22'
 # デグレードしているので2.2.1を使う
 # https://youtrack.jetbrains.com/issue/KTOR-5502/DarwinClientEngine-a-request-deadlocks-on-macOS-since-2.2.2
 ktor = '2.2.1'
-coroutines = '1.6.4'
+coroutines = '1.7.2'
 koin = '3.4.0'
-
 
 [libraries]
 # Gradle Plugin
-android-gradle = 'com.android.tools.build:gradle:7.4.2'
+android-gradle = 'com.android.tools.build:gradle:8.0.2'
 kotlin-gradle = { module = 'org.jetbrains.kotlin:kotlin-gradle-plugin', version.ref = 'kotlin' }
 spotless-gradle = 'com.diffplug.spotless:spotless-plugin-gradle:6.17.0'
 kover-gradle = 'org.jetbrains.kotlinx:kover-gradle-plugin:0.7.0-Beta'
-ksp-gradle = 'com.google.devtools.ksp:symbol-processing-gradle-plugin:1.8.0-1.0.9'
 # Koin
 koin-core = { module = 'io.insert-koin:koin-core', version.ref = 'koin' }
 koin-android = { module = 'io.insert-koin:koin-android', version.ref = 'koin' }
 koin-androidx-compose = { module = 'io.insert-koin:koin-androidx-compose', version.ref = 'koin' }
 # Kotlin Coroutine
 coroutine = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-core', version.ref = 'coroutines' }
-kmp-nativecoroutines = 'com.rickclephas.kmp:kmp-nativecoroutines-gradle-plugin:1.0.0-ALPHA-4'
 # Ktor
 ktor-client-core = { module = 'io.ktor:ktor-client-core', version.ref = 'ktor' }
 ktor-client-okhttp = { module = 'io.ktor:ktor-client-okhttp', version.ref = 'ktor' }
@@ -42,9 +38,9 @@ lifecycle-viewmodel-ktx = 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
 # Android UI
 appcompat = 'androidx.appcompat:appcompat:1.6.1'
 compose-ui-ui = 'androidx.compose.ui:ui:1.4.0'
-compose-ui-tooling = 'androidx.compose.ui:ui-tooling:1.4.0'
-compose-ui-preview = 'androidx.compose.ui:ui-tooling-preview:1.4.0'
-compose-fundation = 'androidx.compose.foundation:foundation:1.4.0'
+compose-ui-tooling = 'androidx.compose.ui:ui-tooling:1.4.3'
+compose-ui-preview = 'androidx.compose.ui:ui-tooling-preview:1.4.3'
+compose-fundation = 'androidx.compose.foundation:foundation:1.4.3'
 compose-material3 = 'androidx.compose.material3:material3:1.0.1'
 activity-compose = 'androidx.activity:activity-compose:1.7.0'
 material = 'com.google.android.material:material:1.8.0'
