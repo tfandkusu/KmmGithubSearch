@@ -5,8 +5,8 @@ import com.tfandkusu.kgs.CommonPlugin
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    id("com.google.devtools.ksp") version "1.8.0-1.0.9"
-    id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-4"
+    id("com.google.devtools.ksp") version "1.8.22-1.0.11"
+    id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-12"
 }
 apply<CommonPlugin>()
 
