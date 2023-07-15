@@ -37,7 +37,7 @@ mockk = 'io.mockk:mockk:1.13.5'
 lifecycle-viewmodel-ktx = 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
 # Android UI
 appcompat = 'androidx.appcompat:appcompat:1.6.1'
-compose-ui-ui = 'androidx.compose.ui:ui:1.4.0'
+compose-ui-ui = 'androidx.compose.ui:ui:1.4.3'
 compose-ui-tooling = 'androidx.compose.ui:ui-tooling:1.4.3'
 compose-ui-preview = 'androidx.compose.ui:ui-tooling-preview:1.4.3'
 compose-fundation = 'androidx.compose.foundation:foundation:1.4.3'
