@@ -38,8 +38,6 @@ android {
 dependencies {
     implementation(project(":feature:home"))
     implementation(project(":common"))
-    kover(project(":feature:home"))
-    kover(project(":data:remote"))
     implementation(libs.appcompat)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
