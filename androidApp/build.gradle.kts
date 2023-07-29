@@ -4,7 +4,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("kotlin-parcelize")
-    id ("org.jetbrains.kotlinx.kover")
+    id("org.jetbrains.kotlinx.kover")
 }
 apply<CommonPlugin>()
 
@@ -33,7 +33,6 @@ android {
         }
     }
 }
-
 
 dependencies {
     implementation(project(":feature:home"))
