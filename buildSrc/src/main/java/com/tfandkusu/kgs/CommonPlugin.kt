@@ -4,9 +4,6 @@ import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.BaseExtension
 import com.diffplug.gradle.spotless.SpotlessExtension
 import com.diffplug.gradle.spotless.SpotlessPlugin
-import kotlinx.kover.gradle.plugin.KoverGradlePlugin
-import kotlinx.kover.gradle.plugin.dsl.KoverProjectExtension
-import kotlinx.kover.gradle.plugin.dsl.KoverReportExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -25,7 +22,6 @@ class CommonPlugin : Plugin<Project> {
         setUpAndrood(project)
         setUpKMM(project)
         setUpSpotless(project)
-        setUpKover(project)
     }
 
     /**
@@ -143,31 +139,6 @@ class CommonPlugin : Plugin<Project> {
                 targetExclude("**/*Dao.kt")
                 ktlint("0.48.2").setUseExperimental(true)
             }
-        }
-    }
-
-    /**
-     * Kover の設定
-     */
-    private fun setUpKover(project: Project) {
-        if (project.properties["myKoverFilter"] == "true") {
-            // feature:xxx モジュールの ActionCreator と Reducer のみ
-            if(project.path.contains(":feature:")) {
-                project.plugins.apply(KoverGradlePlugin::class.java)
-                project.extensions.configure<KoverReportExtension>() {
-                    filters {
-                        includes {
-                            classes(
-                                "*ActionCreator",
-                                "*Reducer"
-                            )
-                        }
-                    }
-                }
-            }
-        } else {
-            // 全クラス対象
-            project.plugins.apply(KoverGradlePlugin::class.java)
         }
     }
 }
