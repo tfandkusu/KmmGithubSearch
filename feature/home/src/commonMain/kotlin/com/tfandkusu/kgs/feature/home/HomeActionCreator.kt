@@ -4,7 +4,6 @@ import com.tfandkusu.kgs.data.remote.GithubRemoteDataSource
 import com.tfandkusu.kgs.error.MyError
 import com.tfandkusu.kgs.feature.viewmodel.ActionCreator
 import com.tfandkusu.kgs.feature.viewmodel.Dispatcher
-import io.github.aakira.napier.Napier
 import kotlin.math.min
 
 class HomeActionCreator(
@@ -33,7 +32,6 @@ class HomeActionCreator(
                     dispatcher.dispatch(HomeAction.UpdateList(githubRepoList))
                 } catch (e: MyError) {
                     dispatcher.dispatch(HomeAction.Error(e))
-                    Napier.d("MyError", e)
                 }
             }
         }
