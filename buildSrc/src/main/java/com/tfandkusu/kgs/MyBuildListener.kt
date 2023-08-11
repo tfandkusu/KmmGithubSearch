@@ -23,7 +23,6 @@ class MyBuildListener : BuildListener {
     }
 
     override fun buildFinished(result: BuildResult) {
-        val duration = System.currentTimeMillis() - startTime
-        println("Build finished in ${duration}ms")
+        // このメソッドは非推奨なので BuildDurationPlugin を作りました。
     }
 }
