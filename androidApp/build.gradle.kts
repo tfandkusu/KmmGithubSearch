@@ -51,3 +51,5 @@ dependencies {
     implementation(libs.napier)
     implementation(libs.kotlinx.datetime)
 }
+
+gradle.addBuildListener(com.tfandkusu.kgs.MyBuildListener())
