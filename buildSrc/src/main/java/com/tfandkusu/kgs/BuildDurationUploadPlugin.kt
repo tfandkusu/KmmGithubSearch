@@ -22,21 +22,24 @@ abstract class BuildDurationUploadPlugin : Plugin<Project> {
     private val startTime = System.currentTimeMillis()
 
     override fun apply(project: Project) {
-        // 参考にしたサンプルはこちら
-        // ビルドが終わったら効果音を流すプラグイン
-        // https://github.com/gradle/gradle/tree/master/subprojects/docs/src/snippets/dataflowActions/playSound/groovy/plugin/src/main/java/org/gradle/sample/sound
-        // 今回は効果音を鳴らす部分を、ビルド時間を BigQuery へのアップロードに差し替える
-        getFlowScope().always(
-            BuildDurationUploadAction::class.java,
-            object : Action<FlowActionSpec<BuildDurationUploadAction.Parameters>> {
-                override fun execute(spec: FlowActionSpec<BuildDurationUploadAction.Parameters>) {
-                    spec.parameters.getBuildDuration().set(
-                        getFlowProviders().buildWorkResult.map {
-                            System.currentTimeMillis() - startTime
-                        }
-                    )
+        val uploadBuildTimeProvider = project.providers.gradleProperty("uploadBuildTime")
+        if(uploadBuildTimeProvider.orNull == "true") {
+            // 参考にしたサンプルはこちら
+            // ビルドが終わったら効果音を流すプラグイン
+            // https://github.com/gradle/gradle/tree/master/subprojects/docs/src/snippets/dataflowActions/playSound/groovy/plugin/src/main/java/org/gradle/sample/sound
+            // 今回は効果音を鳴らす部分を、ビルド時間を BigQuery へのアップロードに差し替える
+            getFlowScope().always(
+                BuildDurationUploadAction::class.java,
+                object : Action<FlowActionSpec<BuildDurationUploadAction.Parameters>> {
+                    override fun execute(spec: FlowActionSpec<BuildDurationUploadAction.Parameters>) {
+                        spec.parameters.getBuildDuration().set(
+                            getFlowProviders().buildWorkResult.map {
+                                System.currentTimeMillis() - startTime
+                            }
+                        )
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 }
