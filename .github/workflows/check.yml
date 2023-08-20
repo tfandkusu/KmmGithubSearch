@@ -34,10 +34,6 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: "/tmp/credential.json"
       - run: ./gradlew koverXmlReport
-        # if: github.event_name == 'pull_request'
-#      - run: ./gradlew koverXmlReport -PmyKoverFilter=true
-#        name: カバレッジレポート対象クラスを限定してカバレッジレポートを作成する
-#        if: github.ref == 'refs/heads/main'
       # Codecov
       - uses: codecov/codecov-action@v3
         with:
