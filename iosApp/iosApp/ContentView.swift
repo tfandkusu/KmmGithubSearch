@@ -1,20 +1,20 @@
-import SwiftUI
 import FLEX
+import SwiftUI
 
 enum Route: Hashable {
     case home
 }
 
 struct ContentView: View {
-        
-	var body: some View {
+    var body: some View {
         NavigationView {
-            VStack() {
+            VStack {
                 NavigationLink(
                     destination: HomeView(),
                     label: {
                         Text("ホーム画面を開く")
-                    }).padding(8)
+                    }
+                ).padding(8)
                 Button(action: {
                     FLEXManager.shared.showExplorer()
                 }) {
@@ -23,11 +23,11 @@ struct ContentView: View {
                 Spacer()
             }.navigationBarTitle("最初の画面")
         }
-	}
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
-	static var previews: some View {
-		ContentView()
-	}
+    static var previews: some View {
+        ContentView()
+    }
 }
