@@ -1,14 +1,14 @@
-import SwiftUI
 import kgsios
 import KMPNativeCoroutinesAsync
+import SwiftUI
 
 struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
-    
+
     @State private var searchText = ""
 
     var body: some View {
-        VStack() {
+        VStack {
             TextField("Search", text: $searchText, onCommit: {
                 viewModel.search(keyword: searchText)
             })
@@ -30,7 +30,7 @@ struct HomeView: View {
                     let nsError = error as NSError
                     let kotlinException = nsError.userInfo["KotlinException"]
                     if let nonOpticalKotlinException = kotlinException {
-                        if(nonOpticalKotlinException is ExampleException) {
+                        if nonOpticalKotlinException is ExampleException {
                             let exampleException = nonOpticalKotlinException as! ExampleException
                             let code = exampleException.code
                             print("code = \(code)")
@@ -38,6 +38,6 @@ struct HomeView: View {
                     }
                 }
             }
-        });
+        })
     }
 }
