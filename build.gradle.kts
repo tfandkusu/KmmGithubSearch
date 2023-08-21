@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlinx.kover") version "0.7.2"
     id("com.google.devtools.ksp") version "1.8.22-1.0.11"
     id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-12"
+    id("dev.icerock.moko.kswift") version "0.6.1"
 }
 
 koverReport {

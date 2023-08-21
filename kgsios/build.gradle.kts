@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     kotlin("multiplatform")
+    id("dev.icerock.moko.kswift")
 }
 
 kotlin {
@@ -29,5 +30,14 @@ kotlin {
                 implementation(libs.koin.core)
             }
         }
+    }
+}
+dependencies {
+    commonMainApi("dev.icerock.moko:kswift-runtime:0.6.1") // if you want use annotations
+}
+
+kswift {
+    install(dev.icerock.moko.kswift.plugin.feature.SealedToSwiftEnumFeature) {
+        includeLibrary("home")
     }
 }

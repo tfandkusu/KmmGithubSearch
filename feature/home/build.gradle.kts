@@ -1,5 +1,3 @@
-@file:Suppress("UnusedImport")
-
 import com.tfandkusu.kgs.CommonPlugin
 
 plugins {
