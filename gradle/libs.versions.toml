@@ -40,7 +40,7 @@ compose-ui-ui = 'androidx.compose.ui:ui:1.4.0'
 compose-ui-tooling = 'androidx.compose.ui:ui-tooling:1.4.3'
 compose-ui-preview = 'androidx.compose.ui:ui-tooling-preview:1.4.3'
 compose-fundation = 'androidx.compose.foundation:foundation:1.4.3'
-compose-material3 = 'androidx.compose.material3:material3:1.0.1'
+compose-material3 = 'androidx.compose.material3:material3:1.1.1'
 activity-compose = 'androidx.activity:activity-compose:1.7.2'
 material = 'com.google.android.material:material:1.8.0'
 # Android Navigation
