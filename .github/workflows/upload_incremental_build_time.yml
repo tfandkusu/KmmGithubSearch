@@ -1,15 +1,10 @@
-name: check
+name: upload_incremental_build_time
 on:
   push:
     branches:
       - main
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
 jobs:
-  check:
+  upload_incremental_build_time:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
