@@ -15,12 +15,27 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '17'
+      - uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.SERVICE_ACCOUNT_JSON }}'
+      - uses: 'google-github-actions/setup-gcloud@v1'
+      - run: gcloud info
       - uses: gradle/gradle-build-action@v2
-      - run: echo ${{ secrets.SERVICE_ACCOUNT_JSON }} | base64 -d > /tmp/credential.json
       - name: checkout previous merge commit
         run: git checkout `git log --merges -n 2 --pretty=format:"%H" | tail -n 1`
-      - run: ./gradlew assembleDebug
-      - run: git checkout main
-      - run: ./gradlew assembleDebug -PuploadBuildTime=true
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: "/tmp/credential.json"
+      - name: build previous merge commit
+        run: ./gradlew assembleDebug
+      - name: checkout current merge commit
+        run: git checkout main
+      - name: measure incremental build time
+        run: |
+          start_time=$(date +%s)
+          ./gradlew assembleDebug
+          end_time=$(date +%s)
+          duration=$((end_time - start_time))
+          echo "duration=$duration" >> $GITHUB_ENV
+      - name: upload incremental build time to BiqQuery
+        run: |
+          sql="INSERT INTO \`tfandkusu.kmm_github_search.build_time\`(created_at, duration, type) VALUES(CURRENT_TIMESTAMP(), $duration, \"incremental\")"
+          echo $sql
+          bq query --nouse_legacy_sql $sql

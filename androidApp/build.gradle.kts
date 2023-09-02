@@ -1,4 +1,3 @@
-import com.tfandkusu.kgs.BuildDurationUploadPlugin
 import com.tfandkusu.kgs.CommonPlugin
 
 plugins {
@@ -8,10 +7,6 @@ plugins {
     id("org.jetbrains.kotlinx.kover")
 }
 apply<CommonPlugin>()
-// ビルド時間を測定して BigQuery にアップロードするプラグイン
-apply<BuildDurationUploadPlugin>()
-// こちらは現在非推奨の設定
-gradle.addBuildListener(com.tfandkusu.kgs.MyBuildListener())
 
 android {
     namespace = "com.tfandkusu.kgs"
