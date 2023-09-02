@@ -24,6 +24,8 @@ jobs:
       - uses: 'google-github-actions/auth@v1'
         with:
           credentials_json: '${{ secrets.SERVICE_ACCOUNT_JSON }}'
+      - run: |
+          bq query --nouse_legacy_sql "SELECT * FROM \`tfandkusu.kmm_github_search.build_time\` LIMIT 1000"
       - uses: gradle/gradle-build-action@v2
       - name: checkout previous merge commit
         run: git checkout `git log --merges -n 2 --pretty=format:"%H" | tail -n 1`
