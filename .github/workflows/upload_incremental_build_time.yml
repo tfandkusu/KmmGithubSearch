@@ -35,6 +35,6 @@ jobs:
           end_time=$(date +%s) &&
           duration=$((end_time - start_time))
       - name: upload incremental build time (Mock)
-        run: `echo "duration: $duration"`
+        run: 'echo "duration: $duration"'
         env:
           GOOGLE_APPLICATION_CREDENTIALS: "/tmp/credential.json"
