@@ -33,12 +33,12 @@ jobs:
         run: git checkout main
       - name: measure incremental build time
         run: |
-          start_time=$(date +%s) &&
-          ./gradlew assembleDebug &&
-          end_time=$(date +%s) &&
-          duration=$((end_time - start_time)) &&
+          start_time=$(date +%s)
+          ./gradlew assembleDebug
+          end_time=$(date +%s)
+          duration=$((end_time - start_time))
           echo "duration=$duration" >> $GITHUB_ENV
       - name: upload incremental build time to BiqQuery
         run: |
-          sql="INSERT INTO \`tfandkusu.kmm_github_search.build_time\`(created_at, duration, type) VALUES(CURRENT_TIMESTAMP(), $duration,\"incremental\")" &&
+          sql="INSERT INTO \`tfandkusu.kmm_github_search.build_time\`(created_at, duration, type) VALUES(CURRENT_TIMESTAMP(), $duration,\"incremental\")"
           bq query --nouse_legacy_sql $sql
