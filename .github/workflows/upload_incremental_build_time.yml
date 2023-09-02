@@ -40,7 +40,7 @@ jobs:
           echo "duration=$duration" >> $GITHUB_ENV
       - name: upload incremental build time to BiqQuery
         run: |
-          sql="INSERT INTO \`tfandkusu.kmm_github_search.build_time\`(created_at, duration, type) VALUES(CURRENT_TIMESTAMP(), $duration,\"incremental\")"
+          sql="INSERT INTO \`tfandkusu.kmm_github_search.build_time\`(created_at, duration, type) VALUES(CURRENT_TIMESTAMP(), $duration,\"incremental\")" &&
           bq query --nouse_legacy_sql $sql
         env:
           GOOGLE_APPLICATION_CREDENTIALS: "/tmp/credential.json"
