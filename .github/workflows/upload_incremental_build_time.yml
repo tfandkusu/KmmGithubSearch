@@ -3,6 +3,11 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
 jobs:
   upload_incremental_build_time:
     runs-on: ubuntu-latest
@@ -19,8 +24,17 @@ jobs:
       - run: echo ${{ secrets.SERVICE_ACCOUNT_JSON }} | base64 -d > /tmp/credential.json
       - name: checkout previous merge commit
         run: git checkout `git log --merges -n 2 --pretty=format:"%H" | tail -n 1`
-      - run: ./gradlew assembleDebug
-      - run: git checkout main
-      - run: ./gradlew assembleDebug -PuploadBuildTime=true
+      - name: build previous merge commit
+        run: ./gradlew assembleDebug
+      - name: checkout current merge commit
+        run: git checkout main
+      - name: measure incremental build time
+        run: |
+          start_time=$(date +%s) &&
+          ./gradlew assembleDebug &&
+          end_time=$(date +%s) &&
+          duration=$((end_time - start_time))
+      - name: upload incremental build time (Mock)
+        run: echo "duration: $duration"
         env:
           GOOGLE_APPLICATION_CREDENTIALS: "/tmp/credential.json"
