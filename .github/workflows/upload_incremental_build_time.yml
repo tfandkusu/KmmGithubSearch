@@ -20,10 +20,11 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '17'
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v1'
+      - uses: 'google-github-actions/setup-gcloud@v1'
+      - uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.SERVICE_ACCOUNT_JSON }}'
       - uses: gradle/gradle-build-action@v2
-      - run: echo ${{ secrets.SERVICE_ACCOUNT_JSON }} | base64 -d > /tmp/credential.json
       - name: checkout previous merge commit
         run: git checkout `git log --merges -n 2 --pretty=format:"%H" | tail -n 1`
       - name: build previous merge commit
