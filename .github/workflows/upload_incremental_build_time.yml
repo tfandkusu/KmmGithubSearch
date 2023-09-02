@@ -20,6 +20,8 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '17'
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
       - uses: gradle/gradle-build-action@v2
       - run: echo ${{ secrets.SERVICE_ACCOUNT_JSON }} | base64 -d > /tmp/credential.json
       - name: checkout previous merge commit
@@ -35,7 +37,9 @@ jobs:
           end_time=$(date +%s) &&
           duration=$((end_time - start_time)) &&
           echo "duration=$duration" >> $GITHUB_ENV
-      - name: upload incremental build time (Mock)
-        run: 'echo "duration: $duration"'
+      - name: upload incremental build time to BiqQuery
+        run: |
+          sql="INSERT INTO \`tfandkusu.kmm_github_search.build_time\`(created_at, duration, type) VALUES(CURRENT_TIMESTAMP(), $duration,\"incremental\")"
+          bq query --nouse_legacy_sql $sql
         env:
           GOOGLE_APPLICATION_CREDENTIALS: "/tmp/credential.json"
