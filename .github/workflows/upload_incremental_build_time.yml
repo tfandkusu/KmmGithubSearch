@@ -33,7 +33,8 @@ jobs:
           start_time=$(date +%s) &&
           ./gradlew assembleDebug &&
           end_time=$(date +%s) &&
-          duration=$((end_time - start_time))
+          duration=$((end_time - start_time)) &&
+          echo "duration=$duration" >> $GITHUB_ENV
       - name: upload incremental build time (Mock)
         run: 'echo "duration: $duration"'
         env:
