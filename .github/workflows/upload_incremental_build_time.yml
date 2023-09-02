@@ -23,6 +23,7 @@ jobs:
       - uses: 'google-github-actions/auth@v1'
         with:
           credentials_json: '${{ secrets.SERVICE_ACCOUNT_JSON }}'
+      - uses: 'google-github-actions/setup-gcloud@v1'
       - run: gcloud info
       - run: |
           bq query --nouse_legacy_sql "SELECT * FROM \`tfandkusu.kmm_github_search.build_time\` LIMIT 1000"
