@@ -1,27 +1,20 @@
 package com.tfandkusu.kgs
 
-import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.BaseExtension
-import com.diffplug.gradle.spotless.SpotlessExtension
-import com.diffplug.gradle.spotless.SpotlessPlugin
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
-import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.kotlin
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import java.io.File
 
 class CommonPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         setUpAndrood(project)
         setUpKMM(project)
-        setUpSpotless(project)
     }
 
     /**
@@ -56,7 +49,7 @@ class CommonPlugin : Plugin<Project> {
             listOf(
                 it.iosX64(),
                 it.iosArm64(),
-                it.iosSimulatorArm64()
+                it.iosSimulatorArm64(),
             ).forEach { target ->
                 target.binaries.framework {
                     baseName = project.name
@@ -68,7 +61,7 @@ class CommonPlugin : Plugin<Project> {
                 libs(project, "coroutine")?.let {
                     implementation(it)
                 }
-                libs(project,"napier")?.let {
+                libs(project, "napier")?.let {
                     implementation(it)
                 }
                 libs(project, "koin.core")?.let {
@@ -123,22 +116,7 @@ class CommonPlugin : Plugin<Project> {
      */
     private fun libs(project: Project, name: String): Provider<MinimalExternalModuleDependency>? {
         return project.extensions.findByType(
-            VersionCatalogsExtension::class.java
+            VersionCatalogsExtension::class.java,
         )?.named("libs")?.findLibrary(name)?.get()
-    }
-
-    /**
-     * Spotlessの設定
-     */
-    private fun setUpSpotless(project: Project) {
-        project.plugins.apply(SpotlessPlugin::class.java)
-        project.extensions.configure<SpotlessExtension> {
-            ratchetFrom = "origin/main"
-            kotlin {
-                target("**/*.kt")
-                targetExclude("**/*Dao.kt")
-                ktlint("0.48.2").setUseExperimental(true)
-            }
-        }
     }
 }

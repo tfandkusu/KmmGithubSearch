@@ -69,7 +69,8 @@ inline fun <reified STATE, EFFECT, EVENT> use(
 ): StateEffectDispatch<STATE, EFFECT, EVENT> {
     val state = viewModel.state.value
     val dispatch = remember(viewModel) {
-        { event: EVENT ->
+        {
+                event: EVENT ->
             viewModel.event(event)
         }
     }
