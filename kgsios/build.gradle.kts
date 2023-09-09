@@ -1,10 +1,10 @@
 @file:Suppress("UnusedImport")
 
-import com.tfandkusu.kgs.CommonPlugin
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     kotlin("multiplatform")
+    id("org.jetbrains.kotlinx.kover")
 }
 
 kotlin {
@@ -27,6 +27,13 @@ kotlin {
                 implementation(libs.coroutine)
                 implementation(libs.napier)
                 implementation(libs.koin.core)
+            }
+        }
+        jvm()
+        val jvmTest by getting {
+            dependencies  {
+                implementation(kotlin("test"))
+                implementation(libs.konsist)
             }
         }
     }
