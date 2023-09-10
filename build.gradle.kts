@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlinx.kover") version "0.7.2"
     id("com.google.devtools.ksp") version "1.8.22-1.0.11"
     id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-12"
+    alias(libs.plugins.spotless.gradle.plugin)
 }
 
 koverReport {
@@ -16,4 +17,11 @@ koverReport {
 dependencies {
     kover(project(":feature:home"))
     kover(project(":data:remote"))
+}
+
+spotless {
+    kotlin {
+        target("**/*.kt")
+        ktlint("0.50.0").userData(mapOf("android" to "true"))
+    }
 }
