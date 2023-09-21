@@ -4,6 +4,7 @@ plugins {
     id("com.google.devtools.ksp") version "1.8.22-1.0.11"
     id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-12"
     alias(libs.plugins.spotless.gradle.plugin)
+    id("co.touchlab.skie") version "0.4.20"
 }
 
 koverReport {
