@@ -13,9 +13,11 @@ struct HomeItemView: View {
         case let .repo(item):
             Text(item.repo.fullName).padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
         case .networkError:
-            Text("ネットワークエラー").padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+            Text(NSLocalizedString("network error", comment: "network error"))
+                .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
         case .serverError:
-            Text("サーバーエラー").padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+            Text(NSLocalizedString("server error", comment: "network error"))
+                .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
         }
     }
 }
