@@ -15,8 +15,9 @@ struct HomeItemView: View {
         case .networkError:
             Text(NSLocalizedString("network error", comment: "network error"))
                 .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-        case .serverError:
-            Text(NSLocalizedString("server error", comment: "network error"))
+        case let .serverError(statusCode):
+            let format = NSLocalizedString("server error", comment: "network error")
+            Text(String.localizedStringWithFormat(format, statusCode))
                 .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
         }
     }
