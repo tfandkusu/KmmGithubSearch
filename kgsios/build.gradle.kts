@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.kotlinx.kover")
+    id("co.touchlab.skie")
 }
 
 kotlin {

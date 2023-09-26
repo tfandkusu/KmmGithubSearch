@@ -15,8 +15,13 @@ struct HomeView: View {
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .keyboardType(.webSearch)
             .padding(.horizontal, 8)
-            Text(String(format: "検索結果は%d件", viewModel.state.items.count)).font(.body).padding(8)
-            Spacer()
+            ScrollView {
+                LazyVStack(alignment: .leading) {
+                    ForEach(viewModel.state.items, id: \.self) { item in
+                        HomeItemView(item: item)
+                    }
+                }
+            }
         }.navigationBarTitle("GitHubリポジトリ検索").onAppear(perform: {
             // KMP-NativeCoroutines を使い
             // Swift から Kotlin の suspend 関数を呼ぶ実験
