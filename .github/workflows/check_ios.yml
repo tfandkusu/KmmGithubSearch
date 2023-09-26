@@ -27,5 +27,5 @@ jobs:
       # フォーマットチェック
       - run: mint run swiftformat --lint .
       # ビルドチェック
-      - run: cd iosAppxcodebuild -project iosApp.xcodeproj -scheme iosApp -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.4' -derivedDataPath ./build build
+      - run: xcodebuild -project iosApp.xcodeproj -scheme iosApp -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.4' -derivedDataPath ./build build
         working-directory: iosApp
