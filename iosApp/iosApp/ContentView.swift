@@ -16,7 +16,7 @@ struct ContentView: View {
                     }
                 ).padding(8)
                 NavigationLink(
-                    destination: UseKotlinUseCaseView(),
+                    destination: Home2View(),
                     label: {
                         Text("suspend 関数検証")
                     }
