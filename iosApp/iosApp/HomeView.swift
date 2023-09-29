@@ -1,5 +1,4 @@
 import kgsios
-import KMPNativeCoroutinesAsync
 import SwiftUI
 
 struct HomeView: View {
@@ -25,10 +24,10 @@ struct HomeView: View {
         }.navigationBarTitle("GitHubリポジトリ検索").onAppear(perform: {
             // Swift から Kotlin の suspend 関数を呼ぶ実験
             Task.detached {
-                let useCase = ExampleUseCase()
+                let searchGithub = IosUseCaseHelper().searchGithub
 
                 do {
-                    let result = try? await useCase.execute()
+                    let result = try await searchGithub.invoke(keyword: "Kotlin")
                     print("result = \(result)")
                 } catch {
                     print(error)
