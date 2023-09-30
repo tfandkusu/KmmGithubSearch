@@ -28,6 +28,7 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
                 }
             }
         case let .searchSuccess(repos):
+            state.progress = false
             state.repos = repos
             return .none
         case .alertDismissed:
@@ -35,9 +36,11 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
             state.serverError = .none
             return .none
         case .searchNetworkError:
+            state.progress = false
             state.networkError = true
             return .none
         case let .searchServerError(statusCode):
+            state.progress = false
             state.serverError = statusCode
             return .none
         }

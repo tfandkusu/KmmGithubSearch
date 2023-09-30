@@ -6,7 +6,7 @@ struct Home2View: View {
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            VStack {
+            VStack(alignment: .leading) {
                 TextField("Search", text: viewStore.binding(get: \.keyword, send: { .inputKeyword($0) }),
                           onCommit: {
                               viewStore.send(.searchKeyword)
@@ -14,14 +14,22 @@ struct Home2View: View {
                           .textFieldStyle(RoundedBorderTextFieldStyle())
                           .keyboardType(.webSearch)
                           .padding(.horizontal, 8)
-                ScrollView {
-                    LazyVStack(alignment: .leading) {
-                        ForEach(viewStore.repos, id: \.self) { repo in
-                            Text(repo.fullName).padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                if viewStore.progress {
+                    HStack(alignment: .center) {
+                        ProgressView().padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                    }.frame(maxWidth: .infinity)
+                    Spacer()
+                } else {
+                    ScrollView {
+                        LazyVStack(alignment: .leading) {
+                            ForEach(viewStore.repos, id: \.self) { repo in
+                                Text(repo.fullName).padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                            }
                         }
                     }
                 }
-            }.navigationBarTitle("suspend 関数検証")
+            }
+            .navigationBarTitle("GitHubリポジトリ検索")
         }
     }
 }
