@@ -2,7 +2,7 @@ import ComposableArchitecture
 import kgsios
 
 struct UseCaseHelper {
-    var searchGithub: (String) async throws -> [GithubRepo]
+    var searchGithub: (String) async throws -> KgsResultSealed<GithubRepoList>
 }
 
 extension UseCaseHelper: DependencyKey {

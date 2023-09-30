@@ -1,3 +1,4 @@
+import ComposableArchitecture
 import FLEX
 import SwiftUI
 
@@ -16,7 +17,11 @@ struct ContentView: View {
                     }
                 ).padding(8)
                 NavigationLink(
-                    destination: Home2View(),
+                    destination: Home2View(
+                        store: Store(initialState: Home2Reducer.State()) {
+                            Home2Reducer()
+                        }
+                    ),
                     label: {
                         Text("suspend 関数検証")
                     }
