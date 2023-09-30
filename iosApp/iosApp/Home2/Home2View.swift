@@ -29,13 +29,19 @@ struct Home2View: View {
                     }
                 }
             }
+            .alert(isPresented: viewStore.binding(get: \.networkError, send: .alertDismissed)) {
+                Alert(
+                    title: Text("エラー"),
+                    message: Text("ネットワークエラー")
+                )
+            }
+            .alert(isPresented: viewStore.binding(get: { $0.serverError != 0 }, send: .alertDismissed)) {
+                Alert(
+                    title: Text("エラー"),
+                    message: Text("サーバーエラー: ステータスコード = \(viewStore.serverError)")
+                )
+            }
             .navigationBarTitle("GitHubリポジトリ検索")
         }
     }
 }
-
-// struct Home2View_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Home2View()
-//    }
-// }

@@ -33,7 +33,7 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
             return .none
         case .alertDismissed:
             state.networkError = false
-            state.serverError = .none
+            state.serverError = 0
             return .none
         case .searchNetworkError:
             state.progress = false
@@ -51,7 +51,7 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
         var progress = false
         var repos: [GithubRepo] = []
         var networkError = false
-        var serverError: Int?
+        var serverError: Int = 0
     }
 
     enum Action: Equatable {
