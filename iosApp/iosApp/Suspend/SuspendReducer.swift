@@ -29,8 +29,8 @@ struct SuspendReducer: ComposableArchitecture.Reducer {
     }
 
     enum Action: Equatable {
-        case callFunction
-        case cancelFunction
-        case completeFunction
+        case callFunction // suspend 関数を呼び出す
+        case cancelFunction // suspend 関数をキャンセルする
+        case completeFunction // suspend 関数が完了した
     }
 }

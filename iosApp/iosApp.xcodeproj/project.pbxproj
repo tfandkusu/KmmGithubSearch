@@ -20,6 +20,7 @@
 		B2A33B0C2AC73E6200ABFB6C /* Home2Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A33B0B2AC73E6200ABFB6C /* Home2Reducer.swift */; };
 		B2A33B0F2AC745A100ABFB6C /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A33B0E2AC745A100ABFB6C /* Dependency.swift */; };
 		B2A33B122AC9D85200ABFB6C /* SuspendReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A33B112AC9D85200ABFB6C /* SuspendReducer.swift */; };
+		B2A33B142AC9DCFD00ABFB6C /* SuspendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A33B132AC9DCFD00ABFB6C /* SuspendView.swift */; };
 		B2B29EFD2A03BC1B000CCAF0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B29EFC2A03BC1B000CCAF0 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		B2A33B0B2AC73E6200ABFB6C /* Home2Reducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home2Reducer.swift; sourceTree = "<group>"; };
 		B2A33B0E2AC745A100ABFB6C /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
 		B2A33B112AC9D85200ABFB6C /* SuspendReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuspendReducer.swift; sourceTree = "<group>"; };
+		B2A33B132AC9DCFD00ABFB6C /* SuspendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuspendView.swift; sourceTree = "<group>"; };
 		B2B29EFC2A03BC1B000CCAF0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				B2A33B112AC9D85200ABFB6C /* SuspendReducer.swift */,
+				B2A33B132AC9DCFD00ABFB6C /* SuspendView.swift */,
 			);
 			path = Suspend;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B281687D2ABCA32700B66403 /* HomeItemView.swift in Sources */,
+				B2A33B142AC9DCFD00ABFB6C /* SuspendView.swift in Sources */,
 				B2A33B062AC73C6E00ABFB6C /* Home2View.swift in Sources */,
 				B2A33B0F2AC745A100ABFB6C /* Dependency.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
