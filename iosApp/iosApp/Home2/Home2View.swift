@@ -41,6 +41,9 @@ struct Home2View: View {
                     message: Text("サーバーエラー: ステータスコード = \(viewStore.serverError)")
                 )
             }
+            .onDisappear {
+                viewStore.send(.onDisappear)
+            }
             .navigationBarTitle("GitHubリポジトリ検索")
         }
     }
