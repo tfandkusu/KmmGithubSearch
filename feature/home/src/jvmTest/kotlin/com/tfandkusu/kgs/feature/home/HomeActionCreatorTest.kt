@@ -1,6 +1,5 @@
 package com.tfandkusu.kgs.feature.home
 
-import com.tfandkusu.kgs.data.remote.GithubRemoteDataSource
 import com.tfandkusu.kgs.error.MyError
 import com.tfandkusu.kgs.feature.viewmodel.Dispatcher
 import com.tfandkusu.kgs.model.GithubRepo
@@ -18,7 +17,7 @@ import org.junit.Test
 class HomeActionCreatorTest {
 
     @MockK
-    private lateinit var githubRemoteDataSource: GithubRemoteDataSource
+    private lateinit var searchGithub: SearchGithubUseCase
 
     @MockK(relaxUnitFun = true)
     private lateinit var dispatcher: Dispatcher<HomeAction>
@@ -67,7 +66,7 @@ class HomeActionCreatorTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        actionCreator = HomeActionCreator(githubRemoteDataSource)
+        actionCreator = HomeActionCreator(searchGithub)
     }
 
     @Test
@@ -106,13 +105,13 @@ class HomeActionCreatorTest {
     @Test
     fun searchSuccess() = runTest {
         coEvery {
-            githubRemoteDataSource.search("Kotlin")
+            searchGithub("Kotlin")
         } returns repos
         actionCreator.event(HomeEvent.SearchKeyword("Kotlin"), dispatcher)
         coVerifySequence {
             dispatcher.dispatch(HomeAction.HideKeyboard)
             dispatcher.dispatch(HomeAction.StartSearch)
-            githubRemoteDataSource.search("Kotlin")
+            searchGithub("Kotlin")
             dispatcher.dispatch(HomeAction.UpdateList(repos))
         }
     }
@@ -120,13 +119,13 @@ class HomeActionCreatorTest {
     @Test
     fun searchError() = runTest {
         coEvery {
-            githubRemoteDataSource.search("Kotlin")
+            searchGithub("Kotlin")
         } throws MyError.Network
         actionCreator.event(HomeEvent.SearchKeyword(" Kotlin "), dispatcher)
         coVerifySequence {
             dispatcher.dispatch(HomeAction.HideKeyboard)
             dispatcher.dispatch(HomeAction.StartSearch)
-            githubRemoteDataSource.search("Kotlin")
+            searchGithub("Kotlin")
             dispatcher.dispatch(HomeAction.Error(MyError.Network))
         }
     }

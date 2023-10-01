@@ -1,6 +1,5 @@
 package com.tfandkusu.kgs.feature.home
 
-import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import kotlinx.coroutines.delay
 
 data class ExampleException(val code: Int) : Exception()
@@ -14,7 +13,7 @@ class ExampleUseCase {
      *
      * KMP-NativeCoroutines を使う場合は、Throws アノテーションは無くても良い
      */
-    @NativeCoroutines
+    // @NativeCoroutines
     suspend fun execute(): Int {
         return repository.get()
     }

@@ -6,7 +6,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("com.google.devtools.ksp")
-    id("com.rickclephas.kmp.nativecoroutines")
+    // id("com.rickclephas.kmp.nativecoroutines")
     id("org.jetbrains.kotlinx.kover")
 }
 apply<CommonPlugin>()

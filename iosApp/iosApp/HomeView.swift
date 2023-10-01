@@ -1,5 +1,4 @@
 import kgsios
-import KMPNativeCoroutinesAsync
 import SwiftUI
 
 struct HomeView: View {
@@ -23,26 +22,27 @@ struct HomeView: View {
                 }
             }
         }.navigationBarTitle("GitHubリポジトリ検索").onAppear(perform: {
-            // KMP-NativeCoroutines を使い
             // Swift から Kotlin の suspend 関数を呼ぶ実験
-            Task {
-                let useCase = ExampleUseCase()
-                do {
-                    let result = try await asyncFunction(for: useCase.execute())
-                    print("result = \(result)")
-                } catch {
-                    // Kotlin の例外オブジェクトを取得する
-                    let nsError = error as NSError
-                    let kotlinException = nsError.userInfo["KotlinException"]
-                    if let nonOpticalKotlinException = kotlinException {
-                        if nonOpticalKotlinException is ExampleException {
-                            let exampleException = nonOpticalKotlinException as! ExampleException
-                            let code = exampleException.code
-                            print("code = \(code)")
-                        }
-                    }
-                }
-            }
+//            Task.detached {
+//                let searchGithub = IosUseCaseHelper().searchGithub
+//
+//                do {
+//                    let result = try await searchGithub.invoke(keyword: "Kotlin")
+//                    print("result = \(result)")
+//                } catch {
+//                    print(error)
+            // Kotlin の例外オブジェクトを取得する
+//                    let nsError = error as NSError
+//                    let kotlinException = nsError.userInfo["KotlinException"]
+//                    if let nonOpticalKotlinException = kotlinException {
+//                        if nonOpticalKotlinException is ExampleException {
+//                            let exampleException = nonOpticalKotlinException as! ExampleException
+//                            let code = exampleException.code
+//                            print("code = \(code)")
+//                        }
+//                    }
+//                }
+//            }
         })
     }
 }
