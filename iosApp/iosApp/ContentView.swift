@@ -26,6 +26,16 @@ struct ContentView: View {
                         Text("suspend 関数検証")
                     }
                 ).padding(8)
+                NavigationLink(
+                    destination: SuspendView(
+                        store: Store(initialState: SuspendReducer.State()) {
+                            SuspendReducer()
+                        }
+                    ),
+                    label: {
+                        Text("suspend 関数検証2")
+                    }
+                ).padding(8)
                 Button(action: {
                     FLEXManager.shared.showExplorer()
                 }) {
