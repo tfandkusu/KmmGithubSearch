@@ -4,6 +4,8 @@ import kgsios
 struct Home2Reducer: ComposableArchitecture.Reducer {
     @Dependency(\.useCaseHelper) var useCaseHelper
 
+    private enum CancelID { case search }
+
     func reduce(into state: inout State, action: Action) -> ComposableArchitecture.Effect<Action> {
         switch action {
         case let .inputKeyword(keyword):
@@ -26,7 +28,7 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
                         await send(.searchServerError(Int(data.statusCode)))
                     }
                 }
-            }
+            }.cancellable(id: CancelID.search)
         case let .searchSuccess(repos):
             state.progress = false
             state.repos = repos
@@ -43,6 +45,11 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
             state.progress = false
             state.serverError = statusCode
             return .none
+        case .onDisappear:
+            state.keyword = ""
+            state.progress = false
+            state.repos = []
+            return .cancel(id: CancelID.search)
         }
     }
 
@@ -61,5 +68,6 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
         case searchSuccess(repos: [GithubRepo])
         case searchNetworkError
         case searchServerError(Int)
+        case onDisappear
     }
 }
