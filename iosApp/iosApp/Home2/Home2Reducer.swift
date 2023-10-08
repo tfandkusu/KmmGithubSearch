@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import Foundation
 import kgsios
 
 struct Home2Reducer: ComposableArchitecture.Reducer {
@@ -16,16 +17,21 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
             state.repos = []
             state.progress = true
             return .run { send in
-                let result = try await useCaseHelper.searchGithub(keyword)
-                switch onEnum(of: result) {
-                case let .success(data):
-                    await send(.searchSuccess(repos: data.value!.repos))
-                case let .failure(data):
-                    switch onEnum(of: data.error) {
-                    case .network:
-                        await send(.searchNetworkError)
-                    case let .server(data):
-                        await send(.searchServerError(Int(data.statusCode)))
+                do {
+                    await send(.searchNetworkError)
+                    // let repos = try await useCaseHelper.searchGithub(keyword)
+                    // await send(.searchSuccess(repos: repos))
+                } catch let error as NSError {
+                    switch error.kotlinException {
+                    case let myError as MyError:
+                        switch onEnum(of: myError) {
+                        case .network:
+                            await send(.searchNetworkError)
+                        case let .server(data):
+                            await send(.searchServerError(Int(data.statusCode)))
+                        }
+                    default:
+                        await send(.searchUnknownError)
                     }
                 }
             }.cancellable(id: CancelID.search)
@@ -36,6 +42,7 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
         case .alertDismissed:
             state.networkError = false
             state.serverError = 0
+            state.unknownError = false
             return .none
         case .searchNetworkError:
             state.progress = false
@@ -44,6 +51,10 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
         case let .searchServerError(statusCode):
             state.progress = false
             state.serverError = statusCode
+            return .none
+        case .searchUnknownError:
+            state.progress = false
+            state.unknownError = true
             return .none
         case .onDisappear:
             state.keyword = ""
@@ -59,6 +70,7 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
         var repos: [GithubRepo] = []
         var networkError = false
         var serverError: Int = 0
+        var unknownError = false
     }
 
     enum Action: Equatable {
@@ -68,6 +80,7 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
         case searchSuccess(repos: [GithubRepo])
         case searchNetworkError
         case searchServerError(Int)
+        case searchUnknownError
         case onDisappear
     }
 }
