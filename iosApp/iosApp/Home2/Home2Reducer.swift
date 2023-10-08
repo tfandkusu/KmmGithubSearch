@@ -18,9 +18,8 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
             state.progress = true
             return .run { send in
                 do {
-                    await send(.searchNetworkError)
-                    // let repos = try await useCaseHelper.searchGithub(keyword)
-                    // await send(.searchSuccess(repos: repos))
+                    let repos = try await useCaseHelper.searchGithub(keyword)
+                    await send(.searchSuccess(repos: repos))
                 } catch let error as NSError {
                     switch error.kotlinException {
                     case let myError as MyError:
@@ -40,27 +39,23 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
             state.repos = repos
             return .none
         case .alertDismissed:
-            state.networkError = false
-            state.serverError = 0
-            state.unknownError = false
+            state.alert = .none
             return .none
         case .searchNetworkError:
             state.progress = false
-            state.networkError = true
+            state.alert = .init(title: .init("エラー"), message: .init("ネットワークエラー"))
             return .none
         case let .searchServerError(statusCode):
-            state.progress = false
-            state.serverError = statusCode
+            state.alert = .init(title: .init("エラー"), message: .init("サーバエラー: \(statusCode)"))
             return .none
         case .searchUnknownError:
-            state.progress = false
-            state.unknownError = true
+            state.alert = .init(title: .init("エラー"), message: .init("未知のエラー"))
             return .none
         case .onDisappear:
-            state.keyword = ""
-            state.progress = false
-            state.repos = []
+            state = State()
             return .cancel(id: CancelID.search)
+        case .alert:
+            return .none
         }
     }
 
@@ -68,9 +63,7 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
         var keyword = ""
         var progress = false
         var repos: [GithubRepo] = []
-        var networkError = false
-        var serverError: Int = 0
-        var unknownError = false
+        @PresentationState var alert: AlertState<Action.Alert>? = .none
     }
 
     enum Action: Equatable {
@@ -82,5 +75,7 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
         case searchServerError(Int)
         case searchUnknownError
         case onDisappear
+        case alert(PresentationAction<Alert>)
+        enum Alert: Equatable {}
     }
 }

@@ -29,18 +29,7 @@ struct Home2View: View {
                     }
                 }
             }
-            .alert(isPresented: viewStore.binding(get: \.networkError, send: .alertDismissed)) {
-                Alert(
-                    title: Text("エラー"),
-                    message: Text("ネットワークエラー")
-                )
-            }
-            .alert(isPresented: viewStore.binding(get: { $0.serverError != 0 }, send: .alertDismissed)) {
-                Alert(
-                    title: Text("エラー"),
-                    message: Text("サーバーエラー: ステータスコード = \(viewStore.serverError)")
-                )
-            }
+            .alert(store: self.store.scope(state: \.$alert, action: { .alert($0) }))
             .onDisappear {
                 viewStore.send(.onDisappear)
             }
