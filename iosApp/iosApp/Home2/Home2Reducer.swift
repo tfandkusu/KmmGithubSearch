@@ -25,12 +25,12 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
                     case let myError as MyError:
                         switch onEnum(of: myError) {
                         case .network:
-                            await send(.searchNetworkError)
+                            await send(.networkError)
                         case let .server(data):
-                            await send(.searchServerError(Int(data.statusCode)))
+                            await send(.serverError(Int(data.statusCode)))
                         }
                     default:
-                        await send(.searchUnknownError)
+                        await send(.unknownError)
                     }
                 }
             }.cancellable(id: CancelID.search)
@@ -41,14 +41,14 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
         case .alertDismissed:
             state.alert = .none
             return .none
-        case .searchNetworkError:
+        case .networkError:
             state.progress = false
             state.alert = .init(title: .init("エラー"), message: .init("ネットワークエラー"))
             return .none
-        case let .searchServerError(statusCode):
+        case let .serverError(statusCode):
             state.alert = .init(title: .init("エラー"), message: .init("サーバエラー: \(statusCode)"))
             return .none
-        case .searchUnknownError:
+        case .unknownError:
             state.alert = .init(title: .init("エラー"), message: .init("未知のエラー"))
             return .none
         case .onDisappear:
@@ -71,9 +71,9 @@ struct Home2Reducer: ComposableArchitecture.Reducer {
         case searchKeyword
         case alertDismissed
         case searchSuccess(repos: [GithubRepo])
-        case searchNetworkError
-        case searchServerError(Int)
-        case searchUnknownError
+        case networkError
+        case serverError(Int)
+        case unknownError
         case onDisappear
         case alert(PresentationAction<Alert>)
         enum Alert: Equatable {}
