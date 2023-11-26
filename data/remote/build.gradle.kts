@@ -11,29 +11,21 @@ apply<CommonPlugin>()
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(project(":common"))
-                implementation(libs.ktor.client.core)
-                implementation(libs.kotlinx.serialization.json)
-                implementation(libs.ktor.client.content.negotiation)
-                implementation(libs.ktor.serialization.kotlinx.json)
-            }
+        commonMain.dependencies {
+            implementation(project(":common"))
+            implementation(libs.ktor.client.core)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
         }
-        val androidMain by getting {
-            dependencies {
-                implementation(libs.ktor.client.okhttp)
-            }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
         }
-        val iosMain by getting {
-            dependencies {
-                implementation(libs.ktor.client.darwin)
-            }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
-        val jvmMain by getting {
-            dependencies {
-                implementation(libs.ktor.client.okhttp)
-            }
+        jvmMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
         }
     }
 }

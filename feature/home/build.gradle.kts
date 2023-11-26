@@ -17,11 +17,9 @@ android {
 
 kotlin {
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(project(":common"))
-                implementation(project(":data:remote"))
-            }
+        commonMain.dependencies {
+            implementation(project(":common"))
+            implementation(project(":data:remote"))
         }
         all {
             languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
