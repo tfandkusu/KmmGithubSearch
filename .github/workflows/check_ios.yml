@@ -10,7 +10,7 @@ on:
       - reopened
 jobs:
   check_ios:
-    runs-on: macos-13-arm64
+    runs-on: macos-13-arm
     timeout-minutes: 20
     steps:
       - uses: actions/setup-java@v3
