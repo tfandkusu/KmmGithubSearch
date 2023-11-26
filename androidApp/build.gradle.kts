@@ -20,7 +20,7 @@ android {
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.8"
+        kotlinCompilerExtensionVersion = "1.5.4"
     }
     packagingOptions {
         resources {
@@ -37,6 +37,7 @@ android {
 dependencies {
     implementation(project(":feature:home"))
     implementation(project(":common"))
+    implementation(platform(libs.compose.bom))
     implementation(libs.appcompat)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)

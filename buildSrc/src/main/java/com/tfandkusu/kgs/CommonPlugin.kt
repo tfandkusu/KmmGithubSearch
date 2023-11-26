@@ -8,7 +8,6 @@ import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.kotlin
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class CommonPlugin : Plugin<Project> {
@@ -20,11 +19,11 @@ class CommonPlugin : Plugin<Project> {
     /**
      * Androidの設定
      */
-    fun setUpAndrood(project: Project) {
+    private fun setUpAndrood(project: Project) {
         project.extensions.configure<BaseExtension> {
-            compileSdkVersion(33)
+            compileSdkVersion(34)
             defaultConfig.minSdk = 21
-            defaultConfig.targetSdk = 33
+            defaultConfig.targetSdk = 34
             compileOptions {
                 sourceCompatibility = JavaVersion.VERSION_17
                 targetCompatibility = JavaVersion.VERSION_17
@@ -35,7 +34,7 @@ class CommonPlugin : Plugin<Project> {
     /**
      * Kotlin Multiplatform Mobileの設定
      */
-    fun setUpKMM(project: Project) {
+    private fun setUpKMM(project: Project) {
         project.extensions.findByType(KotlinMultiplatformExtension::class.java)?.let {
             // Androidの設定
             it.android().compilations.all {
