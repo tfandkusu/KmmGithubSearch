@@ -6,7 +6,7 @@ koin = '3.4.0'
 
 [libraries]
 # Gradle Plugin
-android-gradle = 'com.android.tools.build:gradle:8.0.2'
+android-gradle = 'com.android.tools.build:gradle:8.1.4'
 kotlin-gradle = { module = 'org.jetbrains.kotlin:kotlin-gradle-plugin', version.ref = 'kotlin' }
 kover-gradle = 'org.jetbrains.kotlinx:kover-gradle-plugin:0.7.2'
 # Koin
