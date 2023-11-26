@@ -21,21 +21,17 @@ kotlin {
                 export(project(":common"))
             }
         }
-        val commonMain by getting {
-            dependencies {
-                api(project(":feature:home"))
-                api(project(":common"))
-                implementation(libs.coroutine)
-                implementation(libs.napier)
-                implementation(libs.koin.core)
-            }
+        commonMain.dependencies {
+            api(project(":feature:home"))
+            api(project(":common"))
+            implementation(libs.coroutine)
+            implementation(libs.napier)
+            implementation(libs.koin.core)
         }
         jvm()
-        val jvmTest by getting {
-            dependencies  {
-                implementation(kotlin("test"))
-                implementation(libs.konsist)
-            }
+        jvmTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(libs.konsist)
         }
     }
 }

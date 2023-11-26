@@ -1,10 +1,9 @@
 plugins {
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.22"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.20"
     id("org.jetbrains.kotlinx.kover") version "0.7.2"
-    id("com.google.devtools.ksp") version "1.8.22-1.0.11"
-    // id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-12"
+    id("com.google.devtools.ksp") version "1.9.20-1.0.14"
     alias(libs.plugins.spotless.gradle.plugin)
-    id("co.touchlab.skie") version "0.5.0"
+    id("co.touchlab.skie") version "0.5.5"
 }
 
 koverReport {
