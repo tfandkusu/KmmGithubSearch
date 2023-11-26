@@ -29,7 +29,7 @@ napier = 'io.github.aakira:napier:2.6.1'
 kotest-assertions = 'io.kotest:kotest-assertions-core:5.5.4'
 kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 mockk = 'io.mockk:mockk:1.13.5'
-konsist = 'com.lemonappdev:konsist:0.11.0'
+konsist = 'com.lemonappdev:konsist:0.13.0'
 # Android Lifecycle
 lifecycle-viewmodel-ktx = 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
 # Android UI
