@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlinx.kover") version "0.7.2"
     id("com.google.devtools.ksp") version "1.9.20-1.0.14"
     alias(libs.plugins.spotless.gradle.plugin)
-    id("co.touchlab.skie") version "0.5.5"
+    id("co.touchlab.skie") version "0.6.0"
 }
 
 koverReport {
