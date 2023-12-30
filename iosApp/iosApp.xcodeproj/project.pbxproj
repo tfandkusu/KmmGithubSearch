@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,6 +22,8 @@
 		B2A33B122AC9D85200ABFB6C /* SuspendReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A33B112AC9D85200ABFB6C /* SuspendReducer.swift */; };
 		B2A33B142AC9DCFD00ABFB6C /* SuspendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A33B132AC9DCFD00ABFB6C /* SuspendView.swift */; };
 		B2B29EFD2A03BC1B000CCAF0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B29EFC2A03BC1B000CCAF0 /* HomeView.swift */; };
+		B2E718B32B401DD200BE9578 /* FlowExpReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E718B22B401DD200BE9578 /* FlowExpReducer.swift */; };
+		B2E718B52B401DF400BE9578 /* FlowExpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E718B42B401DF400BE9578 /* FlowExpView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +55,8 @@
 		B2A33B112AC9D85200ABFB6C /* SuspendReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuspendReducer.swift; sourceTree = "<group>"; };
 		B2A33B132AC9DCFD00ABFB6C /* SuspendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuspendView.swift; sourceTree = "<group>"; };
 		B2B29EFC2A03BC1B000CCAF0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B2E718B22B401DD200BE9578 /* FlowExpReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowExpReducer.swift; sourceTree = "<group>"; };
+		B2E718B42B401DF400BE9578 /* FlowExpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowExpView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				B2E718B12B401DB400BE9578 /* Flow */,
 				B2A33B102AC9D83400ABFB6C /* Suspend */,
 				B2A33B0D2AC73EB200ABFB6C /* Home2 */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
@@ -135,6 +140,15 @@
 				B2A33B132AC9DCFD00ABFB6C /* SuspendView.swift */,
 			);
 			path = Suspend;
+			sourceTree = "<group>";
+		};
+		B2E718B12B401DB400BE9578 /* Flow */ = {
+			isa = PBXGroup;
+			children = (
+				B2E718B22B401DD200BE9578 /* FlowExpReducer.swift */,
+				B2E718B42B401DF400BE9578 /* FlowExpView.swift */,
+			);
+			path = Flow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,8 +256,10 @@
 				B2A33B142AC9DCFD00ABFB6C /* SuspendView.swift in Sources */,
 				B2A33B062AC73C6E00ABFB6C /* Home2View.swift in Sources */,
 				B2A33B0F2AC745A100ABFB6C /* Dependency.swift in Sources */,
+				B2E718B52B401DF400BE9578 /* FlowExpView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				B2B29EFD2A03BC1B000CCAF0 /* HomeView.swift in Sources */,
+				B2E718B32B401DD200BE9578 /* FlowExpReducer.swift in Sources */,
 				B2535F1F2A02EE4800723488 /* HomeViewModel.swift in Sources */,
 				B2A33B122AC9D85200ABFB6C /* SuspendReducer.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
@@ -305,7 +321,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -360,7 +376,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

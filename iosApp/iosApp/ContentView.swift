@@ -36,6 +36,16 @@ struct ContentView: View {
                         Text("suspend 関数検証2")
                     }
                 ).padding(8)
+                NavigationLink(
+                    destination: FlowExpView(
+                        store: Store(initialState: FlowExpReducer.State()) {
+                            FlowExpReducer()
+                        }
+                    ),
+                    label: {
+                        Text("Flow 動作確認")
+                    }
+                ).padding(8)
                 Button(action: {
                     FLEXManager.shared.showExplorer()
                 }) {

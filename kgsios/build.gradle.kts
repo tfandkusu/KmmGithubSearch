@@ -1,5 +1,6 @@
 @file:Suppress("UnusedImport")
 
+import co.touchlab.skie.configuration.FlowInterop
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
@@ -32,6 +33,14 @@ kotlin {
         jvmTest.dependencies {
             implementation(kotlin("test"))
             implementation(libs.konsist)
+        }
+    }
+}
+
+skie {
+    features {
+        group {
+            FlowInterop.Enabled(false)
         }
     }
 }

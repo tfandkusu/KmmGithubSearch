@@ -22,6 +22,7 @@ struct HomeView: View {
                 }
             }
         }.navigationBarTitle("GitHubリポジトリ検索").onAppear(perform: {
+            ExampleKt.getExampleFlow()
             // Swift から Kotlin の suspend 関数を呼ぶ実験
 //            Task.detached {
 //                let searchGithub = IosUseCaseHelper().searchGithub
