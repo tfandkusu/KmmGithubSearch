@@ -37,10 +37,3 @@ kotlin {
     }
 }
 
-skie {
-    features {
-        group {
-            FlowInterop.Enabled(false)
-        }
-    }
-}
