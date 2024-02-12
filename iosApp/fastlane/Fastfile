@@ -1,0 +1,18 @@
+desc "Debug build"
+lane :debug_build do
+  gym(
+    configuration: "Debug",
+    scheme: "iosApp",
+    output_directory: "build",
+    output_name: "iosApp.ipa",
+    export_method: "development"
+  )
+end
+
+lane :clean do
+  xcodebuild(
+    clean: true,
+    project: "iosApp.xcodeproj",
+    scheme: "iosApp"
+  )
+end
