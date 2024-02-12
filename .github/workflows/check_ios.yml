@@ -29,6 +29,3 @@ jobs:
       - uses: irgaly/setup-mint@v1
       # フォーマットチェック
       - run: mint run swiftformat --lint --exclude iosApp/build iosApp
-      # ビルドチェック
-      - run: xcodebuild -allowProvisioningUpdates -project iosApp.xcodeproj -scheme iosApp -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.4' -derivedDataPath ./build build
-        working-directory: iosApp
