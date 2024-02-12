@@ -1,5 +1,5 @@
 desc "Debug build"
-lane :debug do
+lane :debug_build do
   gym(
     configuration: "Debug",
     scheme: "iosApp",
