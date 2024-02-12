@@ -5,7 +5,8 @@ lane :debug_build do
     scheme: "iosApp",
     output_directory: "build",
     output_name: "iosApp.ipa",
-    export_method: "development"
+    export_method: "development",
+    export_xcargs: "-allowProvisioningUpdates",
   )
 end
 
