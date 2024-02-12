@@ -30,5 +30,5 @@ jobs:
       # フォーマットチェック
       - run: mint run swiftformat --lint --exclude iosApp/build iosApp
       # ビルドチェック
-      - run: bundle exec fastlane debug_build
+      - run:  xcodebuild -project iosApp.xcodeproj -scheme iosApp -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.4' -derivedDataPath ./build build
         working-directory: iosApp
