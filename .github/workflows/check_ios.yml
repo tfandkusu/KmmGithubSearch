@@ -29,7 +29,7 @@ jobs:
       - run: xcodebuild -version
       - uses: irgaly/setup-mint@v1
       # フォーマットチェック
-      - run: mint run swiftformat --lint .
+      - run: mint run swiftformat --lint --exclude iosApp/build iosApp
       # ビルドチェック
       - run: bundle exec fastlane debug
         working-directory: iosApp
