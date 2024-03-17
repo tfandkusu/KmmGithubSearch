@@ -15,14 +15,18 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.DismissDirection
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.SwipeToDismiss
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.rememberDismissState
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -46,6 +50,7 @@ import com.tfandkusu.kgs.feature.home.HomeEvent
 import com.tfandkusu.kgs.feature.home.HomeState
 import com.tfandkusu.kgs.feature.use
 import com.tfandkusu.kgs.model.GithubRepo
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.Instant
@@ -144,14 +149,43 @@ fun HomeScreen(viewModel: HomeViewModel) {
                     contentType = { index ->
                         when (state.items[index]) {
                             HomeState.Item.NetworkError -> 1
-                            HomeState.Item.Progress -> 2
+                            HomeState.Item.Progress -> 21
                             is HomeState.Item.Repo -> 3
                             is HomeState.Item.ServerError -> 4
                         }
                     },
                 ) { index ->
-                    val item = state.items[index]
-                    HomeItem(HomeItemState(item))
+                    // LazyColumn の要素ひとつに対してひとつの DismissState を作る
+                    val dismissState = rememberDismissState(
+                        confirmValueChange = {
+                            true
+                        },
+                    )
+                    // 削除をキャンセルする場合は DismissState#reset を呼ぶ
+                    LaunchedEffect(key1 = index) {
+                        delay(3000L)
+                        dismissState.reset()
+                    }
+                    // 左スワイプだけに限定する
+                    SwipeToDismiss(
+                        state = dismissState,
+                        directions = setOf(DismissDirection.EndToStart),
+                        background = {
+                            // スワイプしたあとの背景
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(Color.Red),
+                            )
+                        },
+                        dismissContent = {
+                            // 元のコンテンツ
+                            val item = state.items[index]
+                            Surface {
+                                HomeItem(HomeItemState(item))
+                            }
+                        },
+                    )
                 }
             }
         }
