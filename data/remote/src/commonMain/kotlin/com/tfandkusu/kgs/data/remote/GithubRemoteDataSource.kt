@@ -89,6 +89,7 @@ internal class GithubRemoteDataSourceImpl(
             )
             return httpResponse.body()
         } catch (e: IOException) {
+            // ここで DeteKt に指摘された
             throw MyError.Network
         }
     }
