@@ -33,5 +33,8 @@ subprojects {
         config.setFrom(file("$rootDir/config/detekt/detekt.yml"))
         buildUponDefaultConfig = true
         ignoreFailures = true
+        if (project.name != "androidApp") {
+            source.from(files("src/commonMain/kotlin"))
+        }
     }
 }
