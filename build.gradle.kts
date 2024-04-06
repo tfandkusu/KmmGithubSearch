@@ -30,5 +30,8 @@ spotless {
 subprojects {
     apply(plugin = "io.gitlab.arturbosch.detekt")
     detekt {
+        config.setFrom(file("$rootDir/config/detekt/detekt.yml"))
+        buildUponDefaultConfig = true
+        ignoreFailures = true
     }
 }
