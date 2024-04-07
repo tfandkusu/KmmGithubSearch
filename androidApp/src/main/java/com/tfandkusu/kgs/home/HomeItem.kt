@@ -47,7 +47,6 @@ data class HomeItemState(
 
 @Composable
 fun HomeItem(itemState: HomeItemState) {
-    // この関数長過ぎらしい
     when (val state = itemState.state) {
         HomeState.Item.Progress -> {
             Row(
