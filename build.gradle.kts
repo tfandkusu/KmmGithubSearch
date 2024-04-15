@@ -28,13 +28,18 @@ spotless {
 }
 
 subprojects {
-    apply(plugin = "io.gitlab.arturbosch.detekt")
-    detekt {
-        config.setFrom(file("$rootDir/config/detekt/detekt.yml"))
-        buildUponDefaultConfig = true
-        ignoreFailures = true
-        if (project.name != "androidApp") {
-            source.from(files("src/commonMain/kotlin"))
+    afterEvaluate {
+        apply(plugin = "io.gitlab.arturbosch.detekt")
+        detekt {
+            config.setFrom(file("$rootDir/config/detekt/detekt.yml"))
+            buildUponDefaultConfig = true
+            ignoreFailures = true
+            if (project.name != "androidApp") {
+                source.from(files("src/commonMain/kotlin"))
+            }
+        }
+        dependencies {
+            detektPlugins(project(":detekt-extensions"))
         }
     }
 }
