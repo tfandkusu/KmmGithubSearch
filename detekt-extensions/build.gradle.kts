@@ -3,3 +3,6 @@ plugins {
     // このモジュールは JVM のモジュール
     id("org.jetbrains.kotlin.jvm")
 }
+dependencies {
+    implementation(libs.detekt.api)
+}
