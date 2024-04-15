@@ -30,6 +30,9 @@ spotless {
 subprojects {
     afterEvaluate {
         apply(plugin = "io.gitlab.arturbosch.detekt")
+        dependencies {
+            detektPlugins(project(":detekt-extensions"))
+        }
         detekt {
             config.setFrom(file("$rootDir/config/detekt/detekt.yml"))
             buildUponDefaultConfig = true
@@ -37,9 +40,6 @@ subprojects {
             if (project.name != "androidApp") {
                 source.from(files("src/commonMain/kotlin"))
             }
-        }
-        dependencies {
-            detektPlugins(project(":detekt-extensions"))
         }
     }
 }
