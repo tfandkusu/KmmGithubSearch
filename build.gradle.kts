@@ -29,7 +29,7 @@ spotless {
 
 subprojects {
     afterEvaluate {
-        apply(plugin = "io.gitlab.arturbosch.detekt")
+        plugins.apply("io.gitlab.arturbosch.detekt")
         dependencies {
             detektPlugins(project(":detekt-extensions"))
         }
