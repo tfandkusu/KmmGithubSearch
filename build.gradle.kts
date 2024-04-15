@@ -4,7 +4,7 @@ plugins {
     id("com.google.devtools.ksp") version "1.9.20-1.0.14"
     alias(libs.plugins.spotless.gradle.plugin)
     id("co.touchlab.skie") version "0.5.5"
-    id("io.gitlab.arturbosch.detekt") version("1.23.3")
+    alias(libs.plugins.detekt.gradle.plugin)
 }
 
 koverReport {
