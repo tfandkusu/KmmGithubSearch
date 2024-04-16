@@ -47,6 +47,7 @@ material = 'com.google.android.material:material:1.8.0'
 navigation-compose = 'androidx.navigation:navigation-compose:2.5.3'
 # Detekt
 detekt-api = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
+detekt-test = { module = "io.gitlab.arturbosch.detekt:detekt-test", version.ref = "detekt" }
 [plugins]
 spotless-gradle-plugin = { id = "com.diffplug.spotless", version = "6.21.0" }
 detekt-gradle-plugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
