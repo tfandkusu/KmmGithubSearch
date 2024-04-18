@@ -5,7 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import io.github.aakira.napier.Napier
 
 /**
- * Firebase Analytics にトラッキングコードを送るComposable関数。
+ * Firebase Analytics にトラッキングコードを送る Composable 関数。
  * 実装はモック。
  */
 @Composable
