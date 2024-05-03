@@ -21,6 +21,7 @@ class MainActivity : ComponentActivity() {
 
     // ERROR. Context is the second parameter
     fun foo(bar: String, context: Context) {
+        // 修正した
     }
 
     // SUCCESS. Context is the first parameter
