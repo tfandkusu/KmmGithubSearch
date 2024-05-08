@@ -32,14 +32,13 @@ jobs:
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
-          find . -type f -name detekt.sarif | \
-          xargs -I {} -n 1 \
-          jq -r ".runs[].results[] | select(.ruleId == \"detekt.extra-rules.ContextOrder\") | .locations[].physicalLocation.artifactLocation.uri" {} | \
+          find . -type f -name detekt.sarif -exec \
+          jq -r ".runs[].results[] | select(.ruleId == \"detekt.extra-rules.ContextOrder\") | .locations[].physicalLocation.artifactLocation.uri" {} + | \
           sed "s|file://`pwd`/||" | \
           sort > error_files.txt
       - run: git diff --name-only origin/main | sort > change_files.txt
       - name: ContextOrder 違反チェック
-        run: join error_files.txt change_files.txt | grep '.' && exit 1 || exit 0
+        run: ! join error_files.txt change_files.txt | grep '.'
       - run: ./gradlew koverXmlReport
       # Codecov
       - uses: codecov/codecov-action@v3
