@@ -39,6 +39,7 @@ class HomeActionCreator(
         }
     }
 
-    private fun useContext(context: Context, i: Int) {
+    private fun useContext(i: Int, context: Context) {
+        // 再度問題を作る
     }
 }
