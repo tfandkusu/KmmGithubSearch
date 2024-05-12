@@ -1,5 +1,6 @@
 package com.tfandkusu.kgs.feature.home
 
+import com.tfandkusu.kgs.Context
 import com.tfandkusu.kgs.error.MyError
 import com.tfandkusu.kgs.feature.viewmodel.ActionCreator
 import com.tfandkusu.kgs.feature.viewmodel.Dispatcher
@@ -36,5 +37,8 @@ class HomeActionCreator(
                 }
             }
         }
+    }
+
+    private fun useContext(context: Context, i: Int) {
     }
 }
