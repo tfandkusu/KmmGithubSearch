@@ -38,7 +38,7 @@ jobs:
           sort > error_files.txt
       - run: git diff --name-only origin/main | sort > change_files.txt
       - name: ContextOrder 違反チェック
-        run: join error_files.txt change_files.txt | grep '.' && exit 1 || exit 0
+        run: "! join error_files.txt change_files.txt | grep '.'"
       - run: ./gradlew koverXmlReport
       # Codecov
       - uses: codecov/codecov-action@v3
