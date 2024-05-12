@@ -34,7 +34,7 @@ jobs:
       - run: |
           find . -type f -name detekt.sarif -exec \
           jq -r ".runs[].results[] | select(.ruleId == \"detekt.extra-rules.ContextOrder\") | .locations[].physicalLocation.artifactLocation.uri" {} + | \
-          sed "s|file://`pwd`/||" | \
+          sed "s|file://$PWD/||" | \
           sort > error_files.txt
       - run: git diff --name-only origin/main | sort > change_files.txt
       - name: ContextOrder 違反チェック
