@@ -10,6 +10,6 @@ class RuleProvider : RuleSetProvider {
     override fun instance(config: Config): RuleSet =
         RuleSet(
             id = ruleSetId,
-            rules = listOf(ContextOrder(config), TrackScreen(config)),
+            rules = listOf(ContextOrder(config), TrackScreenEvent(config)),
         )
 }

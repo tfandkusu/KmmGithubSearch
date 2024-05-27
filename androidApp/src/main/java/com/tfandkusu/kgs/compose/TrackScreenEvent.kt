@@ -9,7 +9,7 @@ import io.github.aakira.napier.Napier
  * 実装はモック。
  */
 @Composable
-fun TrackScreen(name: String) {
+fun TrackScreenEvent(name: String) {
     LaunchedEffect(Unit) {
         Napier.d("TrackScreen(mock): $name")
     }
