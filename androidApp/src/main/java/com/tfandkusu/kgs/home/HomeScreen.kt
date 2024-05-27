@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import com.tfandkusu.kgs.R
 import com.tfandkusu.kgs.compose.MyTheme
 import com.tfandkusu.kgs.compose.MyTopAppBar
+import com.tfandkusu.kgs.compose.TrackScreenEvent
 import com.tfandkusu.kgs.feature.home.HomeEffect
 import com.tfandkusu.kgs.feature.home.HomeEvent
 import com.tfandkusu.kgs.feature.home.HomeState
@@ -59,6 +60,7 @@ fun HomeScreen(viewModel: HomeViewModel) {
     val (state, effect, dispatch) = use(viewModel)
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
+    TrackScreenEvent("Home")
     LaunchedEffect(Unit) {
         effect.collect {
             when (it) {
