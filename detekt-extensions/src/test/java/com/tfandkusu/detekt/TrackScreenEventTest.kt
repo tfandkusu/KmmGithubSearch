@@ -5,8 +5,8 @@ import io.gitlab.arturbosch.detekt.test.lint
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class TrackScreenTest {
-    private val subject = TrackScreen(Config.empty)
+class TrackScreenEventTest {
+    private val subject = TrackScreenEvent(Config.empty)
 
     @Test
     fun given_codeWithoutError_then_noReport() {
@@ -14,7 +14,7 @@ class TrackScreenTest {
 @Composable
 fun HomeScreen(viewModel: HomeViewModel) {
     val (state, effect, dispatch) = use(viewModel)
-    TrackScreen("Home")
+    TrackScreenEvent("Home")
     LaunchedEffect(Unit) { }
 }
 
@@ -49,6 +49,6 @@ fun HomeScreenPreview() {
 """
         val findings = subject.lint(code)
         assertEquals(1, findings.size)
-        assertEquals("TrackScreen", findings[0].id)
+        assertEquals("TrackScreenEvent", findings[0].id)
     }
 }

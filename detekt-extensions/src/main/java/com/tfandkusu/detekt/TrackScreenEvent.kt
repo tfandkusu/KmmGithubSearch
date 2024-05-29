@@ -11,9 +11,9 @@ import org.jetbrains.kotlin.psi.KtCallExpression
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.resolve.calls.util.getCalleeExpressionIfAny
 
-class TrackScreen(config: Config) : Rule(config) {
+class TrackScreenEvent(config: Config) : Rule(config) {
     companion object {
-        const val ISSUE_DESCRIPTION = "画面遷移のトラッキングコードを送ってないです。"
+        const val ISSUE_DESCRIPTION = "画面遷移のイベントを送っていないです。TrackScreenEvent 関数を呼び出してください。"
         const val REPORT_MESSAGE = ISSUE_DESCRIPTION
     }
 
@@ -35,9 +35,7 @@ class TrackScreen(config: Config) : Rule(config) {
     override fun visitNamedFunction(function: KtNamedFunction) {
         super.visitNamedFunction(function)
         // TrackScreen 関数を除く Screen で終わる Composable 関数で
-        if (function.name?.endsWith("Screen") == true &&
-            function.name != "TrackScreen" &&
-            isComposable(function)
+        if (function.name?.endsWith("Screen") == true && isComposable(function)
         ) {
             // TrackScreen メソッドが呼ばれていなかったら報告する。
             if (!trackScreenIsCalled) {
@@ -55,7 +53,7 @@ class TrackScreen(config: Config) : Rule(config) {
     override fun visitCallExpression(expression: KtCallExpression) {
         super.visitCallExpression(expression)
         expression.getCalleeExpressionIfAny().let { func ->
-            if (func?.text == "TrackScreen") {
+            if (func?.text == "TrackScreenEvent") {
                 trackScreenIsCalled = true
             }
         }
