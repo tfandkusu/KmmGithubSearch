@@ -20,17 +20,14 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '17'
-      - uses: ruby/setup-ruby@v1
+      - uses: actions/setup-node@v4
         with:
-          ruby-version: 3.1
-          bundler-cache: true
+          node-version: 22
+      - uses: reviewdog/action-setup@v1
       - uses: gradle/gradle-build-action@v2
       - run: ./gradlew spotlessCheck
       - run: ./gradlew detekt-extensions:test
       - run: ./gradlew deteKt
-      - run: bundle exec danger
-        env:
-          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
           find . -type f -name detekt.sarif -exec \
           jq -r ".runs[].results[] | select(.ruleId == \"detekt.extra-rules.ContextOrder\") | .locations[].physicalLocation.artifactLocation.uri" {} + | \
@@ -39,6 +36,12 @@ jobs:
       - run: git diff --name-only origin/main | sort > change_files.txt
       - name: ContextOrder 違反チェック
         run: "! join error_files.txt change_files.txt | grep '.'"
+      # reviewdog
+      - run: find . -type f -name detekt.sarif -exec npx @microsoft/sarif-multitool merge {} +
+      - run: reviewdog -f=sarif -name="detekt" -reporter=github-pr-review -level=error < merged.sarif
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Unit Test
       - run: ./gradlew koverXmlReport
       # Codecov
       - uses: codecov/codecov-action@v3
