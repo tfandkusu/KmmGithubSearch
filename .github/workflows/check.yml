@@ -27,7 +27,7 @@ jobs:
       - uses: gradle/gradle-build-action@v2
       - name: Screen.kt で終わるファイルが変更されているか確認
         run: |
-          if git diff --name-only ${{ github.event.pull_request.base.ref }} ${{ github.sha }} |  grep -E "Screen\.kt$"; then
+          if git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} |  grep -E "Screen\.kt$"; then
             echo "screen_changed=true" >> $GITHUB_ENV
           else
             echo "screen_changed=false" >> $GITHUB_ENV
