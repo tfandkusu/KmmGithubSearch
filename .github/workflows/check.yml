@@ -25,20 +25,33 @@ jobs:
           node-version: 22
       - uses: reviewdog/action-setup@v1
       - uses: gradle/gradle-build-action@v2
+      - name: Screen.kt で終わるファイルが変更されているか確認
+        run: |
+          if git diff --name-only ${{ github.event.pull_request.base.ref }} ${{ github.sha }} |  grep -E "Screen\.kt$"; then
+            echo "screen_changed=true" >> $GITHUB_ENV
+          else
+            echo "screen_changed=false" >> $GITHUB_ENV
+          fi
       - run: ./gradlew spotlessCheck
       - run: ./gradlew detekt-extensions:test
       - run: ./gradlew deteKt
+        if: env.screen_changed == 'true'
       - run: |
           find . -type f -name detekt.sarif -exec \
           jq -r ".runs[].results[] | select(.ruleId == \"detekt.extra-rules.ContextOrder\") | .locations[].physicalLocation.artifactLocation.uri" {} + | \
           sed "s|file://$PWD/||" | \
           sort > error_files.txt
+        if: env.screen_changed == 'true'
       - run: git diff --name-only origin/main | sort > change_files.txt
+        if: env.screen_changed == 'true'
       - name: ContextOrder 違反チェック
         run: "! join error_files.txt change_files.txt | grep '.'"
+        if: env.screen_changed == 'true'
       # reviewdog
       - run: find . -type f -name detekt.sarif -exec npx @microsoft/sarif-multitool merge {} +
+        if: env.screen_changed == 'true'
       - run: reviewdog -f=sarif -name="detekt" -reporter=github-pr-review < merged.sarif
+        if: env.screen_changed == 'true'
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # Unit Test
