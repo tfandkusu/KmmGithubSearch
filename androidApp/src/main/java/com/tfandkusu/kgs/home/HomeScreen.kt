@@ -57,7 +57,7 @@ import kotlinx.datetime.Instant
 )
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
 ) {
     TrackScreenEvent("Home")
     val (state, effect, dispatch) = use(viewModel)
