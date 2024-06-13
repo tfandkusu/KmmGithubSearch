@@ -51,16 +51,19 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.Instant
 
+/**
+ * 最初の画面
+ */
 @OptIn(
     ExperimentalMaterial3Api::class,
     ExperimentalLayoutApi::class,
 )
 @Composable
 fun HomeScreen(viewModel: HomeViewModel) {
+    TrackScreenEvent("Home")
     val (state, effect, dispatch) = use(viewModel)
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
-    TrackScreenEvent("Home")
     LaunchedEffect(Unit) {
         effect.collect {
             when (it) {
