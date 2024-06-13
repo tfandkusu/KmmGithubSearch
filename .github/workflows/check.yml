@@ -48,9 +48,7 @@ jobs:
         run: "! join error_files.txt change_files.txt | grep '.'"
         if: env.screen_changed == 'true'
       # reviewdog
-      - run: find . -type f -name detekt.sarif -exec npx @microsoft/sarif-multitool merge {} +
-        if: env.screen_changed == 'true'
-      - run: reviewdog -f=sarif -name="detekt" -reporter=github-pr-review < merged.sarif
+      - run: find . -type f -name detekt.sarif | xargs cat {} | reviewdog -f=sarif -name="detekt" -reporter=github-pr-review < merged.sarif
         if: env.screen_changed == 'true'
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
