@@ -56,6 +56,7 @@ import kotlinx.datetime.Instant
 )
 @Composable
 fun HomeScreen(viewModel: HomeViewModel) {
+    // ここを編集しないとレポートがでないかも
     val (state, effect, dispatch) = use(viewModel)
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
