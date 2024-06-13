@@ -48,7 +48,7 @@ jobs:
         run: "! join error_files.txt change_files.txt | grep '.'"
         if: env.screen_changed == 'true'
       # reviewdog
-      - run: find . -type f -name detekt.sarif -exec cat {} + | reviewdog -f=sarif -name="detekt" -reporter=github-pr-review
+      - run: find . -type f -name detekt.sarif -exec cat {} \; | reviewdog -f=sarif -name="detekt" -reporter=github-pr-review
         if: env.screen_changed == 'true'
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
