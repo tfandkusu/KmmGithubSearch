@@ -21,8 +21,8 @@ import com.tfandkusu.kgs.R
 import org.koin.androidx.compose.get
 
 @Composable
-fun FAEventOverlayDebugScreen() {
-    val logHolder: FAEventLogHolder = get()
+fun AnalyticsEventOverlayDebugScreen() {
+    val logHolder: AnalyticsEventLogHolder = get()
     val log: List<String> by logHolder.log.collectAsState()
     Column(
         modifier = Modifier.fillMaxSize(),

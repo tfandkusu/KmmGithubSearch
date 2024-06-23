@@ -2,7 +2,7 @@ package com.tfandkusu.kgs.compose
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import com.tfandkusu.kgs.debug.FAEventLogHolder
+import com.tfandkusu.kgs.debug.AnalyticsEventLogHolder
 import io.github.aakira.napier.Napier
 import org.koin.androidx.compose.get
 
@@ -12,7 +12,7 @@ import org.koin.androidx.compose.get
  */
 @Composable
 fun TrackScreenEvent(name: String) {
-    val logHolder: FAEventLogHolder = get()
+    val logHolder: AnalyticsEventLogHolder = get()
     LaunchedEffect(Unit) {
         logHolder.logEvent(name)
         Napier.d("TrackScreen(mock): $name")

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 
-class FAEventOverlayHelper {
+class AnalyticsEventOverlayHelper {
     fun onCreate(activity: Activity) {
         activity.addContentView(
             ComposeView(activity).apply {
@@ -13,7 +13,7 @@ class FAEventOverlayHelper {
                     ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed,
                 )
                 setContent {
-                    FAEventOverlayDebugScreen()
+                    AnalyticsEventOverlayDebugScreen()
                 }
             },
             ViewGroup.LayoutParams(

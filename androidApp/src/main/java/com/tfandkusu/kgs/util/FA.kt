@@ -1,9 +1,9 @@
 package com.tfandkusu.kgs.util
 
-import com.tfandkusu.kgs.debug.FAEventLogHolder
+import com.tfandkusu.kgs.debug.AnalyticsEventLogHolder
 
 class FA(
-    private val logHolder: FAEventLogHolder,
+    private val logHolder: AnalyticsEventLogHolder,
 ) {
     fun logEvent(eventName: String) {
         logHolder.logEvent(eventName)

@@ -16,7 +16,7 @@ class FAEventOverlayTest {
                 assertTrue(
                     "すべての Activity は FAEventOverlayHelper を使う必要がある",
                     activity.hasProperty {
-                        it.hasTypeOf(FAEventOverlayHelper::class)
+                        it.hasTypeOf(AnalyticsEventOverlayHelper::class)
                     },
                 )
             }
