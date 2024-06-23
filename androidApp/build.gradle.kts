@@ -51,5 +51,7 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.napier)
     implementation(libs.kotlinx.datetime)
+    testImplementation(libs.junit)
+    testImplementation(libs.konsist)
 }
 
