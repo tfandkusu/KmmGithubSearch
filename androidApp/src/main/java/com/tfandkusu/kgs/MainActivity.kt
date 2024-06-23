@@ -1,6 +1,5 @@
 package com.tfandkusu.kgs
 
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,13 +22,5 @@ class MainActivity : ComponentActivity() {
             }
         }
         faEventOverlayDebugHelper.onCreate(this)
-    }
-
-    // ERROR. Context is the second parameter
-    fun foo(bar: String, context: Context) {
-    }
-
-    // SUCCESS. Context is the first parameter
-    fun foo2(context: Context, bar: String) {
     }
 }
