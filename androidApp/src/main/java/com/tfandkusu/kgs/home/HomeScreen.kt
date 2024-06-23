@@ -47,9 +47,11 @@ import com.tfandkusu.kgs.feature.home.HomeEvent
 import com.tfandkusu.kgs.feature.home.HomeState
 import com.tfandkusu.kgs.feature.use
 import com.tfandkusu.kgs.model.GithubRepo
+import com.tfandkusu.kgs.util.FA
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.Instant
+import org.koin.androidx.compose.get
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -61,6 +63,7 @@ fun HomeScreen(
 ) {
     TrackScreenEvent("Home")
     val (state, effect, dispatch) = use(viewModel)
+    val fa: FA = get()
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     LaunchedEffect(Unit) {
@@ -113,6 +116,7 @@ fun HomeScreen(
                     ),
                     keyboardActions = KeyboardActions(
                         onDone = {
+                            fa.logEvent("Search")
                             dispatch(HomeEvent.SearchKeyword(state.keyword))
                         },
                     ),
