@@ -10,6 +10,9 @@ class FAEventLogHolder {
     val log: StateFlow<List<String>> = _log
 
     fun logEvent(event: String) {
+        if (_log.value.size >= 8) {
+            _log.value = _log.value.drop(1)
+        }
         _log.value += event
     }
 }
