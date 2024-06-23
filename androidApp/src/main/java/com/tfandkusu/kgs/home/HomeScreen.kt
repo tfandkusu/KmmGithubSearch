@@ -46,7 +46,7 @@ import com.tfandkusu.kgs.R
 import com.tfandkusu.kgs.compose.MyTheme
 import com.tfandkusu.kgs.compose.MyTopAppBar
 import com.tfandkusu.kgs.compose.TrackScreenEvent
-import com.tfandkusu.kgs.debug.FAEventOverlayDebugDemoActivity
+import com.tfandkusu.kgs.debug.FAEventOverlayDemoActivity
 import com.tfandkusu.kgs.feature.home.HomeEffect
 import com.tfandkusu.kgs.feature.home.HomeEvent
 import com.tfandkusu.kgs.feature.home.HomeState
@@ -90,7 +90,7 @@ fun HomeScreen(
                 actions = {
                     IconButton(onClick = {
                         context.startActivity(
-                            Intent(context, FAEventOverlayDebugDemoActivity::class.java),
+                            Intent(context, FAEventOverlayDemoActivity::class.java),
                         )
                     }) {
                         Icon(

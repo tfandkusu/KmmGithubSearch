@@ -19,9 +19,9 @@ import com.tfandkusu.kgs.compose.MyTopAppBar
 import com.tfandkusu.kgs.compose.TrackScreenEvent
 import org.koin.android.ext.android.inject
 
-class FAEventOverlayDebugDemoActivity : ComponentActivity() {
+class FAEventOverlayDemoActivity : ComponentActivity() {
 
-    private val faEventOverlayDebugHelper: FAEventOverlayDebugHelper by inject()
+    private val faEventOverlayHelper: FAEventOverlayHelper by inject()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +50,6 @@ class FAEventOverlayDebugDemoActivity : ComponentActivity() {
                 }
             }
         }
-        faEventOverlayDebugHelper.onCreate(this)
+        faEventOverlayHelper.onCreate(this)
     }
 }

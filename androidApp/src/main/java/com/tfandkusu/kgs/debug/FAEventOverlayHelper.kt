@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 
-class FAEventOverlayDebugHelper {
+class FAEventOverlayHelper {
     fun onCreate(activity: Activity) {
         activity.addContentView(
             ComposeView(activity).apply {
