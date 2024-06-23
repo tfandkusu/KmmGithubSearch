@@ -1,4 +1,5 @@
 <resources>
     <color name="status_bar">@android:color/transparent</color>
     <color name="white">#fff</color>
+    <color name="fa_event_overlay_debug_background">#88673AB7</color>
 </resources>

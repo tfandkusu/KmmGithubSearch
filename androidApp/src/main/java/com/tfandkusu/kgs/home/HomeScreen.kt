@@ -1,5 +1,6 @@
 package com.tfandkusu.kgs.home
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,9 +16,11 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -33,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -42,14 +46,17 @@ import com.tfandkusu.kgs.R
 import com.tfandkusu.kgs.compose.MyTheme
 import com.tfandkusu.kgs.compose.MyTopAppBar
 import com.tfandkusu.kgs.compose.TrackScreenEvent
+import com.tfandkusu.kgs.debug.AnalyticsEventOverlayDemoActivity
 import com.tfandkusu.kgs.feature.home.HomeEffect
 import com.tfandkusu.kgs.feature.home.HomeEvent
 import com.tfandkusu.kgs.feature.home.HomeState
 import com.tfandkusu.kgs.feature.use
 import com.tfandkusu.kgs.model.GithubRepo
+import com.tfandkusu.kgs.util.FA
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.Instant
+import org.koin.androidx.compose.get
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -61,6 +68,7 @@ fun HomeScreen(
 ) {
     TrackScreenEvent("Home")
     val (state, effect, dispatch) = use(viewModel)
+    val fa: FA = get()
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     LaunchedEffect(Unit) {
@@ -72,12 +80,24 @@ fun HomeScreen(
             }
         }
     }
-
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             MyTopAppBar(
                 title = {
                     Text(stringResource(R.string.home_title))
+                },
+                actions = {
+                    IconButton(onClick = {
+                        context.startActivity(
+                            Intent(context, AnalyticsEventOverlayDemoActivity::class.java),
+                        )
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = stringResource(R.string.home_setting),
+                        )
+                    }
                 },
             )
         },
@@ -113,6 +133,7 @@ fun HomeScreen(
                     ),
                     keyboardActions = KeyboardActions(
                         onDone = {
+                            fa.logEvent("Search")
                             dispatch(HomeEvent.SearchKeyword(state.keyword))
                         },
                     ),
