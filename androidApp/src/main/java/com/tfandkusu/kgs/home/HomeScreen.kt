@@ -1,5 +1,6 @@
 package com.tfandkusu.kgs.home
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,9 +16,11 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -33,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -42,6 +46,7 @@ import com.tfandkusu.kgs.R
 import com.tfandkusu.kgs.compose.MyTheme
 import com.tfandkusu.kgs.compose.MyTopAppBar
 import com.tfandkusu.kgs.compose.TrackScreenEvent
+import com.tfandkusu.kgs.debug.FAEventOverlayDebugDemoActivity
 import com.tfandkusu.kgs.feature.home.HomeEffect
 import com.tfandkusu.kgs.feature.home.HomeEvent
 import com.tfandkusu.kgs.feature.home.HomeState
@@ -75,12 +80,24 @@ fun HomeScreen(
             }
         }
     }
-
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             MyTopAppBar(
                 title = {
                     Text(stringResource(R.string.home_title))
+                },
+                actions = {
+                    IconButton(onClick = {
+                        context.startActivity(
+                            Intent(context, FAEventOverlayDebugDemoActivity::class.java),
+                        )
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = stringResource(R.string.home_setting),
+                        )
+                    }
                 },
             )
         },
