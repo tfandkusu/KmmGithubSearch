@@ -37,11 +37,7 @@ class CommonPlugin : Plugin<Project> {
     private fun setUpKMM(project: Project) {
         project.extensions.findByType(KotlinMultiplatformExtension::class.java)?.let {
             // Androidの設定
-            it.android().compilations.all {
-                kotlinOptions {
-                    jvmTarget = "17"
-                }
-            }
+            it.androidTarget()
             // jvm向けビルドを作れるようにする
             it.jvm()
             // iOS向けビルドを作れるようにする
