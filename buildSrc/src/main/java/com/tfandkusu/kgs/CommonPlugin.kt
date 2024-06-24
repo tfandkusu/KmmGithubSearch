@@ -1,7 +1,6 @@
 package com.tfandkusu.kgs
 
 import com.android.build.gradle.BaseExtension
-import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
@@ -24,10 +23,6 @@ class CommonPlugin : Plugin<Project> {
             compileSdkVersion(34)
             defaultConfig.minSdk = 21
             defaultConfig.targetSdk = 34
-            compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_17
-                targetCompatibility = JavaVersion.VERSION_17
-            }
         }
     }
 
@@ -37,11 +32,7 @@ class CommonPlugin : Plugin<Project> {
     private fun setUpKMM(project: Project) {
         project.extensions.findByType(KotlinMultiplatformExtension::class.java)?.let {
             // Androidの設定
-            it.android().compilations.all {
-                kotlinOptions {
-                    jvmTarget = "17"
-                }
-            }
+            it.androidTarget()
             // jvm向けビルドを作れるようにする
             it.jvm()
             // iOS向けビルドを作れるようにする
