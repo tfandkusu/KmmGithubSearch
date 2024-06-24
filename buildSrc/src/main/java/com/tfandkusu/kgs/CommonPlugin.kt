@@ -1,6 +1,7 @@
 package com.tfandkusu.kgs
 
 import com.android.build.gradle.BaseExtension
+import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
@@ -23,6 +24,10 @@ class CommonPlugin : Plugin<Project> {
             compileSdkVersion(34)
             defaultConfig.minSdk = 21
             defaultConfig.targetSdk = 34
+            compileOptions {
+                sourceCompatibility = JavaVersion.VERSION_17
+                targetCompatibility = JavaVersion.VERSION_17
+            }
         }
     }
 

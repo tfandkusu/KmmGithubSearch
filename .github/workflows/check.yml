@@ -26,6 +26,7 @@ jobs:
       - uses: reviewdog/action-setup@v1
       - uses: gradle/gradle-build-action@v2
       - run: ./gradlew spotlessCheck
+      - run: ./gradlew lintDebug
       - run: ./gradlew detekt-extensions:test
       - run: ./gradlew deteKt
       - run: |
