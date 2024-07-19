@@ -9,7 +9,7 @@ detekt = '1.23.3'
 # Gradle Plugin
 android-gradle = 'com.android.tools.build:gradle:8.1.4'
 kotlin-gradle = { module = 'org.jetbrains.kotlin:kotlin-gradle-plugin', version.ref = 'kotlin' }
-kover-gradle = 'org.jetbrains.kotlinx:kover-gradle-plugin:0.7.2'
+kover-gradle = 'org.jetbrains.kotlinx:kover-gradle-plugin:0.8.3'
 # Koin
 koin-core = { module = 'io.insert-koin:koin-core', version.ref = 'koin' }
 koin-android = { module = 'io.insert-koin:koin-android', version.ref = 'koin' }
