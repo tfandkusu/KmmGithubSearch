@@ -1,6 +1,6 @@
 plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.20"
-    id("org.jetbrains.kotlinx.kover") version "0.7.2"
+    id("org.jetbrains.kotlinx.kover") version "0.8.3"
     id("com.google.devtools.ksp") version "1.9.20-1.0.14"
     alias(libs.plugins.spotless.gradle.plugin)
     id("co.touchlab.skie") version "0.5.5"
